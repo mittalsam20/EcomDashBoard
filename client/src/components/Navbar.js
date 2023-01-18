@@ -5,12 +5,19 @@ import {
   Menu as MenuIcon,
   SettingsOutlined,
   ArrowDropDownOutlined,
+  Search,
 } from "@mui/icons-material";
 import FlexBetween from "components/FlexBetween";
 import { useDispatch } from "react-redux";
 import { setMode } from "state";
 // import profileImage from "assets/profile.jpeg";
-import { AppBar, Toolbar, useTheme } from "@mui/material";
+import {
+  AppBar,
+  IconButton,
+  InputBase,
+  Toolbar,
+  useTheme,
+} from "@mui/material";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -25,6 +32,23 @@ const Navbar = () => {
     >
       <Toolbar sx={{ justifyContent: "space-between" }}>
         {/* LEFT-SIDE */}
+        <FlexBetween>
+          <IconButton onClick={() => console.log("open side bar")}>
+            <MenuIcon />
+          </IconButton>
+
+          <FlexBetween
+            gap={"3rem"}
+            p={"0.1rem 1.5rem"}
+            borderRadius={"9px"}
+            backgroundColor={theme.palette.background.alt}
+          >
+            <InputBase placeholder={"Search..."} />
+            <IconButton aria-label="" onClick={() => {}}>
+              <Search />
+            </IconButton>
+          </FlexBetween>
+        </FlexBetween>
       </Toolbar>
     </AppBar>
   );
