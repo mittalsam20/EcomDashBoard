@@ -40,7 +40,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log(`Server started running at ${PORT}`);
+    app.listen(PORT, () => console.log(`Server started running at ${PORT}`));
     //Injected Data once, dont inject again
     // User.insertMany(dataUser);
   })
