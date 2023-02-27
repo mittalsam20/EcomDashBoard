@@ -10,6 +10,10 @@ import generalRoutes from "./routes/general.js";
 import managementRoutes from "./routes/management.js";
 import salesRoutes from "./routes/sales.js";
 
+// data imports
+import User from "./models/User.js";
+import { dataUser } from "./data/index.js";
+
 // Configurations
 dotenv.config();
 const app = express();
@@ -30,9 +34,14 @@ app.use("/sales", salesRoutes);
 // Mongoose Setup
 const PORT = process.env.PORT || 9000;
 mongoose
+  .set("strictQuery", false)
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log(`Server started running at ${PORT}`))
+  .then(() => {
+    console.log(`Server started running at ${PORT}`);
+    //Injected Data once, dont inject again
+    // User.insertMany(dataUser);
+  })
   .catch((error) => console.log(`Error Encountered: ${error}`));
