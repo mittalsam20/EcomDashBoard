@@ -1,0 +1,51 @@
+import React, { useState } from "react";
+import {
+  Box,
+  Card,
+  CardActions,
+  CardContent,
+  Collapse,
+  Button,
+  Typography,
+  Rating,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
+import { useGetProductsQuery } from "state/api";
+import Header from "components/Header";
+
+const Product = (props) => {
+  const { _id, name, supply, price, stat, category, rating, description } =
+    props;
+  const theme = useTheme();
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return <></>;
+};
+
+const Products = () => {
+  const { data, isLoading } = useGetProductsQuery();
+  const isNonMobile = useMediaQuery("(min-width: 1000px)");
+  return (
+    <Box m={"1.5rem 2.5rem"}>
+      <Header title={"PRODUCTS"} subtitle={"See your list of products"} />
+      {data || !isLoading ? (
+        <Box
+          mt={"20px"}
+          display="grid"
+          rowGap={"20px"}
+          columnGap={"1.33%"}
+          justifyContent={"space-between"}
+          sx={{ "& > div": { gridColumn: isNonMobile ? undefined : "span 4" } }}
+          gridTemplateColumns={"repeat(4, minmax(0, 1fr))"}
+        >
+          {data.map((product) => {})}
+        </Box>
+      ) : (
+        <Box>{"LOADING...."}</Box>
+      )}
+    </Box>
+  );
+};
+
+export default Products;
