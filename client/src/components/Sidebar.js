@@ -88,7 +88,8 @@ const navItems = [
 ];
 
 const Sidebar = (props) => {
-  const { drawerWidth, isNonMobile, isSidebarOpen, setIsSidebarOpen } = props;
+  const { user, drawerWidth, isNonMobile, isSidebarOpen, setIsSidebarOpen } =
+    props;
   const { pathname } = useLocation;
   const [active, setActive] = useState("");
   const navigate = useNavigate();
@@ -180,6 +181,42 @@ const Sidebar = (props) => {
                 );
               })}
             </List>
+          </Box>
+          <Box position={"absolute"} bottom={"2rem"}>
+            <Divider />
+            <FlexBetween
+              textTransform={"none"}
+              gap={"1rem"}
+              m={"1.5rem 2rem 0 3rem"}
+            >
+              <Box
+                alt="profile"
+                width={"40px"}
+                height={"40px"}
+                // component={"img"}
+                borderRadius={"50%"}
+                // src={"profileImage"}
+                sx={{ objectFit: "cover" }}
+              />
+              <Box textAlign={"left"}>
+                <Typography
+                  fontWeight={"bold"}
+                  fontSize={"0.9rem"}
+                  sx={{ color: theme.palette.secondary[100] }}
+                >
+                  {user.name}
+                </Typography>
+                <Typography
+                  fontSize={"0.8rem"}
+                  sx={{ color: theme.palette.secondary[200] }}
+                >
+                  {user.occupation}
+                </Typography>
+              </Box>
+              <SettingsOutlined
+                sx={{ color: theme.palette.secondary[300], fontSize: "25px" }}
+              />
+            </FlexBetween>
           </Box>
         </Drawer>
       )}
