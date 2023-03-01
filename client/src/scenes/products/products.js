@@ -49,7 +49,10 @@ const Product = (props) => {
         <Button
           variant={"primary"}
           size={"small"}
-          onClick={() => setIsExpanded(!isExpanded)}
+          onClick={() => {
+            console.log(isExpanded);
+            setIsExpanded(!isExpanded);
+          }}
         >
           {"See More"}
         </Button>
@@ -59,15 +62,18 @@ const Product = (props) => {
         timeout={"auto"}
         unmountOnExit
         sx={{ color: theme.palette.neutral[300] }}
-      />
-      <CardContent>
-        <Typography>id: {_id}</Typography>
-        <Typography>Supply Left: {supply}</Typography>
-        <Typography>Yearly Sales This year: {stat.yearlySalesTotal}</Typography>
-        <Typography>
-          Yearly Units Sold This Year: {stat.yearlyTotalSoldUnits}
-        </Typography>
-      </CardContent>
+      >
+        <CardContent>
+          <Typography>id: {_id}</Typography>
+          <Typography>Supply Left: {supply}</Typography>
+          <Typography>
+            Yearly Sales This year: {stat.yearlySalesTotal}
+          </Typography>
+          <Typography>
+            Yearly Units Sold This Year: {stat.yearlyTotalSoldUnits}
+          </Typography>
+        </CardContent>
+      </Collapse>
     </Card>
   );
 };
@@ -101,6 +107,7 @@ const Products = () => {
             }) => {
               return (
                 <Product
+                  key={_id}
                   _id={_id}
                   name={name}
                   description={description}
