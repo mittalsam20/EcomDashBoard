@@ -71,13 +71,10 @@ export const getGeography = async (req, res) => {
       acc[countryISO3]++;
       return acc;
     }, {});
-
-    const formattedLocation = object
-      .entries(mappedLocations)
-      .map(([country, count]) => {
-        return { id: country, value: count };
-      });
-
+    const formattedLocation = Object.keys(mappedLocations).map((key) => ({
+      id: key,
+      value: mappedLocations[key],
+    }));
     res.status(200).json(formattedLocation);
   } catch (error) {
     res.status(404).json({ message: error.message });
