@@ -50,7 +50,6 @@ const Product = (props) => {
           variant={"primary"}
           size={"small"}
           onClick={() => {
-            console.log(isExpanded);
             setIsExpanded(!isExpanded);
           }}
         >
