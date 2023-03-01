@@ -73,6 +73,27 @@ const Transactions = () => {
           getRowId={(row) => row._id}
           rows={(data && data.transactions) || []}
           columns={columns}
+          rowCount={(data && data.total) || 0}
+          pagination
+          page={page}
+          pageSize={pageSize}
+          paginationMode={"server"}
+          sortingMode={"server"}
+          onPageChange={(newPage) =>
+            setSearchParams((prevState) => ({ ...prevState, page: newPage }))
+          }
+          onPageSizeChange={(newPageSize) =>
+            setSearchParams((prevState) => ({
+              ...prevState,
+              pageSize: newPageSize,
+            }))
+          }
+          onSortModelChange={(newSortMode) =>
+            setSearchParams((prevState) => ({
+              ...prevState,
+              sort: { ...newSortMode },
+            }))
+          }
         />
       </Box>
     </Box>
