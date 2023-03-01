@@ -3,6 +3,7 @@ import { Box, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import Header from "components/Header";
 import { useGetTransactionsQuery } from "state/api";
+import DataGridCustomToolbar from "components/DataGridCustomToolbar";
 
 const initialSearchParams = {
   page: 0,
@@ -15,6 +16,7 @@ const Transactions = () => {
   const theme = useTheme();
   const [searchParams, setSearchParams] = useState(initialSearchParams);
   const { page, pageSize, sort, search } = searchParams;
+  const [searchInput, setSearchInput] = useState("");
   const { data, isLoading } = useGetTransactionsQuery({
     ...searchParams,
     sort: JSON.stringify(sort),
@@ -76,6 +78,7 @@ const Transactions = () => {
           rowCount={(data && data.total) || 0}
           pagination
           page={page}
+          rowsPerPageOptions={[20, 50, 100]}
           pageSize={pageSize}
           paginationMode={"server"}
           sortingMode={"server"}
@@ -94,6 +97,10 @@ const Transactions = () => {
               sort: { ...newSortMode },
             }))
           }
+          components={{ Toolbar: DataGridCustomToolbar }}
+          componentsProps={{
+            toolbar: { searchInput, setSearchInput, setSearchParams },
+          }}
         />
       </Box>
     </Box>
