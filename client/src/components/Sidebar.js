@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   List,
@@ -22,14 +22,13 @@ import {
   SettingsOutlined,
   TrendingUpOutlined,
   ReceiptLongOutlined,
-  PointOfSaleOutlined,
   ShoppingCartOutlined,
   CalendarMonthOutlined,
   AdminPanelSettingsOutlined,
   ChevronLeft,
   ChevronRightOutlined,
 } from "@mui/icons-material";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import FlexBetween from "./FlexBetween";
 
 const navItems = [
@@ -90,7 +89,7 @@ const navItems = [
 const Sidebar = (props) => {
   const { user, drawerWidth, isNonMobile, isSidebarOpen, setIsSidebarOpen } =
     props;
-  const { pathname } = useLocation;
+  // const { pathname } = useLocation;
   const [active, setActive] = useState("");
   const navigate = useNavigate();
   const theme = useTheme();

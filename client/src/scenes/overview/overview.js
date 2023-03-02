@@ -7,13 +7,11 @@ import {
   Select,
   InputLabel,
 } from "@mui/material";
-import { useGetSalesQuery } from "state/api";
 import Header from "components/Header";
 import OverviewChart from "components/OverviewChart";
 
 const Overview = () => {
   const theme = useTheme();
-  const { data, isLoading } = useGetSalesQuery;
   const [view, setView] = useState("units");
 
   return (

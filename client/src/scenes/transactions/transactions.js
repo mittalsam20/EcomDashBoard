@@ -15,7 +15,7 @@ const initialSearchParams = {
 const Transactions = () => {
   const theme = useTheme();
   const [searchParams, setSearchParams] = useState(initialSearchParams);
-  const { page, pageSize, sort, search } = searchParams;
+  const { page, pageSize, sort } = searchParams;
   const [searchInput, setSearchInput] = useState("");
   const { data, isLoading } = useGetTransactionsQuery({
     ...searchParams,
