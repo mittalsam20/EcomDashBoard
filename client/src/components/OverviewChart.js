@@ -8,41 +8,38 @@ const OverviewChart = (props) => {
   const theme = useTheme();
   const { data, isLoading } = useGetSalesQuery();
 
-  const [totalSalesLine, totalUnitsLine] = useMemo(
-    () => {
-      if (!data) return [[], []];
-      const { monthlyData } = data;
-      const totalSalesLine = {
-        id: "totalSales",
-        color: theme.palette.secondary.main,
-        data: [],
-      };
-      const totalUnitsLine = {
-        id: "totalSales",
-        color: theme.palette.secondary[600],
-        data: [],
-      };
+  const [totalSalesLine, totalUnitsLine] = useMemo(() => {
+    if (!data) return [[], []];
+    const { monthlyData } = data;
+    const totalSalesLine = {
+      id: "totalSales",
+      color: theme.palette.secondary.main,
+      data: [],
+    };
+    const totalUnitsLine = {
+      id: "totalSales",
+      color: theme.palette.secondary[600],
+      data: [],
+    };
 
-      Object.values(monthlyData).reduce(
-        (acc, { month, totalSales, totalUnits }) => {
-          const currentSales = acc.sales + totalSales;
-          const currentUnits = acc.units + totalUnits;
-          totalSalesLine.data = [
-            ...totalSalesLine.data,
-            { x: month, y: currentSales },
-          ];
-          totalUnitsLine.data = [
-            ...totalUnitsLine.data,
-            { x: month, y: currentUnits },
-          ];
-          return { sales: currentSales, units: currentUnits };
-        },
-        { sales: 0, units: 0 }
-      );
-      return [[totalSalesLine], [totalUnitsLine]];
-    },
-    { data }
-  );
+    Object.values(monthlyData).reduce(
+      (acc, { month, totalSales, totalUnits }) => {
+        const currentSales = acc.sales + totalSales;
+        const currentUnits = acc.units + totalUnits;
+        totalSalesLine.data = [
+          ...totalSalesLine.data,
+          { x: month, y: currentSales },
+        ];
+        totalUnitsLine.data = [
+          ...totalUnitsLine.data,
+          { x: month, y: currentUnits },
+        ];
+        return { sales: currentSales, units: currentUnits };
+      },
+      { sales: 0, units: 0 }
+    );
+    return [[totalSalesLine], [totalUnitsLine]];
+  }, [data]);
 
   if (!data || isLoading) return <Box>{"Loading..."}</Box>;
 
