@@ -28,7 +28,7 @@ const DataGridCustomToolbar = (props) => {
           }}
           value={searchInput}
           inputProps={{
-            endAdornment: (
+            endadornment: (
               <InputAdornment position="end">
                 <IconButton
                   onClick={() => {

@@ -6,11 +6,11 @@ import { useGetSalesQuery } from "state/api";
 const OverviewChart = (props) => {
   const { isDashboard = false, view } = props;
   const theme = useTheme();
-  const { data, isLoading } = useGetSalesQuery;
+  const { data, isLoading } = useGetSalesQuery();
 
   const [totalSalesLine, totalUnitsLine] = useMemo(
     () => {
-      if (!data) return [];
+      if (!data) return [[], []];
       const { monthlyData } = data;
       const totalSalesLine = {
         id: "totalSales",
@@ -44,9 +44,9 @@ const OverviewChart = (props) => {
     { data }
   );
 
-  return !data || isLoading ? (
-    <Box>{"Loading..."}</Box>
-  ) : (
+  if (!data || isLoading) return <Box>{"Loading..."}</Box>;
+
+  return (
     <ResponsiveLine
       data={view === "sales" ? totalSalesLine : totalUnitsLine}
       theme={{

@@ -22,6 +22,7 @@ import {
   SettingsOutlined,
   TrendingUpOutlined,
   ReceiptLongOutlined,
+  PointOfSaleOutlined,
   ShoppingCartOutlined,
   CalendarMonthOutlined,
   AdminPanelSettingsOutlined,
@@ -59,6 +60,10 @@ const navItems = [
   {
     text: "sales",
     icon: null,
+  },
+  {
+    text: "Overview",
+    icon: <PointOfSaleOutlined />,
   },
   {
     text: "Daily",

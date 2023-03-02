@@ -53,7 +53,6 @@ const Navbar = (props) => {
           <IconButton
             onClick={() => {
               setIsSidebarOpen(!isSidebarOpen);
-              console.log(isSidebarOpen);
             }}
           >
             <MenuIcon />

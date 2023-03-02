@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {
   Box,
-  useTheme,
+  // useTheme,
   FormControl,
   MenuItem,
   Select,
@@ -11,7 +11,6 @@ import Header from "components/Header";
 import OverviewChart from "components/OverviewChart";
 
 const Overview = () => {
-  const theme = useTheme();
   const [view, setView] = useState("units");
 
   return (
