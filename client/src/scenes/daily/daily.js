@@ -4,12 +4,13 @@ import Header from "components/Header";
 import { useGetSalesQuery } from "state/api";
 import DatePicker from "react-datepicker";
 import { ResponsiveLine } from "@nivo/line";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Daily = () => {
+  const [startDate, setStartDate] = useState(new Date("2021-02-01"));
+  const [endDate, setEndDate] = useState(new Date("2021-03-01"));
+  const { data } = useGetSalesQuery();
   const theme = useTheme();
-  const { data, isLoading } = useGetSalesQuery();
-  const [startDate, setStartDate] = useState("2022-02-01");
-  const [endDate, setEndDate] = useState("2022-03-01");
 
   const [formattedData] = useMemo(() => {
     if (!data) return [];
@@ -20,7 +21,7 @@ const Daily = () => {
       data: [],
     };
     const totalUnitsLine = {
-      id: "totalSales",
+      id: "totalUnits",
       color: theme.palette.secondary[600],
       data: [],
     };
@@ -28,7 +29,7 @@ const Daily = () => {
     Object.values(dailyData).forEach(({ date, totalSales, totalUnits }) => {
       const dateFormatted = new Date(date);
       if (dateFormatted >= startDate && dateFormatted <= endDate) {
-        const splitDate = date.subString(date.indexOf("-") + 1);
+        const splitDate = date.substring(date.indexOf("-") + 1);
         totalSalesLine.data = [
           ...totalSalesLine.data,
           { x: splitDate, y: totalSales },

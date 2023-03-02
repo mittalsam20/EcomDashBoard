@@ -17,7 +17,7 @@ const OverviewChart = (props) => {
       data: [],
     };
     const totalUnitsLine = {
-      id: "totalSales",
+      id: "totalUnits",
       color: theme.palette.secondary[600],
       data: [],
     };
