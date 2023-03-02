@@ -49,7 +49,7 @@ const Daily = () => {
       <Header title={"Daily Sales"} subtitle={"Chart of daily sales"} />
       <Box height={"75vh"}>
         <Box display="flex" justifyContent="flex-end">
-          {/* <Box>
+          <Box>
             <DatePicker
               selected={startDate}
               onChange={(date) => setStartDate(date)}
@@ -67,7 +67,7 @@ const Daily = () => {
               endDate={endDate}
               minDate={startDate}
             />
-          </Box> */}
+          </Box>
         </Box>
 
         {data ? (
