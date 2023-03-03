@@ -2,7 +2,7 @@ import React from "react";
 import { Box, useTheme } from "@mui/material";
 import Header from "components/Header";
 import { DataGrid } from "@mui/x-data-grid";
-import { useGetCustomersQuery } from "state/api";
+import { useGetCustomersQuery } from "../../state/api";
 
 const columns = [
   { field: "_id", headerName: "ID", flex: 1 },
