@@ -12,7 +12,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useGetProductsQuery } from "../../state/api";
-import Header from "components/Header";
+import Header from "../../components/Header";
 
 const Product = (props) => {
   const { _id, name, supply, price, stat, category, rating, description } =

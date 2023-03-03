@@ -7,8 +7,8 @@ import {
   Select,
   InputLabel,
 } from "@mui/material";
-import Header from "components/Header";
-import OverviewChart from "components/OverviewChart";
+import Header from "../../components/Header";
+import OverviewChart from "../../components/OverviewChart";
 
 const Overview = () => {
   const [view, setView] = useState("units");

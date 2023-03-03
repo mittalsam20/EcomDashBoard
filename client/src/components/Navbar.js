@@ -7,7 +7,7 @@ import {
   Search,
   DarkModeOutlined,
 } from "@mui/icons-material";
-import FlexBetween from "components/FlexBetween";
+import FlexBetween from "./FlexBetween";
 import { useDispatch } from "react-redux";
 import { setMode } from "../state/index";
 // import profileImage from "assets/profile.jpeg";

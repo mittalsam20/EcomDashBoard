@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Box, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import Header from "components/Header";
+import Header from "../../components/Header";
 import { useGetTransactionsQuery } from "../../state/api";
-import DataGridCustomToolbar from "components/DataGridCustomToolbar";
+import DataGridCustomToolbar from "../../components/DataGridCustomToolbar";
 
 const initialSearchParams = {
   page: 0,

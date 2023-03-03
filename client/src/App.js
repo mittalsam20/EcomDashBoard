@@ -4,15 +4,15 @@ import { createTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { themeSettings } from "./theme";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Layout from "scenes/layout/layout";
-import Dashboard from "scenes/dashboard/dashboard";
-import Products from "scenes/products/products";
-import Customers from "scenes/customers/customers";
-import Transactions from "scenes/transactions/transactions";
-import Geography from "scenes/geography/geography";
-import Overview from "scenes/overview/overview";
-import Daily from "scenes/daily/daily";
-import Monthly from "scenes/monthly/monthly";
+import Layout from "./scenes/layout/layout";
+import Dashboard from "./scenes/dashboard/dashboard";
+import Products from "./scenes/products/products";
+import Customers from "./scenes/customers/customers";
+import Transactions from "./scenes/transactions/transactions";
+import Geography from "./scenes/geography/geography";
+import Overview from "./scenes/overview/overview";
+import Daily from "./scenes/daily/daily";
+import Monthly from "./scenes/monthly/monthly";
 
 const App = () => {
   const mode = useSelector((state) => state.global.mode);
