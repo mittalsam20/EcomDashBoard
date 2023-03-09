@@ -21,7 +21,7 @@ const BreakDownChart = (props) => {
     ([category, sales], index) => ({
       id: category,
       label: category,
-      values: sales,
+      value: sales,
       color: colors[index],
     })
   );
