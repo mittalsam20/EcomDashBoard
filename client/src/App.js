@@ -13,8 +13,8 @@ import Geography from "./scenes/geography/geography";
 import Overview from "./scenes/overview/overview";
 import Daily from "./scenes/daily/daily";
 import Monthly from "./scenes/monthly/monthly";
+import BreakDown from "./scenes/breakdown/breakdown";
 
-import BreakDown from "scenes/breakdown/breakdown";
 const App = () => {
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);

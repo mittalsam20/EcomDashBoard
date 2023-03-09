@@ -1,7 +1,7 @@
 import React from "react";
 import { ResponsivePie } from "@nivo/pie";
 import { Box, useTheme, Typography } from "@mui/material";
-import { useGetSalesQuery } from "state/api";
+import { useGetSalesQuery } from "../state/api.js";
 
 const BreakDownChart = (props) => {
   const { isDashboard = false } = props;

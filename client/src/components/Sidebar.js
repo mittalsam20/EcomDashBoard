@@ -20,12 +20,10 @@ import {
   Groups2Outlined,
   PieChartOutlined,
   SettingsOutlined,
-  TrendingUpOutlined,
   ReceiptLongOutlined,
   PointOfSaleOutlined,
   ShoppingCartOutlined,
   CalendarMonthOutlined,
-  AdminPanelSettingsOutlined,
   ChevronLeft,
   ChevronRightOutlined,
 } from "@mui/icons-material";
@@ -76,18 +74,6 @@ const navItems = [
   {
     text: "Breakdown",
     icon: <PieChartOutlined />,
-  },
-  {
-    text: "Management",
-    icon: null,
-  },
-  {
-    text: "Admin",
-    icon: <AdminPanelSettingsOutlined />,
-  },
-  {
-    text: "Performance",
-    icon: <TrendingUpOutlined />,
   },
 ];
 
