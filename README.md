@@ -49,7 +49,7 @@
 - filter by mode status dateRange
 - sort by amount date mode status
   ***
-  -[ ] Navbar right side and sideBar bottom corner will have settings dropDown Menu with actions
+  - [ ] Navbar right side and sideBar bottom corner will have settings dropDown Menu with actions
 - [ ] show print spool button in navbar
 - logout
 - accounts settings -[ ] accounts settings - [ ] edit name emailid reset password - [ ] setup bank API
