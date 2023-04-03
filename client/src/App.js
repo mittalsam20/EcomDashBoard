@@ -2,11 +2,11 @@ import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { themeSettings } from "./theme";
+import { themeSettings } from "./constants/theme";
 import { createTheme } from "@mui/material/styles";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
-import Login from "./pages/login";
+// import Login from "./pages/login";
 import Daily from "./pages/daily";
 import Layout from "./pages/layout";
 import Monthly from "./pages/monthly";
