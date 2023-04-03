@@ -28,12 +28,12 @@ const App = () => {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Routes>
-            <Route path="/" element={<Login />} exact />
-            <Route path="/dashboard" element={<Layout />}>
+            {/* <Route path="/" element={<Login />} exact /> */}
+            <Route path="/" element={<Layout />}>
               <Route index element={<Dashboard />} />
               <Route path="products" element={<Products />} />
               <Route path="customers" element={<Customers />}>
-                <Route path="customer" element={<Customer />} />
+                <Route path=":customerId" element={<Customer />} />
               </Route>
               <Route path="transactions" element={<Transactions />} />
               <Route path="geography" element={<Geography />} />

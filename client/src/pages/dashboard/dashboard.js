@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   DownloadOutlined,
@@ -21,8 +21,10 @@ import Header from "AppComponents/Header";
 import StatBox from "UIComponents/StatBox";
 import OverviewChart from "UIComponents/OverviewChart";
 import BreakDownChart from "UIComponents/BreakDownChart";
+import UIModal from "UIComponents/UIModal/UIModal";
 
 const Dashboard = () => {
+  const [showModal, setShowModal] = useState(false);
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width:1200px)");
   const { data, isLoading } = useGetDashboardQuery();
@@ -73,13 +75,13 @@ const Dashboard = () => {
               color: theme.palette.background.alt,
               backgroundColor: theme.palette.secondary.light,
             }}
+            onClick={() => setShowModal(true)}
           >
             <DownloadOutlined sx={{ mr: "10px" }} />
             {"Download Reports"}
           </Button>
         </Box>
       </FlexBetween>
-
       <Box
         mt="20px"
         display="grid"
@@ -203,6 +205,16 @@ const Dashboard = () => {
           </Typography>
         </Box>
       </Box>
+      <UIModal
+        body={"cscsc"}
+        title={"cscs"}
+        isOpen={showModal}
+        primaryButtonText={"Print"}
+        secondaryButtonText={"Cancel"}
+        onClose={() => setShowModal(false)}
+        onClickSecondaryButton={() => {}}
+        onClickPrimaryButton={() => {}}
+      />
     </Box>
   );
 };
