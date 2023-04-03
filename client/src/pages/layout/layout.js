@@ -31,7 +31,9 @@ const Layout = () => {
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
         />
-        <Outlet />
+        <div style={{ paddingBottom: "30px" }}>
+          <Outlet />
+        </div>
       </Box>
     </Box>
   );

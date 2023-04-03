@@ -1,0 +1,89 @@
+.car-contain {
+  height: 100vh;
+}
+
+.componentContainer {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: darken;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.first h1 {
+  position: absolute;
+  top: 30px;
+  left: 150px;
+  margin: 0px;
+  font-weight: 700;
+  font-size: 40px;
+  color: white;
+}
+
+.first span {
+  font-weight: 900 !important;
+  color: black;
+  font-size: 70px;
+}
+
+.sec h1 {
+  margin: 40px;
+  position: absolute;
+  bottom: 50px;
+  left: 50px;
+  font-weight: 700;
+  color: white;
+}
+
+.sec span {
+  font-weight: 900 !important;
+  color: black;
+  font-size: 70px;
+}
+
+.third h1 {
+  position: absolute;
+  bottom: 130px;
+  left: 50px;
+  margin: 50px;
+  font-weight: 700;
+  color: white;
+}
+
+.third span {
+  font-weight: 900 !important;
+  color: black;
+  font-size: 70px;
+}
+
+.fourth h1 {
+  position: absolute;
+  bottom: 80px;
+  left: 5px;
+  margin: 30px;
+  font-weight: 700;
+  color: white;
+}
+
+.fourth span {
+  font-weight: 900 !important;
+  color: black;
+  font-size: 70px;
+}
+
+.fifth h1 {
+  position: absolute;
+  top: 50px;
+  left: 10px;
+  margin: 40px;
+  font-weight: 700;
+  color: white;
+}
+
+.fifth span {
+  font-weight: 900;
+  color: palevioletred;
+  font-size: 70px;
+}

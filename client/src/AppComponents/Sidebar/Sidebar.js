@@ -148,7 +148,7 @@ const Sidebar = (props) => {
                   <ListItem key={text} disablePadding>
                     <ListItemButton
                       onClick={() => {
-                        navigate(`/dashboard${route}`);
+                        navigate(`.${route}`);
                         setActive(lcText);
                       }}
                       sx={{
