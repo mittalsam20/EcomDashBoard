@@ -12,6 +12,7 @@ import Layout from "./pages/layout";
 import Monthly from "./pages/monthly";
 import Products from "./pages/products";
 import Overview from "./pages/overview";
+import Customer from "./pages/customer";
 import Dashboard from "./pages/dashboard";
 import Geography from "./pages/geography";
 import Customers from "./pages/customers";
@@ -31,7 +32,9 @@ const App = () => {
             <Route path="/dashboard" element={<Layout />}>
               <Route index element={<Dashboard />} />
               <Route path="products" element={<Products />} />
-              <Route path="customers" element={<Customers />} />
+              <Route path="customers" element={<Customers />}>
+                <Route path="customer" element={<Customer />} />
+              </Route>
               <Route path="transactions" element={<Transactions />} />
               <Route path="geography" element={<Geography />} />
               <Route path="overview" element={<Overview />} />
