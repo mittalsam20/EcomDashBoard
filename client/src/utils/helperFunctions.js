@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Navigate } from "react-router-dom";
+import { setToastMessage } from "state";
 
 const allValidCharacters =
   "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -15,37 +16,21 @@ export const generateRandomPassword = () => {
   return randomPassword;
 };
 
-export const comparePassword = ({ password, confirmPassword }) => {
+export const comparePassword = ({ password, confirmPassword, dispatch }) => {
   const doPasswordMatch = password === confirmPassword;
-  if (doPasswordMatch)
-    setAlboxcont({
-      open: true,
-      message: "Please Use a Valid Email..!!",
-      type: "error",
-      dur: 5000,
-    });
-  else
-    setAlboxcont({
-      open: true,
-      message: "Please Use a Valid Email..!!",
-      type: "error",
-      dur: 5000,
-    });
+  if (doPasswordMatch) dispatch(setToastMessage({ message: "LoggedIn" }));
+  else dispatch(setToastMessage({ message: "LoggedIn" }));
+
   return;
 };
 
-export const verifyEmail = async ({ email }) => {
+export const verifyEmail = async ({ email, dispatch }) => {
   const response = await axios.post(`/app/selfproxy/${email}`);
   const { isEmailCorrect } = await response.data;
   if (isEmailCorrect) {
     return true;
   } else {
-    setAlboxcont({
-      open: true,
-      message: "Please Use a Valid Email..!!",
-      type: "error",
-      dur: 5000,
-    });
+    dispatch(setToastMessage({ message: "LoggedIn" }));
     return false;
   }
 };

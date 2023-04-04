@@ -1,17 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
+
 import { Snackbar } from "@mui/material";
 
-const ToastMessage = (props) => {
-  const { text, variant } = props;
-  const [open, setOpen] = useState(true);
+import { setToastMessage } from "state";
+import { useDispatch, useSelector } from "react-redux";
 
-  const handleClick = () => {};
+const ToastMessage = () => {
+  const toastMessage = useSelector((state) => state.global.toastMessage);
+  const { message, duration, variant } = toastMessage;
+  const dispatch = useDispatch();
+
+  const onClose = () => {
+    dispatch(setToastMessage({ message: null }));
+  };
 
   return (
     <Snackbar
-      open={open}
-      variant={""}
-      onClose={(event, reason) => setOpen(false)}
+      open={!!message}
+      message={message}
+      variant={variant}
+      duration={duration}
+      onClose={onClose}
     />
   );
 };
