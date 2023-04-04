@@ -20,12 +20,13 @@ const UIModal = (props) => {
     primaryButtonText,
     secondaryButtonText,
     onClickPrimaryButton,
-    onClickSecondaryButton,
+    onClickSecondaryButton = () => {},
+    executeOnCLoseOnClickSecondaryButton = true,
   } = props;
 
   const secondaryButtonAction = () => {
     onClickSecondaryButton();
-    onClose();
+    if (executeOnCLoseOnClickSecondaryButton) onClose();
   };
 
   const primaryButtonAction = () => {
