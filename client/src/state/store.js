@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { api } from "./state/api";
-import globalReducer from "./state/index";
+import { api } from "./api";
+import globalReducer from "./index";
 
 export const store = configureStore({
   reducer: {

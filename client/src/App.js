@@ -6,7 +6,7 @@ import { themeSettings } from "./constants/theme";
 import { createTheme } from "@mui/material/styles";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
-// import Login from "./pages/login";
+import Login from "./pages/login";
 import Daily from "./pages/daily";
 import Layout from "./pages/layout";
 import Monthly from "./pages/monthly";
@@ -28,8 +28,8 @@ const App = () => {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Routes>
-            {/* <Route path="/" element={<Login />} exact /> */}
-            <Route path="/" element={<Layout />}>
+            <Route path="/" element={<Login />} exact />
+            <Route path="dashboard" element={<Layout />}>
               <Route index element={<Dashboard />} />
               <Route path="products" element={<Products />} />
               <Route path="customers" element={<Customers />}>
