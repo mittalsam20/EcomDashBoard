@@ -5,10 +5,12 @@ const allValidCharacters =
   "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 export const generateRandomPassword = () => {
-  const length = 9;
-  var randomPassword = "";
-  for (var i = 0, n = allValidCharacters.length; i < length; ++i) {
-    randomPassword += allValidCharacters.charAt(Math.floor(Math.random() * n));
+  const passwordLength = 9;
+  let randomPassword = "";
+  for (let i = 0; i < passwordLength; ++i) {
+    randomPassword += allValidCharacters.charAt(
+      Math.floor(Math.random() * allValidCharacters.length)
+    );
   }
   return randomPassword;
 };

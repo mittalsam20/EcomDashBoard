@@ -50,10 +50,10 @@ export const api = createApi({
 
 export const {
   useGetUserQuery,
+  useGetSalesQuery,
   useGetProductsQuery,
   useGetCustomersQuery,
-  useGetTransactionsQuery,
-  useGetGeographyQuery,
-  useGetSalesQuery,
   useGetDashboardQuery,
+  useGetGeographyQuery,
+  useGetTransactionsQuery,
 } = api;
