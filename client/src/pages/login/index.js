@@ -1,2 +1,2 @@
-import comp from "./login";
+import comp from "./Auth";
 export default comp;

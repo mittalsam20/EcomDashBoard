@@ -41,16 +41,14 @@ const UIModal = (props) => {
       TransitionComponent={Transition}
       onClose={onClickSecondaryButton}
     >
-      <div>
-        <DialogTitle style={{ borderBottom: "1px solid gray" }}>
-          {title}
-        </DialogTitle>
-        <DialogContent>{body}</DialogContent>
-        <DialogActions style={{ borderTop: "1px solid gray" }}>
-          <Button onClick={secondaryButtonAction}>{secondaryButtonText}</Button>
-          <Button onClick={primaryButtonAction}>{primaryButtonText}</Button>
-        </DialogActions>
-      </div>
+      <DialogTitle style={{ borderBottom: "1px solid gray" }}>
+        {title}
+      </DialogTitle>
+      <DialogContent>{body}</DialogContent>
+      <DialogActions style={{ borderTop: "1px solid gray" }}>
+        <Button onClick={secondaryButtonAction}>{secondaryButtonText}</Button>
+        <Button onClick={primaryButtonAction}>{primaryButtonText}</Button>
+      </DialogActions>
     </Dialog>
   );
 };
