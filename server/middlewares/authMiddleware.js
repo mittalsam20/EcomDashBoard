@@ -1,10 +1,10 @@
-const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+import { Jwt } from "jsonwebtoken";
+import User from "../models/User";
 
 const AuthMiddleware = async (req, res, next) => {
   try {
-    const token = req.cookies.EManagerUserToken;
-    const verifyToken = jwt.verify(
+    const token = req.cookies[eComManToken];
+    const verifyToken = Jwt.verify(
       token,
       process.env.USER_JWT_TOKEN_SECRET_KEY
     );

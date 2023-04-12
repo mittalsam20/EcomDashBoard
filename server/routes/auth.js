@@ -5,7 +5,7 @@ import {
   handleUserSignup,
   checkUserAuthenticity,
 } from "../controllers/auth";
-const AuthMiddleware = require("../middlewares/authMiddleware");
+import AuthMiddleware from "../middlewares/authMiddleware";
 
 const router = express.Router();
 router

@@ -1,31 +1,10 @@
-const express = require("express");
-
-const cors = require("cors");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const bodyParser = require("body-parser");
-
-const User = require("../models/User");
-
-const router = express.Router();
-const allNumbers = "0123456789";
-router.use(cors());
-router.use(bodyParser.urlencoded({ extended: true }));
+import bcrypt from "bcrypt";
+import User from "../models/User";
+import { WEB_APP_TOKEN } from "../utils/constants";
 
 const cookieOption = {
   expires: new Date(Date.now() + 25892000000),
   httpOnly: true,
-};
-
-export const generateOTP = () => {
-  const passwordLength = 6;
-  let randomPassword = "";
-  for (let i = 0; i < passwordLength; ++i) {
-    randomPassword += allNumbers.charAt(
-      Math.floor(Math.random() * allNumbers.length)
-    );
-  }
-  return randomPassword;
 };
 
 export const handleUserSignup = async (req, res) => {
@@ -90,7 +69,7 @@ export const handleUserLogin = async (req, res) => {
     }
 
     token = await selectedUser.generateAuthToken();
-    res.cookie("E", token, cookieOption);
+    res.cookie(WEB_APP_TOKEN, token, cookieOption);
     res
       .status(200)
       .json({ message: `Login SuccessFull..!!`, id: selectedUser._id });
@@ -104,7 +83,7 @@ export const checkUserAuthenticity = (req, res) => {
 };
 
 export const handleUserLogout = (req, res) => {
-  res.clearCookie("stgUserToken", { path: "/" });
+  res.clearCookie(WEB_APP_TOKEN, { path: "/" });
   res.status(200).send("User LoggedOut");
 };
 
@@ -123,8 +102,7 @@ export const sendOtpToUserEmail = async (req, res) => {
       "template_v545mxb",
       emailJsMailParams
     );
-
-    res.status(200).json(productsWithStats);
+    res.status(200).json(emailJsResponse);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
