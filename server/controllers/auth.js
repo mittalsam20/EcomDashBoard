@@ -6,7 +6,6 @@ const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 
 const User = require("../models/User");
-const AuthMiddleware = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 const allNumbers = "0123456789";
@@ -16,6 +15,17 @@ router.use(bodyParser.urlencoded({ extended: true }));
 const cookieOption = {
   expires: new Date(Date.now() + 25892000000),
   httpOnly: true,
+};
+
+export const generateOTP = () => {
+  const passwordLength = 6;
+  let randomPassword = "";
+  for (let i = 0; i < passwordLength; ++i) {
+    randomPassword += allNumbers.charAt(
+      Math.floor(Math.random() * allNumbers.length)
+    );
+  }
+  return randomPassword;
 };
 
 export const handleUserSignup = async (req, res) => {
@@ -89,15 +99,13 @@ export const handleUserLogin = async (req, res) => {
   }
 };
 
-export const generateOTP = () => {
-  const passwordLength = 6;
-  let randomPassword = "";
-  for (let i = 0; i < passwordLength; ++i) {
-    randomPassword += allNumbers.charAt(
-      Math.floor(Math.random() * allNumbers.length)
-    );
-  }
-  return randomPassword;
+export const checkUserAuthenticity = (req, res) => {
+  res.status(200).send(req.rootUser);
+};
+
+export const handleUserLogout = (req, res) => {
+  res.clearCookie("stgUserToken", { path: "/" });
+  res.status(200).send("User LoggedOut");
 };
 
 export const sendOtpToUserEmail = async (req, res) => {
