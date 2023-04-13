@@ -20,7 +20,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useGetDashboardQuery } from "state/api";
 import { checkUserAuthenticity } from "apiFunctions/apiFunctions";
 
-import Header from "AppComponents/Header";
+// import Header from "AppComponents/Header";
 import StatBox from "UIComponents/StatBox";
 import UIModal from "UIComponents/UIModal/UIModal";
 import OverviewChart from "UIComponents/OverviewChart";
@@ -72,7 +72,7 @@ const Dashboard = () => {
   return (
     <Box m={"1.5rem 2.5rem"}>
       <FlexBetween>
-        <Header title={"DASHBOARD"} subtitle={"Welcome to your dashboard"} />
+        {/* <Header title={"DASHBOARD"} subtitle={"Welcome to your dashboard"} /> */}
 
         <Box>
           <Button

@@ -12,7 +12,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useGetProductsQuery } from "state/api";
-import Header from "AppComponents/Header/Header";
+// import Header from "AppComponents/Header/Header";
 
 const Product = (props) => {
   const { _id, name, supply, price, stat, category, rating, description } =
@@ -82,7 +82,7 @@ const Products = () => {
   const isNonMobile = useMediaQuery("(min-width: 1000px)");
   return (
     <Box m={"1.5rem 2.5rem"}>
-      <Header title={"PRODUCTS"} subtitle={"See your list of products"} />
+      {/* <Header title={"PRODUCTS"} subtitle={"See your list of products"} /> */}
       {data || !isLoading ? (
         <Box
           mt={"20px"}

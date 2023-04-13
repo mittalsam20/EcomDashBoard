@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useGetTransactionsQuery } from "state/api";
-import Header from "AppComponents/Header/Header";
+// import Header from "AppComponents/Header/Header";
 import DataGridCustomToolbar from "AppComponents/DataGridCustomToolbar/DataGridCustomToolbar";
 
 const initialSearchParams = {
@@ -42,7 +42,7 @@ const Transactions = () => {
   ];
   return (
     <Box m={"1.5rem 2.5rem"}>
-      <Header title={"TRANSACTIONS"} subtitle={"Entire List Of Transactions"} />
+      {/* <Header title={"TRANSACTIONS"} subtitle={"Entire List Of Transactions"} /> */}
       <Box
         height={"80vh"}
         sx={{

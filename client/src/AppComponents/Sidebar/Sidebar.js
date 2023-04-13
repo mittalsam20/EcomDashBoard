@@ -1,19 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   Box,
   List,
   Drawer,
   Divider,
+  useTheme,
   ListItem,
   IconButton,
   Typography,
   ListItemIcon,
   ListItemText,
   ListItemButton,
-  useTheme,
 } from "@mui/material";
-
 import {
+  ChevronLeft,
   HomeOutlined,
   TodayOutlined,
   PublicOutlined,
@@ -23,11 +25,10 @@ import {
   ReceiptLongOutlined,
   PointOfSaleOutlined,
   ShoppingCartOutlined,
-  CalendarMonthOutlined,
-  ChevronLeft,
   ChevronRightOutlined,
+  CalendarMonthOutlined,
 } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
+
 import FlexBetween from "UIComponents/FlexBetween";
 
 const navItems = [
@@ -89,16 +90,18 @@ const navItems = [
 ];
 
 const Sidebar = (props) => {
-  const { user, drawerWidth, isNonMobile, isSidebarOpen, setIsSidebarOpen } =
-    props;
-  // const { pathname } = useLocation;
-  const [active, setActive] = useState("");
+  const {
+    user,
+    activeDrawerItem,
+    drawerWidth,
+    isNonMobile,
+    isSidebarOpen,
+    setIsSidebarOpen,
+    setActiveDrawerItem,
+  } = props;
+
   const navigate = useNavigate();
   const theme = useTheme();
-
-  // useEffect(() => {
-  //   setActive(pathname.substring(1));
-  // }, [pathname]);
 
   return (
     <Box component={"nav"}>
@@ -149,15 +152,15 @@ const Sidebar = (props) => {
                     <ListItemButton
                       onClick={() => {
                         navigate(`.${route}`);
-                        setActive(lcText);
+                        setActiveDrawerItem(lcText);
                       }}
                       sx={{
                         backgroundColor:
-                          active === lcText
+                          activeDrawerItem === lcText
                             ? theme.palette.secondary[300]
                             : "transparent",
                         color:
-                          active === lcText
+                          activeDrawerItem === lcText
                             ? theme.palette.primary[600]
                             : theme.palette.secondary[100],
                       }}
@@ -166,7 +169,7 @@ const Sidebar = (props) => {
                         sx={{
                           ml: "2rem",
                           color:
-                            active === lcText
+                            activeDrawerItem === lcText
                               ? theme.palette.primary[600]
                               : theme.palette.secondary[200],
                         }}
@@ -174,7 +177,7 @@ const Sidebar = (props) => {
                         {icon}
                       </ListItemIcon>
                       <ListItemText primary={text} />
-                      {active === lcText && (
+                      {activeDrawerItem === lcText && (
                         <ChevronRightOutlined sx={{ ml: "auto" }} />
                       )}
                     </ListItemButton>

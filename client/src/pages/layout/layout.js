@@ -1,14 +1,20 @@
 import React, { useState } from "react";
-import { Box, useMediaQuery } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+
 import { useSelector } from "react-redux";
 import { useGetUserQuery } from "state/api";
-import Sidebar from "AppComponents/Sidebar/Sidebar";
 import Navbar from "AppComponents/Navbar/Navbar";
+import { Box, useMediaQuery } from "@mui/material";
+import Sidebar from "AppComponents/Sidebar/Sidebar";
+
+import { getCurrentPageRouteName } from "utils/helperFunctions";
 
 const Layout = () => {
+  const location = useLocation();
   const isNonMobile = useMediaQuery("(min-width: 600px)");
+  const currentPage = getCurrentPageRouteName({ location });
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [activeDrawerItem, setActiveDrawerItem] = useState(currentPage);
   const rootUserId = useSelector((state) => state.global.rootUserId);
   const { data = {} } = useGetUserQuery(rootUserId);
 
@@ -23,13 +29,16 @@ const Layout = () => {
         drawerWidth={"250px"}
         isNonMobile={isNonMobile}
         isSidebarOpen={isSidebarOpen}
+        activeDrawerItem={activeDrawerItem}
         setIsSidebarOpen={setIsSidebarOpen}
+        setActiveDrawerItem={setActiveDrawerItem}
       />
       <Box flexGrow={1}>
         <Navbar
           user={data}
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
+          activeDrawerItem={activeDrawerItem}
         />
         <div style={{ paddingBottom: "30px" }}>
           <Outlet />

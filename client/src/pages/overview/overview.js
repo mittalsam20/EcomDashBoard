@@ -7,7 +7,7 @@ import {
   Select,
   InputLabel,
 } from "@mui/material";
-import Header from "AppComponents/Header/Header";
+// import Header from "AppComponents/Header/Header";
 import OverviewChart from "UIComponents/OverviewChart/OverviewChart";
 
 const Overview = () => {
@@ -15,10 +15,10 @@ const Overview = () => {
 
   return (
     <Box m={"1.5rem 2.5rem"}>
-      <Header
+      {/* <Header
         title={"OVERVIEW"}
         subtitle={"Overview of general revenue and profits"}
-      />
+      /> */}
       <Box height={"75vh"}>
         <FormControl sx={{ mt: "1rem" }}>
           <InputLabel>{"View"}</InputLabel>

@@ -4,7 +4,6 @@ import DatePicker from "react-datepicker";
 import { ResponsiveLine } from "@nivo/line";
 import "react-datepicker/dist/react-datepicker.css";
 import { useGetSalesQuery } from "state/api";
-import Header from "AppComponents/Header";
 
 const Daily = () => {
   const [startDate, setStartDate] = useState(new Date("2021-02-01"));
@@ -48,7 +47,7 @@ const Daily = () => {
 
   return (
     <Box m={"1.5rem 2.5rem"}>
-      <Header title={"Daily Sales"} subtitle={"Chart of daily sales"} />
+      {/* <Header title={"Daily Sales"} subtitle={"Chart of daily sales"} /> */}
       <Box height={"75vh"}>
         <Box display="flex" justifyContent="flex-end">
           <Box>

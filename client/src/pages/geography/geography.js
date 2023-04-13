@@ -2,7 +2,7 @@ import React from "react";
 import { Box, useTheme } from "@mui/material";
 import { ResponsiveChoropleth } from "@nivo/geo";
 import { useGetGeographyQuery } from "state/api";
-import Header from "AppComponents/Header/Header";
+// import Header from "AppComponents/Header/Header";
 import { geoData } from "constants/geoData";
 
 const Geography = () => {
@@ -32,10 +32,10 @@ const Geography = () => {
 
   return (
     <Box m={"1.5rem 2.5rem"}>
-      <Header
+      {/* <Header
         title={"GEOGRAPHY"}
         subtitle={"Find where your customers are located"}
-      />
+      /> */}
       <Box
         mt={"40px"}
         height={"75vh"}
