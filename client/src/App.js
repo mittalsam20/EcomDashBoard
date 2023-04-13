@@ -6,7 +6,7 @@ import { themeSettings } from "./constants/theme";
 import { createTheme } from "@mui/material/styles";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
-import Login from "./pages/login";
+import Login from "./pages/auth";
 import Daily from "./pages/daily";
 import Layout from "./pages/layout";
 import Monthly from "./pages/monthly";
@@ -18,12 +18,17 @@ import Geography from "./pages/geography";
 import Customers from "./pages/customers";
 import BreakDown from "./pages/breakdown";
 import Transactions from "./pages/transactions";
+import ToastMessage from "UIComponents/ToastMessage";
 
 const App = () => {
-  const mode = useSelector((state) => state.global.mode);
+  const { mode, toastMessageProps } = useSelector((state) => ({
+    mode: state.global.mode,
+    toastMessageProps: state.global.toastMessageProps,
+  }));
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   return (
     <div className="app">
+      {toastMessageProps && <ToastMessage />}
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline />

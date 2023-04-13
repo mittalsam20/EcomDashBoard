@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   mode: "dark",
-  tostMessage: null,
+  toastMessageProps: null,
   userId: "63701cc1f03239b7f700000e",
 };
 
@@ -11,8 +11,10 @@ export const globalSlice = createSlice({
   initialState,
   reducers: {
     setToastMessage: (state, action) => {
-      const { message, variant = "success", duration = 6000 } = action.payload;
-      state.tostMessage = message ? { message, variant, duration } : null;
+      const { message, severity = "success", duration = 6000 } = action.payload;
+      state.toastMessageProps = message
+        ? { message, severity, duration }
+        : null;
     },
     setMode: (state, action) => {
       state.mode = state.mode === "light" ? "dark" : "light";

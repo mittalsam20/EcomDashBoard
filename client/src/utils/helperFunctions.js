@@ -18,13 +18,22 @@ export const generateRandomPassword = () => {
 
 export const comparePassword = ({ password, confirmPassword, dispatch }) => {
   const doPasswordMatch = password === confirmPassword;
-  if (doPasswordMatch) dispatch(setToastMessage({ message: "LoggedIn" }));
-  else dispatch(setToastMessage({ message: "LoggedIn" }));
+  if (doPasswordMatch)
+    dispatch(setToastMessage({ message: "Password matches" }));
+  else
+    dispatch(
+      setToastMessage({
+        severity: "warning",
+        message: "Passwords do not match",
+      })
+    );
 
   return;
 };
 
 export const verifyEmail = async ({ email, dispatch }) => {
+  return true;
+  // TODO: Add Proxy route to verify email by TPA.
   const response = await axios.post(`/app/selfproxy/${email}`);
   const { isEmailCorrect } = await response.data;
   if (isEmailCorrect) {
