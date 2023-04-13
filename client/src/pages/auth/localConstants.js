@@ -41,7 +41,7 @@ export const getFormInputProps = ({ formId, formInputs }) => {
       },
       {
         id: "password",
-        type: password,
+        type: "password",
         value: password,
         placeholder: "Password",
         label: "Password",
@@ -50,7 +50,7 @@ export const getFormInputProps = ({ formId, formInputs }) => {
       },
       {
         id: "confirmPassword",
-        type: password,
+        type: "password",
         value: confirmPassword,
         placeholder: "Confirm Password",
         label: "Confirm Password",
@@ -66,42 +66,41 @@ export const getFormInputProps = ({ formId, formInputs }) => {
         value: "Sign Up",
       },
     ];
-  } else {
-    const { email, password } = formInputs;
-    return [
-      {
-        id: "email",
-        type: "email",
-        value: email,
-        label: "Email Address",
-        name: "email",
-        autoComplete: "email",
-        autoFocus: true,
-        ...commonInputProps,
-      },
-      {
-        id: "password",
-        type: "password",
-        value: password,
-        placeholder: "Password",
-        name: "password",
-        label: "Password",
-        ...commonInputProps,
-      },
-      {
-        id: "rememberMeButton",
-        label: "Remember me",
-        type: "checkBox",
-        control: <Checkbox value="remember" color="primary" />,
-      },
-      {
-        id: "loginButton",
-        type: "submit",
-        fullWidth: true,
-        variant: "contained",
-        sx: { mt: 3, mb: 2 },
-        value: "Login",
-      },
-    ];
   }
+  const { email, password } = formInputs;
+  return [
+    {
+      id: "email",
+      type: "email",
+      value: email,
+      label: "Email Address",
+      name: "email",
+      autoComplete: "email",
+      autoFocus: true,
+      ...commonInputProps,
+    },
+    {
+      id: "password",
+      type: "password",
+      value: password,
+      placeholder: "Password",
+      name: "password",
+      label: "Password",
+      ...commonInputProps,
+    },
+    {
+      id: "rememberMeButton",
+      label: "Remember me",
+      type: "checkBox",
+      control: <Checkbox value="remember" color="primary" />,
+    },
+    {
+      id: "loginButton",
+      type: "submit",
+      fullWidth: true,
+      variant: "contained",
+      sx: { mt: 3, mb: 2 },
+      value: "Login",
+    },
+  ];
 };

@@ -54,10 +54,10 @@ const Auth = () => {
   };
 
   const onChangeValue =
-    ({ id, stateId }) =>
-    (e) => {
-      const value = e.target.value;
-      console.log(value, id, stateId);
+    ({ id }) =>
+    (event) => {
+      const value = event.target.value;
+      console.log(value, id);
       setActiveForm((prevState) => ({
         ...prevState,
         formInputs: { ...prevState.formInputs, [id]: value },
@@ -67,7 +67,7 @@ const Auth = () => {
         formId === "SIGNUP" &&
         (id === "password" || id === "confirmPassword")
       )
-        comparePassword({ password, confirmPassword });
+        comparePassword({ password, confirmPassword, dispatch });
     };
 
   const onClickForgotPassword = (event) => {
@@ -107,6 +107,7 @@ const Auth = () => {
       const { status } = response;
       if (status !== 200) throw new Error("lets see");
       setActiveForm(signUpActiveFormState);
+      console.log(isEmailCorrect);
     } catch (error) {
       dispatch(
         setToastMessage({
@@ -145,6 +146,7 @@ const Auth = () => {
           />
         </Box>
       </Grid>
+      {showForgotPasswordModal && <></>}
     </Grid>
   );
 };
