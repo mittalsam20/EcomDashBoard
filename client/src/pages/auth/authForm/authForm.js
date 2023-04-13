@@ -46,13 +46,20 @@ const AuthForm = (props) => {
       <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
         {formInputProps.map(({ id, type, value, ...restProps }) => {
           return type === "submit" ? (
-            <Button id={id} type={type} {...restProps} onClick={onSubmit}>
+            <Button
+              key={id}
+              id={id}
+              type={type}
+              {...restProps}
+              onClick={onSubmit}
+            >
               {value}
             </Button>
           ) : type === "checkBox" ? (
-            <FormControlLabel id={id} type={type} {...restProps} />
+            <FormControlLabel key={id} id={id} type={type} {...restProps} />
           ) : (
             <TextField
+              key={id}
               id={id}
               type={type}
               value={value}

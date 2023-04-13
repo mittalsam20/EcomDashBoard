@@ -7,6 +7,7 @@ import morgan from "morgan";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 
+import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.js";
 import salesRoutes from "./routes/sales.js";
 import clientRoutes from "./routes/client.js";
@@ -36,6 +37,7 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 //Routes
