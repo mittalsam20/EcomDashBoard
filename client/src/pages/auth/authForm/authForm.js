@@ -55,6 +55,7 @@ const AuthForm = (props) => {
             <TextField
               id={id}
               type={type}
+              value={value}
               {...restProps}
               onChange={onChangeValue({ id })}
             />

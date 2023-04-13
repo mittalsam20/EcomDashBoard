@@ -7,6 +7,7 @@ import morgan from "morgan";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 
+import authRoutes from "./routes/auth.js";
 import salesRoutes from "./routes/sales.js";
 import clientRoutes from "./routes/client.js";
 import generalRoutes from "./routes/general.js";
@@ -38,6 +39,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 //Routes
+app.use("/auth", authRoutes);
 app.use("/client", clientRoutes);
 app.use("/general", generalRoutes);
 app.use("/management", managementRoutes);

@@ -1,10 +1,10 @@
-import { Jwt } from "jsonwebtoken";
-import User from "../models/User";
+import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
-const AuthMiddleware = async (req, res, next) => {
+export const AuthMiddleware = async (req, res, next) => {
   try {
     const token = req.cookies[eComManToken];
-    const verifyToken = Jwt.verify(
+    const verifyToken = jwt.verify(
       token,
       process.env.USER_JWT_TOKEN_SECRET_KEY
     );
@@ -24,5 +24,3 @@ const AuthMiddleware = async (req, res, next) => {
     console.log(error);
   }
 };
-
-module.exports = AuthMiddleware;

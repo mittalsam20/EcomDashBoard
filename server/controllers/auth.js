@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
-import User from "../models/User";
-import { WEB_APP_TOKEN } from "../utils/constants";
+import User from "../models/User.js";
+import { WEB_APP_TOKEN } from "../utils/constants.js";
 
 const cookieOption = {
   expires: new Date(Date.now() + 25892000000),
@@ -19,7 +19,7 @@ export const handleUserSignup = async (req, res) => {
         .json({ message: "Minimum Password Length Is 8 Characters" });
     }
 
-    const doeUserExist = await Yser.findOne({ email });
+    const doeUserExist = await User.findOne({ email });
     if (doeUserExist) {
       res.status(400).json({ message: "Email-Id Already Registered..!!" });
     }

@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { BASE_URL } from "constants/constants";
 
 const tagTypes = [
   "User",
@@ -48,7 +49,7 @@ const getEndpoints = (build) => {
 };
 
 export const api = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_BASE_URL }),
+  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   reducerPath: "api",
   tagTypes,
   endpoints: getEndpoints,

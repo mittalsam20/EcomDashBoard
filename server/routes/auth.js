@@ -4,8 +4,8 @@ import {
   handleUserLogout,
   handleUserSignup,
   checkUserAuthenticity,
-} from "../controllers/auth";
-import AuthMiddleware from "../middlewares/authMiddleware";
+} from "../controllers/auth.js";
+import { AuthMiddleware } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 router

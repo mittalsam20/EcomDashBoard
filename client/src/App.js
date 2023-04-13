@@ -26,6 +26,7 @@ const App = () => {
     toastMessageProps: state.global.toastMessageProps,
   }));
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+
   return (
     <div className="app">
       {toastMessageProps && <ToastMessage />}
