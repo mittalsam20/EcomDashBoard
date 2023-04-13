@@ -1,9 +1,11 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import { WEB_APP_TOKEN } from "../utils/constants.js";
 
 export const AuthMiddleware = async (req, res, next) => {
   try {
-    const token = req.cookies[eComManToken];
+    console.log("ssss", req.cookies);
+    const token = req.cookies[WEB_APP_TOKEN];
     const verifyToken = jwt.verify(
       token,
       process.env.USER_JWT_TOKEN_SECRET_KEY

@@ -12,4 +12,5 @@ router
   .get("/customers", getCustomers)
   .get("/transactions", getTransactions)
   .get("/geography", getGeography);
+
 export default router;

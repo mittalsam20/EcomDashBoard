@@ -10,6 +10,7 @@ const cookieOption = {
 export const handleUserSignup = async (req, res) => {
   try {
     const { userName, shopName, email, password } = req.body;
+    console.log(userName, shopName, email, password);
     if (!email || !password || !userName || !shopName) {
       res.status(400).json({ message: "Please Fill All The Details..!!" });
     }
@@ -35,8 +36,8 @@ export const handleUserSignup = async (req, res) => {
 
     newUser
       .save()
-      .then((data) =>
-        res.status(200).json({ message: "Registration Successful..!!", data })
+      .then(() =>
+        res.status(200).json({ message: "Registration Successful..!!" })
       )
       .catch((error) => res.status(500).json(error));
   } catch (error) {
@@ -47,8 +48,9 @@ export const handleUserSignup = async (req, res) => {
 export const handleUserLogin = async (req, res) => {
   try {
     let token;
-    const { email, Password } = req.body;
-    if (!email || !Password) {
+    const { email, password } = req.body;
+    console.log(email, password);
+    if (!email || !password) {
       return res
         .status(400)
         .json({ message: "Please Fill All The Details..!!" });
@@ -61,7 +63,7 @@ export const handleUserLogin = async (req, res) => {
     }
 
     const isPasswordCorrect = await bcrypt.compare(
-      Password,
+      password,
       selectedUser.password
     );
     if (!isPasswordCorrect) {

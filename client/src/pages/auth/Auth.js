@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import { Box, Grid, CssBaseline } from "@mui/material";
@@ -14,6 +14,7 @@ import Carousel from "UIComponents/carousel";
 import { getFormInputProps } from "./localConstants";
 // import ForgotPasswordModal from "./forgotPasswordModal";
 import { comparePassword, verifyEmail } from "utils/helperFunctions";
+import { BASE_URL } from "constants/constants";
 
 const initialLoginFormData = {
   email: "",
@@ -37,6 +38,7 @@ const signUpActiveFormState = {
 
 const Auth = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [activeForm, setActiveForm] = useState(initialActiveFormState);
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
 
@@ -57,7 +59,6 @@ const Auth = () => {
     ({ id }) =>
     (event) => {
       const value = event.target.value;
-      console.log(value, id);
       setActiveForm((prevState) => ({
         ...prevState,
         formInputs: { ...prevState.formInputs, [id]: value },
@@ -78,19 +79,19 @@ const Auth = () => {
   const onClickLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("/app/login", formInputs, {
+      const response = await axios.post(`${BASE_URL}/auth/login`, formInputs, {
         withCredentials: true,
       });
       const { data, status } = response;
-      if (status === 200) {
-        dispatch(setToastMessage({ message: "LoggedIn" }));
-        setActiveForm(initialActiveFormState);
-        Navigate("/dashboard");
-      }
+      if (status !== 200) throw new Error("Server Error");
+      dispatch(setToastMessage({ message: data.message }));
+      setActiveForm(initialActiveFormState);
+      navigate("/dashboard");
     } catch (error) {
+      console.log(error);
       dispatch(
         setToastMessage({
-          message: error.response.data.message,
+          message: error.message,
           variant: "error",
         })
       );
@@ -103,16 +104,17 @@ const Auth = () => {
       const isEmailCorrect = verifyEmail({ email });
       if (!isEmailCorrect) throw new Error("Fake Email");
       // PasswordCheck
-      const response = await axios.post("/app/signup", formInputs);
-      const { status } = response;
-      if (status !== 200) throw new Error("lets see");
-      setActiveForm(signUpActiveFormState);
-      console.log(isEmailCorrect);
+      const response = await axios.post(`${BASE_URL}/auth/signup`, formInputs);
+      const { data, status } = response;
+      if (status !== 200) throw new Error("Server Error");
+      dispatch(setToastMessage({ message: data.message }));
+      setActiveForm(initialActiveFormState);
     } catch (error) {
+      console.log({ error });
       dispatch(
         setToastMessage({
-          message: error.response.data.message,
-          variant: "error",
+          message: error.message,
+          severity: "error",
         })
       );
     }
