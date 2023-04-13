@@ -74,14 +74,14 @@ export const handleUserLogin = async (req, res) => {
     res.cookie(WEB_APP_TOKEN, token, cookieOption);
     res
       .status(200)
-      .json({ message: `Login SuccessFull..!!`, id: selectedUser._id });
+      .json({ message: `Login SuccessFull..!!`, userId: selectedUser._id });
   } catch (error) {
     console.log(error);
   }
 };
 
 export const checkUserAuthenticity = (req, res) => {
-  res.status(200).send(req.rootUser);
+  res.status(200).json({ rootUserId: req.rootUser._id });
 };
 
 export const handleUserLogout = (req, res) => {

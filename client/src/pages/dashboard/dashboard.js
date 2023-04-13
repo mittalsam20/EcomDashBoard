@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   DownloadOutlined,
@@ -15,19 +16,27 @@ import {
   Typography,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+
 import { useGetDashboardQuery } from "state/api";
-import FlexBetween from "UIComponents/FlexBetween/FlexBetween";
+import { checkUserAuthenticity } from "apiFunctions/apiFunctions";
+
 import Header from "AppComponents/Header";
 import StatBox from "UIComponents/StatBox";
+import UIModal from "UIComponents/UIModal/UIModal";
 import OverviewChart from "UIComponents/OverviewChart";
 import BreakDownChart from "UIComponents/BreakDownChart";
-import UIModal from "UIComponents/UIModal/UIModal";
+import FlexBetween from "UIComponents/FlexBetween/FlexBetween";
 
 const Dashboard = () => {
-  const [showModal, setShowModal] = useState(false);
   const theme = useTheme();
-  const isNonMediumScreens = useMediaQuery("(min-width:1200px)");
+  const navigate = useNavigate();
   const { data, isLoading } = useGetDashboardQuery();
+  const isNonMediumScreens = useMediaQuery("(min-width:1200px)");
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    checkUserAuthenticity({ navigate });
+  }, []);
 
   const columns = [
     {
@@ -60,7 +69,6 @@ const Dashboard = () => {
     },
   ];
 
-  console.log(data);
   return (
     <Box m={"1.5rem 2.5rem"}>
       <FlexBetween>

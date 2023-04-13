@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Box, Grid, CssBaseline } from "@mui/material";
 
-import { setToastMessage } from "state";
+import { setToastMessage, setRootUserId } from "state";
 import { useDispatch } from "react-redux";
 
 import "./Auth.scss";
@@ -84,9 +84,12 @@ const Auth = () => {
       });
       const { data, status } = response;
       if (status !== 200) throw new Error("Server Error");
-      dispatch(setToastMessage({ message: data.message }));
-      setActiveForm(initialActiveFormState);
-      navigate("/dashboard");
+      if (data.userId) {
+        dispatch(setToastMessage({ message: data.message }));
+        setActiveForm(initialActiveFormState);
+        dispatch(setRootUserId({ rootUserId: data.userId }));
+        navigate("/dashboard");
+      }
     } catch (error) {
       console.log(error);
       dispatch(

@@ -9,8 +9,8 @@ import Navbar from "AppComponents/Navbar/Navbar";
 const Layout = () => {
   const isNonMobile = useMediaQuery("(min-width: 600px)");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const userId = useSelector((state) => state.global.userId);
-  const { data = {} } = useGetUserQuery(userId);
+  const rootUserId = useSelector((state) => state.global.rootUserId);
+  const { data = {} } = useGetUserQuery(rootUserId);
 
   return (
     <Box
