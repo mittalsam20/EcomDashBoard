@@ -1,0 +1,52 @@
+p,
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+}
+
+.cardContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 32px;
+}
+
+.cardContentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.customerDetailsUpperContainer {
+  display: flex;
+  gap: 12px;
+}
+
+.cardActionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.customerDetailsContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 32px;
+  grid-row-gap: 8px;
+}
+
+.lastOrderContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.lastOrderDetails {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 32px;
+  grid-row-gap: 8px;
+}

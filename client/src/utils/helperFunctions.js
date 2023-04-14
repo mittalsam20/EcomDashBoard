@@ -54,3 +54,33 @@ export const authenticateUser = async () => {
     console.log(error);
   }
 };
+
+export const getCurrentPageRouteName = ({ location }) => {
+  return location.pathname.split("/").slice(-1)[0];
+};
+
+export const getFullNameAndInitials = ({ firstName, lastName }) => {
+  const fullName = `${firstName} ${lastName}`;
+  const fullNameInitials = fullName
+    .split(" ")
+    .map((name) => name.charAt(0).toUpperCase())
+    .join("");
+  return { fullName, fullNameInitials };
+};
+
+export const getRandomColorFromString = ({ string }) => {
+  let i;
+  let hash = 0;
+
+  for (i = 0; i < string.length; i += 1) {
+    hash = string.charCodeAt(i) + ((hash << 5) - hash);
+  }
+
+  let color = "#";
+  for (i = 0; i < 3; i += 1) {
+    const value = (hash >> (i * 8)) & 0xff;
+    color += `00${value.toString(16)}`.slice(-2);
+  }
+
+  return color;
+};

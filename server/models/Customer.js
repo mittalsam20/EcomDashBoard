@@ -46,6 +46,10 @@ const CustomerSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    customerFinanceStatus: {
+      status: { type: String },
+      amount: { type: Number },
+    },
     createdAt: {
       type: Date,
       default: Date.now,

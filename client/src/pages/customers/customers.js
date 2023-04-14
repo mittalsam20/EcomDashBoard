@@ -1,8 +1,12 @@
-import React from "react";
-import { Box, useTheme } from "@mui/material";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { DataGrid } from "@mui/x-data-grid";
+import { Box, useTheme } from "@mui/material";
+
 import { useGetCustomersQuery } from "state/api";
-import Header from "AppComponents/Header";
+import { checkUserAuthenticity } from "apiFunctions/apiFunctions";
+import CustomerCard from "./customerCard";
 
 const columns = [
   { field: "_id", headerName: "ID", flex: 1 },
@@ -19,13 +23,23 @@ const columns = [
   { field: "occupation", headerName: "Occupation", flex: 1 },
   { field: "role", headerName: "Role", flex: 0.5 },
 ];
+
+const FilterHeader = ({}) => {
+  return <Box> </Box>;
+};
+
 const Customers = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const { data, isLoading } = useGetCustomersQuery();
+
+  useEffect(() => {
+    checkUserAuthenticity({ navigate });
+  }, []);
 
   return (
     <Box m={"1.5rem 2.5rem"}>
-      <Header title={"CUSTOMERS"} subtitle={"List of Customers"} />
+      {/* <Header title={"CUSTOMERS"} subtitle={"List of Customers"} /> */}
       <Box
         mt={"40px"}
         height={"75vh"}
@@ -54,12 +68,14 @@ const Customers = () => {
           },
         }}
       >
-        <DataGrid
+        {/* <DataGrid
           loading={isLoading || !data}
           getRowId={(row) => row._id}
           rows={data || []}
           columns={columns}
-        />
+        /> */}
+        <FilterHeader />
+        <CustomerCard />
       </Box>
     </Box>
   );
