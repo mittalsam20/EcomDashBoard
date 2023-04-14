@@ -7,9 +7,9 @@ const Header = (props) => {
   return (
     <Box>
       <Typography
-        variant="h2"
-        fontWeight={"bold"}
+        variant={"h2"}
         sx={{ mb: "5px" }}
+        fontWeight={"bold"}
         color={theme.palette.secondary[100]}
       >
         {title}
