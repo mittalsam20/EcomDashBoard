@@ -26,6 +26,10 @@ const UserSchema = new mongoose.Schema(
       required: true,
       min: 6,
     },
+    customerCount: {
+      type: Number,
+      default: 0,
+    },
     tokens: [
       {
         token: { type: String, required: true },

@@ -6,6 +6,10 @@ const CustomerSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    customerId: {
+      type: Number,
+      required: true,
+    },
     firstName: {
       type: String,
       required: true,
@@ -58,6 +62,16 @@ const CustomerSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+CustomerSchema.pre("save", async function (next) {
+  const user = await mongoose.model("User").findOne({ _id: this.userId });
+  if (user) {
+    user.customerCount++;
+    await user.save();
+    this.customerId = user.customerCount;
+  }
+  next();
+});
 
 const Customer = mongoose.model("Customer", CustomerSchema);
 export default Customer;
