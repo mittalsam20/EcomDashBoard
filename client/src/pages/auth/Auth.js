@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import axios from "axios";
 import { Box, Grid, CssBaseline } from "@mui/material";
@@ -13,8 +13,13 @@ import AuthForm from "./authForm/authForm";
 import Carousel from "UIComponents/carousel";
 import { getFormInputProps } from "./localConstants";
 // import ForgotPasswordModal from "./forgotPasswordModal";
-import { comparePassword, verifyEmail } from "utils/helperFunctions";
+import {
+  verifyEmail,
+  comparePassword,
+  getCurrentPageRouteName,
+} from "utils/helperFunctions";
 import { BASE_URL } from "constants/constants";
+import { checkUserAuthenticity } from "apiFunctions/apiFunctions";
 
 const initialLoginFormData = {
   email: "",
@@ -39,8 +44,14 @@ const signUpActiveFormState = {
 const Auth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const [activeForm, setActiveForm] = useState(initialActiveFormState);
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+
+  const sourceRoute = getCurrentPageRouteName({ location });
+  useEffect(() => {
+    checkUserAuthenticity({ sourceRoute, navigate });
+  }, []);
 
   const { formId, formInputs } = activeForm;
   const { userName, shopName, email, password, confirmPassword } = formInputs;

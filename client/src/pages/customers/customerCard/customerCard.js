@@ -75,6 +75,7 @@ const CustomerCard = (props) => {
     id,
     orders,
     status,
+    customerId,
     lastName = "mittal",
     firstName = "sam",
     address,
