@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import axios from "axios";
@@ -49,7 +49,7 @@ const Auth = () => {
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
 
   const sourceRoute = getCurrentPageRouteName({ location });
-  useEffect(() => {
+  useLayoutEffect(() => {
     checkUserAuthenticity({ sourceRoute, navigate });
   }, []);
 

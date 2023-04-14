@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { checkUserAuthenticity } from "apiFunctions/apiFunctions";
@@ -6,7 +6,7 @@ import { checkUserAuthenticity } from "apiFunctions/apiFunctions";
 const Customer = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     checkUserAuthenticity({ navigate });
   }, []);
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -34,7 +34,7 @@ const Dashboard = () => {
   const isNonMediumScreens = useMediaQuery("(min-width:1200px)");
   const [showModal, setShowModal] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     checkUserAuthenticity({ navigate });
   }, []);
 

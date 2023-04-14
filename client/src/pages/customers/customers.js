@@ -1,11 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, useTheme } from "@mui/material";
 
 import { useGetCustomersQuery } from "state/api";
-import { checkUserAuthenticity } from "apiFunctions/apiFunctions";
+import {
+  checkUserAuthenticity,
+  getAllCustomersApi,
+} from "apiFunctions/apiFunctions";
 import CustomerCard from "./customerCard";
 
 const columns = [
@@ -33,8 +36,16 @@ const Customers = () => {
   const navigate = useNavigate();
   const { data, isLoading } = useGetCustomersQuery();
 
-  useEffect(() => {
+  const getAllCustomers = ({}) => {
+    getAllCustomersApi();
+  };
+
+  useLayoutEffect(() => {
     checkUserAuthenticity({ navigate });
+  }, []);
+
+  useEffect(() => {
+    getAllCustomers({});
   }, []);
 
   return (
