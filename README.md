@@ -6,16 +6,16 @@
 
 ## TODO
 
-- [ ] add authentication to the app
-- [ ] remove extra buttons, dummy data and search component
+- [x] add authentication to the app
+- [x] remove extra buttons, dummy data and search component
 - [ ] filters query parmas in url
 - [ ] optimistic UI and pagination on scroll
 
 ---
 
-- [ ] customers card page
-- [ ] cols:- name, avatar, city state country, phone number, total income, last transaction
-- [ ] actions:- edit, delete and add to print spool
+- [x] customers card page
+- [x] cols:- name, avatar, city state country, phone number, total income, last transaction
+- [x] actions:- edit, delete and add to print spool
 - [ ] create option:- opens modal
 - [ ] filters:- search, filter and sort
 
@@ -52,6 +52,9 @@
   - [ ] Navbar right side and sideBar bottom corner will have settings dropDown Menu with actions
 - [ ] show print spool button in navbar
 - logout
-- accounts settings -[ ] accounts settings - [ ] edit name emailid reset password - [ ] setup bank API
+- accounts settings
+- [ ] accounts settings
+- [ ] edit name emailid reset password
+- [ ] setup bank API
 
 - [ ] only product page is visible to customers

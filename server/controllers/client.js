@@ -27,6 +27,7 @@ export const getAllCustomers = async (req, res) => {
     const { userId } = req.body;
     if (!userId)
       res.status(400).json({ message: "Server cannot detect a valid userID" });
+
     const customers = await Customer.find({ userId });
     res.status(200).json({ message: "Successful", customers });
   } catch (error) {

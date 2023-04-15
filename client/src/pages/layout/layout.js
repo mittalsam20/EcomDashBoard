@@ -40,7 +40,7 @@ const Layout = () => {
           setIsSidebarOpen={setIsSidebarOpen}
           activeDrawerItem={activeDrawerItem}
         />
-        <div style={{ paddingBottom: "30px" }}>
+        <div style={{ padding: "1.5rem 2.5rem" }}>
           <Outlet />
         </div>
       </Box>
