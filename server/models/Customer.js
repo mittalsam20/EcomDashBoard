@@ -10,15 +10,14 @@ const CustomerSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    firstName: {
+    type: {
       type: String,
       required: true,
-      max: 100,
+      default: "Retail",
     },
-    lastName: {
+    fullName: {
       type: String,
       required: true,
-      min: 2,
       max: 100,
     },
     address: {

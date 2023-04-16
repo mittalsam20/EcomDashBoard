@@ -1,6 +1,8 @@
-import { InputLabel, MenuItem, Select, TextField } from "@mui/material";
-import UIModal from "UIComponents/UIModal/UIModal";
 import React, { useState } from "react";
+
+import "./addCustomer.scss";
+import UIModal from "UIComponents/UIModal/UIModal";
+import { InputLabel, MenuItem, Select, TextField } from "@mui/material";
 
 const commonInputProps = {
   // margin: "normal",
@@ -52,17 +54,17 @@ const getFormInputProps = ({ formData }) => {
       ...commonInputProps,
     },
     {
-      id: "pinCode",
-      type: "number",
-      value: pinCode,
-      label: "PinCode",
-      ...commonInputProps,
-    },
-    {
       id: "country",
       type: "dropdown",
       value: country,
       label: "Country",
+      ...commonInputProps,
+    },
+    {
+      id: "pinCode",
+      type: "number",
+      value: pinCode,
+      label: "PinCode",
       ...commonInputProps,
     },
     {
@@ -117,11 +119,11 @@ const initialFormData = {
 const ModalBody = (props) => {
   const { formInputProps, onChangeValue } = props;
   return (
-    <div>
+    <div className={"bodyContainer"}>
       {formInputProps.map(
         ({ id, type, label, menuItems = [], ...restProps }) => {
           return (
-            <div key={id}>
+            <div key={id} className="inputContainer">
               {type === "dropdown" ? (
                 <>
                   <InputLabel>{label}</InputLabel>

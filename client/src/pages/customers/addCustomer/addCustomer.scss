@@ -1,0 +1,17 @@
+.bodyContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 40px;
+  align-items: flex-end;
+  max-height: 520px;
+  max-width: 1200px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: min-content;
+}
