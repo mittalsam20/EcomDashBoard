@@ -11,6 +11,26 @@ const TransactionSchema = new mongoose.Schema(
       ref: "Customer",
       required: true,
     },
+    orderAmount: {
+      type: Number,
+      default: 0,
+    },
+    status: {
+      type: String,
+      required: true,
+      default: "Payment Received/ Order Not Packed",
+    },
+    completed: {
+      type: Boolean,
+      default: false,
+    },
+    orderNumber: {
+      type: String,
+    },
+    amountPaid: {
+      type: Number,
+      default: 0,
+    },
     date: {
       type: Date,
       default: Date.now,
@@ -23,30 +43,8 @@ const TransactionSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product",
-        required: true,
       },
     ],
-    amount: {
-      type: Number,
-      required: true,
-    },
-    status: {
-      type: String,
-      required: true,
-      default: "Payment Received/ Order Not Packed",
-    },
-    paymentId: {
-      type: String,
-      required: true,
-    },
-    orderNumber: {
-      type: String,
-      required: true,
-    },
-    amountLeftToBePaid: {
-      type: Number,
-      default: 0,
-    },
   },
   { timestamps: true }
 );

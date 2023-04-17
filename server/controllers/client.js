@@ -135,7 +135,49 @@ export const getAllTransactions = async (req, res) => {
   }
 };
 
-export const updateTransactions = async (req, res) => {
+export const createTransaction = async (req, res) => {
+  try {
+    const {
+      userId,
+      customerId,
+      orderAmount,
+      status,
+      amountPaid,
+      date,
+      paymentMode,
+      products,
+    } = req.body;
+
+    if (
+      !userId ||
+      !customerId ||
+      !orderAmount ||
+      !status ||
+      !amountPaid ||
+      !date ||
+      !paymentMode ||
+      !products
+    ) {
+      return res.status(400).json({ message: "Please fill in all details" });
+    }
+
+    const newTransaction = new Transaction({
+      type,
+      userId,
+      address,
+      fullName,
+      phoneNumber,
+    });
+    newTransaction
+      .save()
+      .then(() => res.status(200).json({ message: "Added Successfully..!!" }))
+      .catch((error) => res.status(500).json(error));
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const updateTransaction = async (req, res) => {
   try {
     const { updatedTransaction } = req.body;
     const { transactionId } = req.params;
@@ -156,7 +198,7 @@ export const updateTransactions = async (req, res) => {
   }
 };
 
-export const deleteTransactions = async (req, res) => {
+export const deleteTransaction = async (req, res) => {
   try {
     const { transactionId } = req.params;
     const result = await Transaction.deleteOne({ _id: transactionId });

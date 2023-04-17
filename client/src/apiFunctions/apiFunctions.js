@@ -1,6 +1,8 @@
 import axios from "axios";
+
+import { setRootUserId } from "state";
+// setToastMessage,
 import { BASE_URL, googleGeoCodingApiKey } from "constants/constants";
-import { setToastMessage, setRootUserId } from "state";
 
 export const checkUserAuthenticity = async ({
   navigate,
@@ -51,7 +53,6 @@ export const getSingleCustomer = async ({ customerId }) => {
     const { data, status } = response;
     if (status !== 200) throw new Error("Server Error");
     return data.customer;
-    return data;
   } catch (error) {
     console.log(error);
   }
@@ -90,6 +91,65 @@ export const deleteCustomer = async ({ customerId }) => {
   try {
     const response = await axios.delete(
       `${BASE_URL}/client/customer/${customerId}`
+    );
+    const { data, status } = response;
+    if (status !== 200) throw new Error("Server Error");
+    return data;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
+export const getAllTransactions = async ({ userId, customerId }) => {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}/client/transactions/${userId}/${customerId}`
+    );
+    const { data, status } = response;
+    if (status !== 200) throw new Error("Server Error");
+    return data.customers;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const createTransaction = async ({ transactionDetails }) => {
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/client/transaction`,
+      transactionDetails
+    );
+    const { data, status } = response;
+    if (status !== 200) throw new Error("Server Error");
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateTransaction = async ({
+  transactionId,
+  updatedTransaction,
+}) => {
+  try {
+    const response = await axios.put(
+      `${BASE_URL}/client/transaction/${transactionId}`,
+      { updatedTransaction }
+    );
+    const { data, status } = response;
+    if (status !== 200) throw new Error("Server Error");
+    return data;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
+export const deleteTransaction = async ({ transactionId }) => {
+  try {
+    const response = await axios.delete(
+      `${BASE_URL}/client/transaction/${transactionId}`
     );
     const { data, status } = response;
     if (status !== 200) throw new Error("Server Error");

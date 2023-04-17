@@ -2,13 +2,14 @@ import express from "express";
 import {
   getProducts,
   getGeography,
-  updateCustomer,
-  createCustomer,
-  deleteCustomer,
   getAllTransactions,
-  updateTransactions,
-  deleteTransactions,
+  createTransaction,
+  updateTransaction,
+  deleteTransaction,
+  createCustomer,
   getAllCustomers,
+  updateCustomer,
+  deleteCustomer,
 } from "../controllers/client.js";
 
 const router = express.Router();
@@ -18,9 +19,10 @@ router
   .put("/customer/:customerId", updateCustomer)
   .delete("/customer/:customerId", deleteCustomer)
 
-  .get("/transactions/:userId", getAllTransactions)
-  .put("/transaction/:transactionId", updateTransactions)
-  .delete("/customer/:transactionId", deleteTransactions)
+  .get("/transactions/:userId/:customerId", getAllTransactions)
+  .put("/transaction", createTransaction)
+  .put("/transaction/:transactionId", updateTransaction)
+  .delete("/customer/:transactionId", deleteTransaction)
 
   .get("/products", getProducts)
   .get("/geography", getGeography);
