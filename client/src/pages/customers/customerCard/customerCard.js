@@ -21,6 +21,7 @@ import {
   getRandomColorFromString,
 } from "utils/helperFunctions";
 import { Button } from "@mui/material";
+import { deleteCustomer } from "apiFunctions/apiFunctions";
 
 const getActionButtons = ({
   onClickEdit,
@@ -47,7 +48,7 @@ const getActionButtons = ({
       size: "large",
       fullWidth: true,
       startIcon: <DeleteRoundedIcon />,
-      onClick: () => {},
+      onClick: onClickDelete,
     },
     addedToPrintSpool
       ? {
@@ -103,7 +104,10 @@ const CustomerCard = (props) => {
     });
     setCustomerModalData({ mode: "edit", customerId: id });
   };
-  const onClickDelete = ({}) => {};
+
+  const onClickDelete = () => {
+    deleteCustomer({ customerId: id });
+  };
   const onClickPrintAddress = ({}) => {};
   const onClickPrintInvoice = ({}) => {};
 

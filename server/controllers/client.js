@@ -94,11 +94,11 @@ export const updateCustomer = async (req, res) => {
 
 export const deleteCustomer = async (req, res) => {
   try {
-    const { id: customerId } = req.params;
+    const { customerId } = req.params;
     const result = await Customer.deleteOne({ _id: customerId });
     if (result.deletedCount === 0)
       res.status(404).json({ message: "Customer not found" });
-    res.status(204).json({ message: "Customer successfully deleted..!!" });
+    res.status(200).json({ message: "Customer successfully deleted..!!" });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

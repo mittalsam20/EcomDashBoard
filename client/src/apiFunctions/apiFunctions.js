@@ -89,9 +89,11 @@ export const updateCustomer = async ({ customerId, updatedCustomer }) => {
 export const deleteCustomer = async ({ customerId }) => {
   try {
     const response = await axios.delete(
-      `${BASE_URL}/customers/delete/:${customerId}`
+      `${BASE_URL}/client/customer/${customerId}`
     );
-    return response;
+    const { data, status } = response;
+    if (status !== 200) throw new Error("Server Error");
+    return data;
   } catch (error) {
     console.log(error);
     return false;
