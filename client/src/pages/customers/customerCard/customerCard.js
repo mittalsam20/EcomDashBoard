@@ -2,7 +2,6 @@ import React from "react";
 import "./customerCard.scss";
 import Card from "@mui/material/Card";
 import Avatar from "@mui/material/Avatar";
-import { red } from "@mui/material/colors";
 
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
@@ -10,12 +9,7 @@ import ReceiptRoundedIcon from "@mui/icons-material/ReceiptRounded";
 import BusinessRoundedIcon from "@mui/icons-material/BusinessRounded";
 
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import ShareIcon from "@mui/icons-material/Share";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+
 import {
   getInitialsFromFullName,
   getRandomColorFromString,
@@ -108,8 +102,8 @@ const CustomerCard = (props) => {
   const onClickDelete = () => {
     deleteCustomer({ customerId: id });
   };
-  const onClickPrintAddress = ({}) => {};
-  const onClickPrintInvoice = ({}) => {};
+  const onClickPrintAddress = () => {};
+  const onClickPrintInvoice = () => {};
 
   const actionButtons = getActionButtons({
     onClickEdit,

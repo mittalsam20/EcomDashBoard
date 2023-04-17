@@ -34,14 +34,14 @@ export const comparePassword = ({ password, confirmPassword, dispatch }) => {
 export const verifyEmail = async ({ email, dispatch }) => {
   return true;
   // TODO: Add Proxy route to verify email by TPA.
-  const response = await axios.post(`/app/selfproxy/${email}`);
-  const { isEmailCorrect } = await response.data;
-  if (isEmailCorrect) {
-    return true;
-  } else {
-    dispatch(setToastMessage({ message: "LoggedIn" }));
-    return false;
-  }
+  // const response = await axios.post(`/app/selfproxy/${email}`);
+  // const { isEmailCorrect } = await response.data;
+  // if (isEmailCorrect) {
+  //   return true;
+  // } else {
+  //   dispatch(setToastMessage({ message: "LoggedIn" }));
+  //   return false;
+  // }
 };
 
 export const authenticateUser = async () => {

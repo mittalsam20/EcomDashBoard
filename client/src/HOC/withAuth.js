@@ -39,6 +39,7 @@ const withAuth = (Component) => {
 
     useEffect(() => {
       checkUserAuthenticity({ dispatch, setIsAuthenticated, setIsLoading });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     if (isLoading) {

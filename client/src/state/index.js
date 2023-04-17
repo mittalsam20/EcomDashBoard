@@ -3,10 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialCustomerFilters = {
   skip: 0,
   sortBy: { name: 1 },
-  pageSize: "",
+  pageSize: 30,
   searchText: "",
-  stateFilter: "",
-  statusFilter: "",
+  stateFilter: "ALL",
+  statusFilter: "ALL",
 };
 const initialTransactionFilters = {
   skip: 0,

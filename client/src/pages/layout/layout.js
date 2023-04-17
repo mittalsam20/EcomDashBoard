@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import Navbar from "AppComponents/Navbar/Navbar";
 import { Box, useMediaQuery } from "@mui/material";
 import Sidebar from "AppComponents/Sidebar/Sidebar";
@@ -14,7 +14,7 @@ const Layout = () => {
   const currentPage = getCurrentPageRouteName({ location });
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activeDrawerItem, setActiveDrawerItem] = useState(currentPage);
-  const rootUserId = useSelector((state) => state.global.rootUserId);
+  // const rootUserId = useSelector((state) => state.global.rootUserId);
 
   return (
     <Box
