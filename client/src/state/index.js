@@ -1,9 +1,29 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialCustomerFilters = {
+  skip: 0,
+  sortBy: { name: 1 },
+  pageSize: "",
+  searchText: "",
+  stateFilter: "",
+  statusFilter: "",
+};
+const initialTransactionFilters = {
+  skip: 0,
+  sortBy: { name: 1 },
+  pageSize: "",
+  searchText: "",
+  statusFilter: "ALL",
+  // dateRangeFilter: {},
+  modeOfPaymentFilter: "ALL",
+};
+
 const initialState = {
   mode: "dark",
   rootUserId: null,
   toastMessageProps: null,
+  customerFilters: initialCustomerFilters,
+  transactionFilters: initialTransactionFilters,
 };
 
 export const globalSlice = createSlice({
@@ -23,9 +43,23 @@ export const globalSlice = createSlice({
       const { rootUserId } = action.payload;
       state.rootUserId = rootUserId;
     },
+    setCustomerFilters: (state, action) => {
+      const { name, value } = action.payload;
+      state.customerFilters = { ...state.customerFilters, [name]: value };
+    },
+    setTransactionFilters: (state, action) => {
+      const { name, value } = action.payload;
+      state.transactionFilters = { ...state.transactionFilters, [name]: value };
+    },
   },
 });
 
 const globalReducer = globalSlice.reducer;
-export const { setMode, setRootUserId, setToastMessage } = globalSlice.actions;
+export const {
+  setMode,
+  setRootUserId,
+  setToastMessage,
+  setCustomerFilters,
+  setTransactionFilters,
+} = globalSlice.actions;
 export default globalReducer;
