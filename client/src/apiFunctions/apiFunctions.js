@@ -23,17 +23,14 @@ export const checkUserAuthenticity = async ({
 };
 
 export const getAllCustomersApi = async () => {
+export const getAllCustomers = async ({ userId }) => {
   try {
-    const response = await axios.get(`${BASE_URL}/auth/checkUserAuthenticity`, {
-      withCredentials: true,
-    });
+    const response = await axios.get(`${BASE_URL}/client/customers/${userId}`);
     const { data, status } = response;
-    // if (data.rootUserId && status === 200 && route==="/")
-    // navigate("/dashboard");
-    if (!data.rootUserId || !status === 200) throw new Error("unAuthorized");
+    if (status !== 200) throw new Error("Server Error");
+    return data.customers;
   } catch (error) {
     console.log(error);
-    // navigate("/");
   }
 };
 
@@ -43,6 +40,8 @@ export const getSingleCustomer = async ({ customerId }) => {
       `${BASE_URL}/client/customers/:${customerId}`
     );
     const { data, status } = response;
+    if (status !== 200) throw new Error("Server Error");
+    return data.customer;
     return data;
   } catch (error) {
     console.log(error);
@@ -56,6 +55,7 @@ export const addNewCustomer = async ({ customerDetails }) => {
       customerDetails
     );
     const { data, status } = response;
+    if (status !== 200) throw new Error("Server Error");
     return data;
   } catch (error) {
     console.log(error);

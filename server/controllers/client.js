@@ -24,9 +24,11 @@ export const getProducts = async (req, res) => {
 
 export const getAllCustomers = async (req, res) => {
   try {
-    const { userId } = req.body;
+    const { userId } = req.params;
     if (!userId)
-      res.status(400).json({ message: "Server cannot detect a valid userID" });
+      return res
+        .status(400)
+        .json({ message: "Server cannot detect a valid userID" });
 
     const customers = await Customer.find({ userId });
     res.status(200).json({ message: "Successful", customers });
@@ -39,7 +41,6 @@ export const createCustomer = async (req, res) => {
   try {
     const { userId, type, fullName, address, phoneNumber } = req.body;
     const { street1, street2, city, state, country, pinCode } = address;
-    console.log(address);
     if (
       !city ||
       !state ||

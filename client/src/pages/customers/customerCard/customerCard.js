@@ -17,7 +17,7 @@ import CardActions from "@mui/material/CardActions";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
-  getFullNameAndInitials,
+  getInitialsFromFullName,
   getRandomColorFromString,
 } from "utils/helperFunctions";
 import { Button } from "@mui/material";
@@ -73,21 +73,17 @@ const getActionButtons = ({
 const CustomerCard = (props) => {
   const {
     id,
+    type,
     orders,
-    status,
-    customerId,
-    lastName = "mittal",
-    firstName = "sam",
     address,
-    profilePhoto,
-    contactNumber,
+    fullName,
+    customerId,
+    phoneNumber,
+    financialStatus = "",
   } = props;
-  //   const { street1, street2, city, state, country } = address;
-  const totalOrderByCustomer = [].length;
-  const { fullName, fullNameInitials } = getFullNameAndInitials({
-    firstName,
-    lastName,
-  });
+  const { street1, street2, city, state, country } = address;
+  const totalOrderByCustomer = orders.length;
+  const fullNameInitials = getInitialsFromFullName({ fullName });
 
   const onClickEdit = ({}) => {};
   const onClickDelete = ({}) => {};
@@ -114,36 +110,59 @@ const CustomerCard = (props) => {
     <Card className={"cardContainer"}>
       <div className={"cardContentContainer"}>
         <div className="customerDetailsUpperContainer">
-          <>
-            <Avatar sx={{ bgcolor: avatarColor }}>{fullNameInitials}</Avatar>
-            <h2>{fullName}</h2>
-          </>
-          <div className={"customerDetailsContainer"}>
-            <p>{"Phone Number:-  9821440574"}</p>
-            <p>{`City/State:-  City,State`}</p>
-            <p>{"Total Orders:-  53"}</p>
-            {/* {country !== "IN" && <p>{`Country:-  Country`}</p>} */}
-            <p>{"status"}</p>
-            <p>{"value "}</p>
-            <p>{"value"}</p>
-            <p>{"value "}</p>
-            <p>{"value "}</p>
+          <div className={"avatarContainer"}>
+            <Avatar sx={{ bgcolor: avatarColor, width: 54, height: 54 }}>
+              {fullNameInitials}
+            </Avatar>
+            <div>
+              <Typography variant="h3" sx={{ textTransform: "capitalize" }}>
+                {fullName}
+              </Typography>
+              <p>{`CustomerId:-${customerId}`}</p>
+              <p>{`Type:- ${type}`}</p>
+            </div>
+          </div>
+          <div>
+            <p>{"Phone Number"}</p>
+            <p>{phoneNumber}</p>
+          </div>
+          <div>
+            <p>{`City/State`}</p>
+            <p>{`${city}, ${state}`}</p>
+          </div>
+          <div>
+            <p>{"Total Orders"}</p>
+            <p>{totalOrderByCustomer}</p>
+          </div>
+          <div>
+            <p>{"Status"}</p>
+            <p>{financialStatus}</p>
           </div>
         </div>
 
         <div className="lastOrderContainer">
           <h3>{"Last Order"}</h3>
           <div className="lastOrderDetails">
-            <p>{"Order Date"}</p>
-            <p>{"Status"}</p>
-            <p>{"Amount"}</p>
-            <p>{"Number Of Items"}</p>
-            <p>{"Payment Mode"}</p>
-            <p>{"value "}</p>
-            <p>{"value"}</p>
-            <p>{"value"}</p>
-            <p>{"value "}</p>
-            <p>{"value "}</p>
+            <div>
+              <p>{"Order Date"}</p>
+              <p>{"value"}</p>
+            </div>
+            <div>
+              <p>{"Status"}</p>
+              <p>{"value"}</p>
+            </div>
+            <div>
+              <p>{"Amount"}</p>
+              <p>{"value"}</p>
+            </div>
+            <div>
+              <p>{"Number Of Items"}</p>
+              <p>{"value"}</p>
+            </div>
+            <div>
+              <p>{"Payment Mode"}</p>
+              <p>{"value"}</p>
+            </div>
           </div>
         </div>
       </div>

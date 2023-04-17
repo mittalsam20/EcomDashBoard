@@ -11,7 +11,7 @@ import {
 
 const router = express.Router();
 router
-  .get("/customers", getAllCustomers)
+  .get("/customers/:userId", getAllCustomers)
   .post("/customers", createCustomer)
   .put("/customers/:id", editCustomer)
   .delete("/customers/:id", deleteCustomer)

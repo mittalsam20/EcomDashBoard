@@ -59,13 +59,12 @@ export const getCurrentPageRouteName = ({ location }) => {
   return location.pathname.split("/").slice(-1)[0];
 };
 
-export const getFullNameAndInitials = ({ firstName, lastName }) => {
-  const fullName = `${firstName} ${lastName}`;
+export const getInitialsFromFullName = ({ fullName }) => {
   const fullNameInitials = fullName
     .split(" ")
     .map((name) => name.charAt(0).toUpperCase())
     .join("");
-  return { fullName, fullNameInitials };
+  return fullNameInitials;
 };
 
 export const getRandomColorFromString = ({ string }) => {
