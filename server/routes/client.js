@@ -5,7 +5,9 @@ import {
   updateCustomer,
   createCustomer,
   deleteCustomer,
-  getTransactions,
+  getAllTransactions,
+  updateTransactions,
+  deleteTransactions,
   getAllCustomers,
 } from "../controllers/client.js";
 
@@ -15,8 +17,12 @@ router
   .post("/customer", createCustomer)
   .put("/customer/:customerId", updateCustomer)
   .delete("/customer/:customerId", deleteCustomer)
+
+  .get("/transactions/:userId", getAllTransactions)
+  .put("/transaction/:transactionId", updateTransactions)
+  .delete("/customer/:transactionId", deleteTransactions)
+
   .get("/products", getProducts)
-  .get("/transactions", getTransactions)
   .get("/geography", getGeography);
 
 export default router;

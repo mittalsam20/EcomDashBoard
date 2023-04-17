@@ -112,7 +112,7 @@ const generateSort = ({ sort }) => {
   return sortFormatted;
 };
 
-export const getTransactions = async (req, res) => {
+export const getAllTransactions = async (req, res) => {
   try {
     const { page = 1, pageSize = 20, sort = null, search = "" } = req.query;
     const sortFormatted = Boolean(sort) ? generateSort({ sort }) : {};
@@ -130,6 +130,39 @@ export const getTransactions = async (req, res) => {
       name: [{ $regex: search, $options: "i" }],
     });
     res.status(200).json({ transactions, numberOfTransactions });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const updateTransactions = async (req, res) => {
+  try {
+    const { updatedTransaction } = req.body;
+    const { transactionId } = req.params;
+    const selectedTransaction = await Transaction.findOne({
+      _id: transactionId,
+    });
+    if (!selectedTransaction)
+      res.status(400).json({ message: "TransactionId is not valid." });
+    Object.keys(updatedTransaction).forEach((key) => {
+      selectedTransaction[key] = updatedTransaction[key];
+    });
+    selectedTransaction
+      .save()
+      .then(() => res.status(200).json({ message: "Successful Updated..!!" }))
+      .catch((error) => res.status(500).json(error));
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+export const deleteTransactions = async (req, res) => {
+  try {
+    const { transactionId } = req.params;
+    const result = await Transaction.deleteOne({ _id: transactionId });
+    if (result.deletedCount === 0)
+      res.status(404).json({ message: "Transaction not found" });
+    res.status(200).json({ message: "Transaction deleted..!!" });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
