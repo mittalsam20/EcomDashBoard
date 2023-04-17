@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
 import { useSelector } from "react-redux";
-import { useGetUserQuery } from "state/api";
 import Navbar from "AppComponents/Navbar/Navbar";
 import { Box, useMediaQuery } from "@mui/material";
 import Sidebar from "AppComponents/Sidebar/Sidebar";
@@ -16,7 +15,6 @@ const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activeDrawerItem, setActiveDrawerItem] = useState(currentPage);
   const rootUserId = useSelector((state) => state.global.rootUserId);
-  const { data = {} } = useGetUserQuery(rootUserId);
 
   return (
     <Box
@@ -25,7 +23,7 @@ const Layout = () => {
       display={isNonMobile ? "flex" : "block"}
     >
       <Sidebar
-        user={data}
+        user={{}}
         drawerWidth={"250px"}
         isNonMobile={isNonMobile}
         isSidebarOpen={isSidebarOpen}
@@ -35,7 +33,7 @@ const Layout = () => {
       />
       <Box flexGrow={1}>
         <Navbar
-          user={data}
+          user={{}}
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
           activeDrawerItem={activeDrawerItem}

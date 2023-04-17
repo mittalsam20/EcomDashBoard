@@ -1,0 +1,22 @@
+.filterContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  padding: 20px 0;
+}
+
+.leftContainer {
+  display: flex;
+  flex: 1;
+  max-width: 200px;
+}
+
+.rightContainer {
+  display: flex;
+  gap: 24px;
+}
+
+.s {
+  max-height: 30px;
+}

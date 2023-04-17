@@ -10,7 +10,6 @@ const cookieOption = {
 export const handleUserSignup = async (req, res) => {
   try {
     const { userName, shopName, email, password } = req.body;
-    console.log(userName, shopName, email, password);
     if (!email || !password || !userName || !shopName) {
       res.status(400).json({ message: "Please Fill All The Details..!!" });
     }
@@ -49,7 +48,6 @@ export const handleUserLogin = async (req, res) => {
   try {
     let token;
     const { email, password } = req.body;
-    console.log(email, password);
     if (!email || !password) {
       return res
         .status(400)

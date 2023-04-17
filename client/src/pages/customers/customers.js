@@ -166,31 +166,35 @@ const Customers = () => {
           {"New Customer"}
         </Button>
       </div>
-      {customers.map(
-        ({
-          _id,
-          type,
-          orders,
-          address,
-          fullName,
-          customerId,
-          phoneNumber,
-          financialStatus = "",
-        }) => {
-          return (
-            <CustomerCard
-              id={_id}
-              key={_id}
-              type={type}
-              orders={orders}
-              address={address}
-              fullName={fullName}
-              customerId={customerId}
-              phoneNumber={phoneNumber}
-              financialStatus={financialStatus}
-            />
-          );
-        }
+      {customers.length ? (
+        <EmptyState />
+      ) : (
+        customers.map(
+          ({
+            _id,
+            type,
+            orders,
+            address,
+            fullName,
+            customerId,
+            phoneNumber,
+            financialStatus = "",
+          }) => {
+            return (
+              <CustomerCard
+                id={_id}
+                key={_id}
+                type={type}
+                orders={orders}
+                address={address}
+                fullName={fullName}
+                customerId={customerId}
+                phoneNumber={phoneNumber}
+                financialStatus={financialStatus}
+              />
+            );
+          }
+        )
       )}
 
       {showAddCustomerModal && (

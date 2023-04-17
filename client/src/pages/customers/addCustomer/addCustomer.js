@@ -218,7 +218,6 @@ const AddCustomer = (props) => {
     };
 
   const onClickPrimaryButton = () => {
-    console.log(formData, rootUserId);
     addNewCustomer({ customerDetails: { ...formData, userId: rootUserId } });
   };
 
