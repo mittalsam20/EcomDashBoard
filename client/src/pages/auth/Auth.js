@@ -50,7 +50,7 @@ const Auth = () => {
 
   const sourceRoute = getCurrentPageRouteName({ location });
   useLayoutEffect(() => {
-    checkUserAuthenticity({ sourceRoute, navigate });
+    checkUserAuthenticity({ sourceRoute, dispatch, navigate });
   }, []);
 
   const { formId, formInputs } = activeForm;

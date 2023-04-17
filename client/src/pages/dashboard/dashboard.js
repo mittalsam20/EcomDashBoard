@@ -26,16 +26,19 @@ import UIModal from "UIComponents/UIModal/UIModal";
 import OverviewChart from "UIComponents/OverviewChart";
 import BreakDownChart from "UIComponents/BreakDownChart";
 import FlexBetween from "UIComponents/FlexBetween/FlexBetween";
+import { useDispatch } from "react-redux";
 
 const Dashboard = () => {
   const theme = useTheme();
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const { data, isLoading } = useGetDashboardQuery();
   const isNonMediumScreens = useMediaQuery("(min-width:1200px)");
   const [showModal, setShowModal] = useState(false);
 
   useLayoutEffect(() => {
-    checkUserAuthenticity({ navigate });
+    checkUserAuthenticity({ dispatch, navigate });
   }, []);
 
   const columns = [

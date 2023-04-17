@@ -1,8 +1,10 @@
 import axios from "axios";
-import { BASE_URL } from "constants/constants";
+import { BASE_URL, googleGeoCodingApiKey } from "constants/constants";
+import { setToastMessage, setRootUserId } from "state";
 
 export const checkUserAuthenticity = async ({
   navigate,
+  dispatch,
   sourceRoute = null,
 }) => {
   try {
@@ -10,9 +12,10 @@ export const checkUserAuthenticity = async ({
       withCredentials: true,
     });
     const { data, status } = response;
+    if (!data.rootUserId || !status === 200) throw new Error("unAuthorized");
     if (data.rootUserId && status === 200 && sourceRoute === "")
       navigate("/dashboard");
-    if (!data.rootUserId || !status === 200) throw new Error("unAuthorized");
+    dispatch(setRootUserId({ rootUserId: data.rootUserId }));
   } catch (error) {
     console.log(error);
     navigate("/");
