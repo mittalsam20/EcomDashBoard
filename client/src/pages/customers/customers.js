@@ -115,13 +115,28 @@ const getFilterListWithOptionsData = (props) => {
   ];
 };
 
+const initialFormData = {
+  fullName: "",
+  type: "Retail",
+  address: {
+    pinCode: "",
+    country: "India",
+    state: "",
+    city: "",
+    street1: "",
+    street2: "",
+  },
+  phoneNumber: "",
+};
+
 const Customers = () => {
   // const navigate = useNavigate();
   const dispatch = useDispatch();
   const customerFilters = useSelector((state) => state.global.customerFilters);
   const userId = useSelector((state) => state.global.rootUserId);
   const [customers, setCustomers] = useState([]);
-  const [showAddCustomerModal, setShowAddCustomerModal] = useState(false);
+  const [formData, setFormData] = useState(initialFormData);
+  const [customerModalData, setCustomerModalData] = useState(null);
 
   useEffect(() => {
     getAllCustomers({ userId }).then((response) => {
@@ -130,7 +145,7 @@ const Customers = () => {
   }, []);
 
   const onClickNewCustomer = () => {
-    setShowAddCustomerModal(true);
+    setCustomerModalData({ mode: "create" });
   };
 
   const handleCustomerFilters =
@@ -167,8 +182,6 @@ const Customers = () => {
         </Button>
       </div>
       {customers.length ? (
-        <EmptyState />
-      ) : (
         customers.map(
           ({
             _id,
@@ -191,16 +204,23 @@ const Customers = () => {
                 customerId={customerId}
                 phoneNumber={phoneNumber}
                 financialStatus={financialStatus}
+                setFormData={setFormData}
+                setCustomerModalData={setCustomerModalData}
               />
             );
           }
         )
+      ) : (
+        <EmptyState />
       )}
 
-      {showAddCustomerModal && (
+      {customerModalData && (
         <AddCustomer
-          showAddCustomerModal={showAddCustomerModal}
-          setShowAddCustomerModal={setShowAddCustomerModal}
+          formData={formData}
+          setFormData={setFormData}
+          initialFormData={initialFormData}
+          customerModalData={customerModalData}
+          setCustomerModalData={setCustomerModalData}
         />
       )}
     </Box>

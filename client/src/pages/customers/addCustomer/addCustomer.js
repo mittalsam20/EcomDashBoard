@@ -7,6 +7,7 @@ import axios from "axios";
 import {
   addNewCustomer,
   getAddressDetailsFromPinCode,
+  updateCustomer,
 } from "apiFunctions/apiFunctions";
 import { useSelector } from "react-redux";
 
@@ -116,20 +117,6 @@ const getFormInputProps = ({ formData }) => {
   ];
 };
 
-const initialFormData = {
-  fullName: "",
-  type: "Retail",
-  address: {
-    pinCode: "",
-    country: "India",
-    state: "",
-    city: "",
-    street1: "",
-    street2: "",
-  },
-  phoneNumber: "",
-};
-
 const ModalBody = (props) => {
   const { formInputProps, onChangeValue } = props;
   return (
@@ -180,11 +167,19 @@ const addressFormIds = [
 ];
 
 const AddCustomer = (props) => {
-  const { showAddCustomerModal, setShowAddCustomerModal } = props;
-  const [formData, setFormData] = useState(initialFormData);
+  const {
+    formData,
+    setFormData,
+    initialFormData,
+    customerModalData,
+    setCustomerModalData,
+  } = props;
   const rootUserId = useSelector((state) => state.global.rootUserId);
 
-  const title = "Add a new customer";
+  const { mode, customerId = "" } = customerModalData;
+  const title = mode === "create" ? "Add a new customer" : "Update Customer";
+  const primaryButtonText =
+    mode === "create" ? "Add Customer" : "Update Customer";
   const formInputProps = getFormInputProps({ formData });
 
   const onChangeValue =
@@ -218,11 +213,15 @@ const AddCustomer = (props) => {
     };
 
   const onClickPrimaryButton = () => {
-    addNewCustomer({ customerDetails: { ...formData, userId: rootUserId } });
+    if (mode === "create") {
+      addNewCustomer({ customerDetails: { ...formData, userId: rootUserId } });
+      return;
+    }
+    updateCustomer({ customerId, updatedCustomer: formData });
   };
 
   const onClose = () => {
-    setShowAddCustomerModal(false);
+    setCustomerModalData(null);
     setFormData(initialFormData);
   };
 
@@ -235,9 +234,9 @@ const AddCustomer = (props) => {
           formInputProps={formInputProps}
         />
       }
-      isOpen={showAddCustomerModal}
+      isOpen={!!customerModalData}
       secondaryButtonText={"Cancel"}
-      primaryButtonText={"Add Customer"}
+      primaryButtonText={primaryButtonText}
       onClose={onClose}
       onClickPrimaryButton={onClickPrimaryButton}
     />

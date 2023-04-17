@@ -1,8 +1,8 @@
 import express from "express";
 import {
   getProducts,
-  editCustomer,
   getGeography,
+  updateCustomer,
   createCustomer,
   deleteCustomer,
   getTransactions,
@@ -12,9 +12,9 @@ import {
 const router = express.Router();
 router
   .get("/customers/:userId", getAllCustomers)
-  .post("/customers", createCustomer)
-  .put("/customers/:id", editCustomer)
-  .delete("/customers/:id", deleteCustomer)
+  .post("/customer", createCustomer)
+  .put("/customer/:customerId", updateCustomer)
+  .delete("/customer/:customerId", deleteCustomer)
   .get("/products", getProducts)
   .get("/transactions", getTransactions)
   .get("/geography", getGeography);

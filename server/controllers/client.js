@@ -73,20 +73,22 @@ export const createCustomer = async (req, res) => {
   }
 };
 
-export const editCustomer = async (req, res) => {
+export const updateCustomer = async (req, res) => {
   try {
     const { updatedCustomer } = req.body;
-    const { id: customerId } = req.params;
+    const { customerId } = req.params;
     const selectedCustomer = await Customer.findOne({ _id: customerId });
     if (!selectedCustomer)
       res.status(400).json({ message: "CustomerId is not valid." });
-    selectedCustomer = updatedCustomer;
+    Object.keys(updatedCustomer).forEach((key) => {
+      selectedCustomer[key] = updatedCustomer[key];
+    });
     selectedCustomer
       .save()
       .then(() => res.status(200).json({ message: "Successful Updated..!!" }))
       .catch((error) => res.status(500).json(error));
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 };
 

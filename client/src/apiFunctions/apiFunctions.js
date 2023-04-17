@@ -22,7 +22,16 @@ export const checkUserAuthenticity = async ({
   }
 };
 
-export const getAllCustomersApi = async () => {
+export const getAddressDetailsFromPinCode = async ({ pinCode }) => {
+  const googleGeoCodingApi = `https://api.opencagedata.com/geocode/v1/json?key=${googleGeoCodingApiKey}&q=${pinCode}&pretty=1`;
+  const { data } = await axios.get(googleGeoCodingApi);
+  const lowestConfidenceResult = data.results.reduce((acc, result) =>
+    acc.confidence > result.confidence ? result : acc
+  );
+  const { country, state, city } = lowestConfidenceResult.components;
+  return { country, state, city };
+};
+
 export const getAllCustomers = async ({ userId }) => {
   try {
     const response = await axios.get(`${BASE_URL}/client/customers/${userId}`);
@@ -37,7 +46,7 @@ export const getAllCustomers = async ({ userId }) => {
 export const getSingleCustomer = async ({ customerId }) => {
   try {
     const response = await axios.get(
-      `${BASE_URL}/client/customers/:${customerId}`
+      `${BASE_URL}/client/customer/${customerId}`
     );
     const { data, status } = response;
     if (status !== 200) throw new Error("Server Error");
@@ -51,7 +60,7 @@ export const getSingleCustomer = async ({ customerId }) => {
 export const addNewCustomer = async ({ customerDetails }) => {
   try {
     const response = await axios.post(
-      `${BASE_URL}/client/customers`,
+      `${BASE_URL}/client/customer`,
       customerDetails
     );
     const { data, status } = response;
@@ -62,13 +71,15 @@ export const addNewCustomer = async ({ customerDetails }) => {
   }
 };
 
-export const editCustomer = async ({ customerId, updatedCustomer }) => {
+export const updateCustomer = async ({ customerId, updatedCustomer }) => {
   try {
     const response = await axios.put(
-      `${BASE_URL}/customers/edit/:${customerId}`,
-      updatedCustomer
+      `${BASE_URL}/client/customer/${customerId}`,
+      { updatedCustomer }
     );
-    return response;
+    const { data, status } = response;
+    if (status !== 200) throw new Error("Server Error");
+    return data;
   } catch (error) {
     console.log(error);
     return false;

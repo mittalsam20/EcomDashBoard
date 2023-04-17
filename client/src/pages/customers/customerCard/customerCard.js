@@ -37,7 +37,7 @@ const getActionButtons = ({
       fullWidth: true,
       size: "large",
       startIcon: <EditRoundedIcon />,
-      onClick: () => {},
+      onClick: onClickEdit,
     },
     {
       id: "DELETE",
@@ -80,12 +80,29 @@ const CustomerCard = (props) => {
     customerId,
     phoneNumber,
     financialStatus = "",
+    setFormData,
+    setCustomerModalData,
   } = props;
-  const { street1, street2, city, state, country } = address;
+  const { street1, street2, city, state, country, pinCode } = address;
   const totalOrderByCustomer = orders.length;
   const fullNameInitials = getInitialsFromFullName({ fullName });
 
-  const onClickEdit = ({}) => {};
+  const onClickEdit = () => {
+    setFormData({
+      fullName,
+      type,
+      address: {
+        pinCode,
+        country,
+        state,
+        city,
+        street1,
+        street2,
+      },
+      phoneNumber,
+    });
+    setCustomerModalData({ mode: "edit", customerId: id });
+  };
   const onClickDelete = ({}) => {};
   const onClickPrintAddress = ({}) => {};
   const onClickPrintInvoice = ({}) => {};
