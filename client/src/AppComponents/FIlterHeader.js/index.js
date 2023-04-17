@@ -1,2 +1,2 @@
-import comp from "./";
+import comp from "./FilterHeader";
 export default comp;
