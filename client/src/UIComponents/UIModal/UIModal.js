@@ -1,7 +1,7 @@
 import React from "react";
 
 import Slide from "@mui/material/Slide";
-import Button from "@mui/material/Button";
+import { Button } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
@@ -12,6 +12,31 @@ import { useTheme } from "@emotion/react";
 const Transition = React.forwardRef((props, ref) => (
   <Slide direction="up" ref={ref} {...props} />
 ));
+
+const getActionButtons = ({
+  primaryButtonText,
+  secondaryButtonText,
+  primaryButtonAction,
+  secondaryButtonAction,
+}) => {
+  return [
+    {
+      key: "SECONDARY_BUTTON",
+      size: "large",
+      color: "error",
+      variant: "outlined",
+      text: secondaryButtonText,
+      onClick: secondaryButtonAction,
+    },
+    {
+      key: "PRIMARY_BUTTON",
+      size: "large",
+      variant: "contained",
+      text: primaryButtonText,
+      onClick: primaryButtonAction,
+    },
+  ];
+};
 
 const UIModal = (props) => {
   const {
@@ -37,6 +62,13 @@ const UIModal = (props) => {
     onClose();
   };
 
+  const actionButtons = getActionButtons({
+    primaryButtonText,
+    secondaryButtonText,
+    primaryButtonAction,
+    secondaryButtonAction,
+  });
+
   return (
     <Dialog
       open={isOpen}
@@ -57,8 +89,9 @@ const UIModal = (props) => {
         {body}
       </DialogContent>
       <DialogActions style={{ borderTop: "1px solid gray" }}>
-        <Button onClick={secondaryButtonAction}>{secondaryButtonText}</Button>
-        <Button onClick={primaryButtonAction}>{primaryButtonText}</Button>
+        {actionButtons.map(({ text, ...restProps }) => (
+          <Button {...restProps}>{text}</Button>
+        ))}
       </DialogActions>
     </Dialog>
   );

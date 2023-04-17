@@ -39,7 +39,9 @@ export const getAllCustomersApi = async () => {
 
 export const getSingleCustomer = async ({ customerId }) => {
   try {
-    const response = await axios.get(`${BASE_URL}/customers/:${customerId}`);
+    const response = await axios.get(
+      `${BASE_URL}/client/customers/:${customerId}`
+    );
     const { data, status } = response;
     return data;
   } catch (error) {
@@ -50,7 +52,7 @@ export const getSingleCustomer = async ({ customerId }) => {
 export const addNewCustomer = async ({ customerDetails }) => {
   try {
     const response = await axios.post(
-      `${BASE_URL}/customers/create`,
+      `${BASE_URL}/client/customers`,
       customerDetails
     );
     const { data, status } = response;

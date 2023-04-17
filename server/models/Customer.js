@@ -8,7 +8,6 @@ const CustomerSchema = new mongoose.Schema(
     },
     customerId: {
       type: Number,
-      required: true,
     },
     type: {
       type: String,

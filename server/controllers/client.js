@@ -37,37 +37,29 @@ export const getAllCustomers = async (req, res) => {
 
 export const createCustomer = async (req, res) => {
   try {
-    const {
-      userId,
-      address,
-      lastName,
-      firstName,
-      phoneNumber,
-      customerFinanceStatus,
-    } = req.body;
+    const { userId, type, fullName, address, phoneNumber } = req.body;
     const { street1, street2, city, state, country, pinCode } = address;
-    const { status, amount } = customerFinanceStatus;
-
+    console.log(address);
     if (
-      !userId ||
-      !firstName ||
-      !lastName ||
-      !phoneNumber ||
-      !street1 ||
       !city ||
       !state ||
-      !pinCode
+      !userId ||
+      !pinCode ||
+      !street1 ||
+      !fullName ||
+      !phoneNumber
     ) {
-      res.status(400).json({ message: "Please fill all details of customer" });
+      return res
+        .status(400)
+        .json({ message: "Please fill all details of customer" });
     }
 
     const newCustomer = new Customer({
+      type,
       userId,
-      lastName,
-      firstName,
       address,
+      fullName,
       phoneNumber,
-      customerFinanceStatus,
     });
     newCustomer
       .save()

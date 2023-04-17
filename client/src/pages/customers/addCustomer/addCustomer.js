@@ -3,6 +3,12 @@ import React, { useState } from "react";
 import "./addCustomer.scss";
 import UIModal from "UIComponents/UIModal/UIModal";
 import { InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import axios from "axios";
+import {
+  addNewCustomer,
+  getAddressDetailsFromPinCode,
+} from "apiFunctions/apiFunctions";
+import { useSelector } from "react-redux";
 
 const commonInputProps = {
   // margin: "normal",
@@ -54,31 +60,39 @@ const getFormInputProps = ({ formData }) => {
       ...commonInputProps,
     },
     {
-      id: "country",
-      type: "dropdown",
-      value: country,
-      label: "Country",
-      ...commonInputProps,
-    },
-    {
       id: "pinCode",
-      type: "number",
+      type: "text",
       value: pinCode,
       label: "PinCode",
+      placeholder: "PinCode",
+      name: "PinCode",
       ...commonInputProps,
     },
     {
-      id: "State",
-      type: "dropdown",
+      id: "country",
+      type: "text",
+      value: country,
+      label: "Country",
+      placeholder: "PinCode",
+      name: "PinCode",
+      ...commonInputProps,
+    },
+    {
+      id: "state",
+      type: "text",
       value: state,
       label: "State",
+      placeholder: "PinCode",
+      name: "PinCode",
       ...commonInputProps,
     },
     {
       id: "city",
-      type: "dropdown",
+      type: "text",
       value: city,
       label: "City",
+      placeholder: "PinCode",
+      name: "PinCode",
       ...commonInputProps,
     },
     {
@@ -168,6 +182,7 @@ const addressFormIds = [
 const AddCustomer = (props) => {
   const { showAddCustomerModal, setShowAddCustomerModal } = props;
   const [formData, setFormData] = useState(initialFormData);
+  const rootUserId = useSelector((state) => state.global.rootUserId);
 
   const title = "Add a new customer";
   const formInputProps = getFormInputProps({ formData });
@@ -177,6 +192,22 @@ const AddCustomer = (props) => {
     (event) => {
       const value = event.target.value;
       if (addressFormIds.includes(id)) {
+        // if (id === "pinCode" && value.length === 6) {
+        //   const { country, state, city } = getAddressDetailsFromPinCode({
+        //     pinCode: value,
+        //   });
+        //   setFormData((prevState) => ({
+        //     ...prevState,
+        //     address: {
+        //       ...prevState.address,
+        //       [id]: value,
+        //       country,
+        //       state,
+        //       city,
+        //     },
+        //   }));
+        //   return;
+        // }
         setFormData((prevState) => ({
           ...prevState,
           address: { ...prevState.address, [id]: value },
@@ -186,7 +217,10 @@ const AddCustomer = (props) => {
       setFormData((prevState) => ({ ...prevState, [id]: value }));
     };
 
-  const onClickPrimaryButton = () => {};
+  const onClickPrimaryButton = () => {
+    console.log(formData, rootUserId);
+    addNewCustomer({ customerDetails: { ...formData, userId: rootUserId } });
+  };
 
   const onClose = () => {
     setShowAddCustomerModal(false);

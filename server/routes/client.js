@@ -1,12 +1,12 @@
 import express from "express";
 import {
   getProducts,
-  getAllCustomers,
-  createCustomer,
   editCustomer,
-  deleteCustomer,
   getGeography,
+  createCustomer,
+  deleteCustomer,
   getTransactions,
+  getAllCustomers,
 } from "../controllers/client.js";
 
 const router = express.Router();
