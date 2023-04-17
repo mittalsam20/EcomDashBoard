@@ -1,5 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 
 import { Box, Button } from "@mui/material";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
@@ -7,15 +6,14 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import { setCustomerFilters } from "state";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  getAllCustomers,
-  checkUserAuthenticity,
-} from "apiFunctions/apiFunctions";
+import { getAllCustomers } from "apiFunctions/apiFunctions";
 
 import "./customers.scss";
 import AddCustomer from "./addCustomer";
 import CustomerCard from "./customerCard";
 import FilterHeader from "AppComponents/FIlterHeader.js";
+import withAuth from "HOC/withAuth";
+import EmptyState from "UIComponents/EmptyState/EmptyState";
 
 const getFilterListWithOptionsData = (props) => {
   const { selectedFilters, handleFilters, customers } = props;
@@ -118,17 +116,12 @@ const getFilterListWithOptionsData = (props) => {
 };
 
 const Customers = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
   const customerFilters = useSelector((state) => state.global.customerFilters);
   const userId = useSelector((state) => state.global.rootUserId);
-
   const [customers, setCustomers] = useState([]);
   const [showAddCustomerModal, setShowAddCustomerModal] = useState(false);
-
-  useLayoutEffect(() => {
-    checkUserAuthenticity({ dispatch, navigate });
-  }, []);
 
   useEffect(() => {
     getAllCustomers({ userId }).then((response) => {
@@ -153,6 +146,7 @@ const Customers = () => {
     selectedFilters: customerFilters,
     handleFilters: handleCustomerFilters,
   });
+
   return (
     <Box mt={"40px"} height={"75vh"}>
       <div className={"filterHeaderContainer"}>
@@ -209,4 +203,4 @@ const Customers = () => {
   );
 };
 
-export default Customers;
+export default withAuth(Customers);
