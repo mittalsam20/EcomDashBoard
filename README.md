@@ -16,12 +16,12 @@
 - [x] customers card page
 - [x] cols:- name, avatar, city state country, phone number, total income, last transaction
 - [x] actions:- edit, delete and add to print spool
-- [ ] create option:- opens modal
-- [ ] filters:- search, filter and sort
+- [x] create option:- opens modal
+- [x] filters:- search, filter and sort
 
-  - [ ] multipurpose live search for name, phone number, address string
-  - [ ] filter
-    - [ ] state city
+  - [x] multipurpose live search for name, phone number, address string
+  - [x] filter
+    - [x] state city
   - [ ] sort:- most valued customer && all time 52 weeks, alphabetically, most recent transaction
 
   ***
@@ -40,8 +40,8 @@
 
   ***
 
-- [ ] orders/transaction page
-- [ ] create button on top open modal with all info and current date but no time
+- [x] orders/transaction page
+- [x] create button on top open modal with all info and current date but no time
 - [ ] name date+time amount payment mode status (actions is edit only)
   - [ ] status:- noItemsYet notPaid paymentAfter/To be packed To be packed packed dispatched return
 - [ ] search sort filter
