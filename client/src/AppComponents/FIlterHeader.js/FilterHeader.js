@@ -2,12 +2,12 @@ import React from "react";
 
 import {
   Box,
+  Select,
+  MenuItem,
   Checkbox,
   InputLabel,
   ListItemText,
-  MenuItem,
   OutlinedInput,
-  Select,
 } from "@mui/material";
 
 import "./FilterHeader.scss";
@@ -94,18 +94,7 @@ const getDropdownsComponent = ({ filterListWithOptionsData }) => {
 };
 
 const FilterHeader = (props) => {
-  const {
-    updateFilters,
-    selectedFilters,
-    showSearchBar = true,
-    filterListWithOptionsData,
-  } = props;
-
-  const handleFilters =
-    ({ name }) =>
-    (event) => {
-      updateFilters({ [name]: event.key ?? event });
-    };
+  const { showSearchBar = true, filterListWithOptionsData } = props;
 
   return (
     <Box className={"filterContainer"}>
