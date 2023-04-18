@@ -175,7 +175,7 @@ const initialFormData = {
   paid: "Not Paid",
   status: "Order Taken",
   amountPaid: 0,
-  modeOfPayment: "Gpay",
+  paymentMode: "Gpay",
   date: new Date(),
 };
 
@@ -188,10 +188,10 @@ const Transactions = () => {
   const userId = useSelector((state) => state.global.rootUserId);
 
   const { page, pageSize, sort } = transactionFilters;
-  const { data, isLoading } = useGetTransactionsQuery({
-    ...transactionFilters,
-    sort: JSON.stringify(sort),
-  });
+  //   const { data, isLoading } = useGetTransactionsQuery({
+  //     ...transactionFilters,
+  //     sort: JSON.stringify(sort),
+  //   });
 
   const [customers, setCustomers] = useState([]);
   const [formData, setFormData] = useState(initialFormData);
@@ -209,7 +209,6 @@ const Transactions = () => {
     ({ name }) =>
     (event) => {
       const value = event.target.value;
-      console.log(event, value);
       dispatch(setTransactionFilters({ name, value }));
     };
 

@@ -104,7 +104,7 @@ export const deleteCustomer = async ({ customerId }) => {
 export const getAllTransactions = async ({ userId, customerId }) => {
   try {
     const response = await axios.get(
-      `${BASE_URL}/client/transactions/${userId}/${customerId}`
+      `${BASE_URL}/client/transactions/${userId}`
     );
     const { data, status } = response;
     if (status !== 200) throw new Error("Server Error");
@@ -116,6 +116,7 @@ export const getAllTransactions = async ({ userId, customerId }) => {
 
 export const createTransaction = async ({ transactionDetails }) => {
   try {
+    console.log(transactionDetails);
     const response = await axios.post(
       `${BASE_URL}/client/transaction`,
       transactionDetails

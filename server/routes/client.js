@@ -19,8 +19,8 @@ router
   .put("/customer/:customerId", updateCustomer)
   .delete("/customer/:customerId", deleteCustomer)
 
-  .get("/transactions/:userId/:customerId", getAllTransactions)
-  .put("/transaction", createTransaction)
+  .get("/transactions/:userId", getAllTransactions)
+  .post("/transaction", createTransaction)
   .put("/transaction/:transactionId", updateTransaction)
   .delete("/customer/:transactionId", deleteTransaction)
 

@@ -30,7 +30,7 @@ export const getAllCustomers = async (req, res) => {
         .status(400)
         .json({ message: "Server cannot detect a valid userID" });
 
-    const customers = await Customer.find({ userId });
+    const customers = await Customer.find({ userId }).populate("orders");
     res.status(200).json({ message: "Successful", customers });
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -114,22 +114,28 @@ const generateSort = ({ sort }) => {
 
 export const getAllTransactions = async (req, res) => {
   try {
-    const { page = 1, pageSize = 20, sort = null, search = "" } = req.query;
-    const sortFormatted = Boolean(sort) ? generateSort({ sort }) : {};
-    const transactions = await Transaction.find({
-      $or: [
-        { cost: { $regex: new RegExp(search, "i") } },
-        { userId: { $regex: new RegExp(search, "i") } },
-      ],
-    })
-      .sort(sortFormatted)
-      .skip(page * pageSize)
-      .limit(pageSize);
+    const { userId } = req.params;
+    const transactions = await Transaction.find({ userId }).populate(
+      "customer"
+    );
+    // const { page = 1, pageSize = 20, sort = null, search = "" } = req.query;
+    // const sortFormatted = Boolean(sort) ? generateSort({ sort }) : {};
 
-    const numberOfTransactions = await Transaction.countDocuments({
-      name: [{ $regex: search, $options: "i" }],
-    });
-    res.status(200).json({ transactions, numberOfTransactions });
+    // const transactions = await Transaction.find({
+    //   $or: [
+    //     { cost: { $regex: new RegExp(search, "i") } },
+    //     { userId: { $regex: new RegExp(search, "i") } },
+    //   ],
+    // })
+    //   .sort(sortFormatted)
+    //   .skip(page * pageSize)
+    //   .limit(pageSize);
+
+    // const numberOfTransactions = await Transaction.countDocuments({
+    //   name: [{ $regex: search, $options: "i" }],
+    // });
+
+    res.status(200).json({ transactions });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -152,25 +158,40 @@ export const createTransaction = async (req, res) => {
       !userId ||
       !customer ||
       !orderAmount ||
-      !status ||
-      !amountPaid ||
-      !date ||
       !paid ||
+      !status ||
+      // !Number(amountPaid) ||
+      !date ||
       !paymentMode
     ) {
       return res.status(400).json({ message: "Please fill in all details" });
     }
 
+    const completed =
+      paid === "Paid" && (status === "Dispatched" || status === "Delivered");
+
     const newTransaction = new Transaction({
-      type,
       userId,
-      address,
-      fullName,
-      phoneNumber,
+      customer,
+      orderAmount,
+      paid,
+      status,
+      completed,
+      amountPaid,
+      date,
+      paymentMode,
     });
+
     newTransaction
       .save()
-      .then(() => res.status(200).json({ message: "Added Successfully..!!" }))
+      .then(async () => {
+        await Customer.findOneAndUpdate(
+          { _id: customer },
+          { $push: { orders: newTransaction } }
+        );
+
+        res.status(200).json({ message: "Added Successfully..!!" });
+      })
       .catch((error) => res.status(500).json(error));
   } catch (error) {
     res.status(404).json({ message: error.message });
