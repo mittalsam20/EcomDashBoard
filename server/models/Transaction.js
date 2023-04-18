@@ -6,7 +6,7 @@ const TransactionSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    customerDetails: {
+    customer: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Customer",
       required: true,
@@ -15,10 +15,15 @@ const TransactionSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    paid: {
+      type: String,
+      required: true,
+      default: "Paid",
+    },
     status: {
       type: String,
       required: true,
-      default: "Payment Received/ Order Not Packed",
+      default: "Order Taken",
     },
     completed: {
       type: Boolean,

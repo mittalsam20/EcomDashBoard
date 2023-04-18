@@ -139,24 +139,24 @@ export const createTransaction = async (req, res) => {
   try {
     const {
       userId,
-      customerId,
+      customer,
       orderAmount,
+      paid,
       status,
       amountPaid,
       date,
       paymentMode,
-      products,
     } = req.body;
 
     if (
       !userId ||
-      !customerId ||
+      !customer ||
       !orderAmount ||
       !status ||
       !amountPaid ||
       !date ||
-      !paymentMode ||
-      !products
+      !paid ||
+      !paymentMode
     ) {
       return res.status(400).json({ message: "Please fill in all details" });
     }

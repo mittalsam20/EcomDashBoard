@@ -45,6 +45,7 @@ const UIModal = (props) => {
     isOpen,
     onClose,
     primaryButtonText,
+    footerLeftSubtitle = null,
     secondaryButtonText,
     onClickPrimaryButton,
     onClickSecondaryButton = () => {},
@@ -88,10 +89,22 @@ const UIModal = (props) => {
       <DialogContent style={{ margin: "28px 0", padding: "0 28px" }}>
         {body}
       </DialogContent>
-      <DialogActions style={{ borderTop: "1px solid gray" }}>
-        {actionButtons.map(({ text, ...restProps }) => (
-          <Button {...restProps}>{text}</Button>
-        ))}
+      <DialogActions
+        style={{
+          display: "flex",
+          padding: "20px",
+          borderTop: "1px solid gray",
+          justifyContent: "space-between",
+        }}
+      >
+        <Typography variant="h5" color={theme.palette.secondary[100]}>
+          {footerLeftSubtitle && footerLeftSubtitle}
+        </Typography>
+        <div style={{ display: "flex", gap: "20px" }}>
+          {actionButtons.map(({ text, ...restProps }) => (
+            <Button {...restProps}>{text}</Button>
+          ))}
+        </div>
       </DialogActions>
     </Dialog>
   );

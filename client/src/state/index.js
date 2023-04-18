@@ -10,11 +10,12 @@ const initialCustomerFilters = {
 };
 const initialTransactionFilters = {
   skip: 0,
-  sortBy: { name: 1 },
-  pageSize: "",
+  pageSize: 30,
   searchText: "",
+  sortBy: { name: 1 },
+  paidFilter: "ALL",
   statusFilter: "ALL",
-  // dateRangeFilter: {},
+  isCompleted: false,
   modeOfPaymentFilter: "ALL",
 };
 

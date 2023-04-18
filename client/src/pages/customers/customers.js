@@ -17,7 +17,7 @@ import EmptyState from "UIComponents/EmptyState/EmptyState";
 
 const getFilterListWithOptionsData = (props) => {
   const { selectedFilters, handleFilters, customers } = props;
-  const statesMenuOption = customers.map(
+  const statesMenuOptionObject = customers.reduce(
     (acc, { address: { state } }) => {
       const { statesArray, statesMenuOption } = acc;
       if (!statesArray.includes(state)) {
@@ -31,10 +31,9 @@ const getFilterListWithOptionsData = (props) => {
     },
     {
       statesArray: [],
-      statesMenuOption: [],
+      statesMenuOption: [{ id: "ALL", value: "ALL", menuOptionLabel: "ALL" }],
     }
   );
-  // console.log(statesMenuOption);
   return [
     {
       id: "SORT_BY",
@@ -70,48 +69,48 @@ const getFilterListWithOptionsData = (props) => {
         },
       ],
     },
-    // {
-    //   id: "STATE_FILTER",
-    //   type: "dropdown",
-    //   label: "State",
-    //   selectedValue: selectedFilters.stateFilter,
-    //   onChange: handleFilters({ name: "stateFilter" }),
-    //   menuItems: statesMenuOption,
-    // },
-    // {
-    //   id: "STATUS_FILTER",
-    //   type: "dropdown",
-    //   label: "Status",
-    //   selectedValue: selectedFilters.stateFilter,
-    //   onChange: handleFilters({ name: "statusFilter" }),
-    //   menuItems: [
-    //     {
-    //       id: "SALES_AMOUNT_ASC",
-    //       value: { totalValue: 1 },
-    //       menuOptionLabel: "Sales Amount",
-    //     },
-    //     {
-    //       id: "SALES_AMOUNT_DSC",
-    //       value: { totalValue: -1 },
-    //       menuOptionLabel: "Sales Amount",
-    //     },
-    //     {
-    //       id: "NAME_ASC",
-    //       value: { name: 1 },
-    //       menuOptionLabel: "Name",
-    //     },
-    //     {
-    //       id: "NAME_DSC",
-    //       value: { name: -1 },
-    //       menuOptionLabel: "Name",
-    //     },
-    //     {
-    //       id: "LAST_ORDER_TIME",
-    //       value: { lastOrderTime: 1 },
-    //       menuOptionLabel: "Order Time",
-    //     },
-    //   ],
-    // },
+    {
+      id: "STATE_FILTER",
+      type: "dropdown",
+      label: "State",
+      selectedValue: selectedFilters.stateFilter,
+      onChange: handleFilters({ name: "stateFilter" }),
+      menuItems: statesMenuOptionObject.statesMenuOption,
+    },
+    {
+      id: "STATUS_FILTER",
+      type: "dropdown",
+      label: "Status",
+      selectedValue: selectedFilters.stateFilter,
+      onChange: handleFilters({ name: "statusFilter" }),
+      menuItems: [
+        {
+          id: "SALES_AMOUNT_ASC",
+          value: { totalValue: 1 },
+          menuOptionLabel: "Sales Amount",
+        },
+        {
+          id: "SALES_AMOUNT_DSC",
+          value: { totalValue: -1 },
+          menuOptionLabel: "Sales Amount",
+        },
+        {
+          id: "NAME_ASC",
+          value: { name: 1 },
+          menuOptionLabel: "Name",
+        },
+        {
+          id: "NAME_DSC",
+          value: { name: -1 },
+          menuOptionLabel: "Name",
+        },
+        {
+          id: "LAST_ORDER_TIME",
+          value: { lastOrderTime: 1 },
+          menuOptionLabel: "Order Time",
+        },
+      ],
+    },
   ];
 };
 
@@ -130,7 +129,6 @@ const initialFormData = {
 };
 
 const Customers = () => {
-  // const navigate = useNavigate();
   const dispatch = useDispatch();
   const customerFilters = useSelector((state) => state.global.customerFilters);
   const userId = useSelector((state) => state.global.rootUserId);
@@ -142,6 +140,7 @@ const Customers = () => {
     getAllCustomers({ userId }).then((response) => {
       setCustomers(response);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onClickNewCustomer = () => {
@@ -157,7 +156,7 @@ const Customers = () => {
     };
 
   const filterListWithOptionsData = getFilterListWithOptionsData({
-    customers: [],
+    customers,
     selectedFilters: customerFilters,
     handleFilters: handleCustomerFilters,
   });
@@ -165,11 +164,7 @@ const Customers = () => {
   return (
     <Box mt={"40px"} height={"75vh"}>
       <div className={"filterHeaderContainer"}>
-        <FilterHeader
-          selectedFilters={customerFilters}
-          updateFilters={setCustomerFilters}
-          filterListWithOptionsData={filterListWithOptionsData}
-        />
+        <FilterHeader filterListWithOptionsData={filterListWithOptionsData} />
         <Button
           // fullWidth={true}
           variant={"contained"}
