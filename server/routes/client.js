@@ -22,7 +22,7 @@ router
   .get("/transactions/:userId", getAllTransactions)
   .post("/transaction", createTransaction)
   .put("/transaction/:transactionId", updateTransaction)
-  .delete("/customer/:transactionId", deleteTransaction)
+  .delete("/transaction/:transactionId", deleteTransaction)
 
   .get("/products", getProducts)
   .get("/geography", getGeography);

@@ -296,61 +296,6 @@ const Transactions = () => {
   //   sort: JSON.stringify(sort),
   // });
 
-  const abc = {
-    _id: "643eed589fac99f006eacd96",
-    userId: "6437cb483e930530fdbb7eb2",
-    customer: {
-      address: {
-        street1: "A 1204 . Western Avenue",
-        street2: "Kolte patil Project, Behind Jaguar showroom, Wakad",
-        city: "Pune",
-        state: "Maharashtra",
-        country: "India",
-        pinCode: "411057",
-      },
-      _id: "643ce286a2683af33ffb4397",
-      userId: "6437cb483e930530fdbb7eb2",
-      type: "Retail",
-      fullName: "Shrusti Deshmukh",
-      phoneNumber: " 9422425491",
-      orders: [
-        "643ef35f3be4c203bbb504bf",
-        "643ef42b3be4c203bbb504c6",
-        "643f0385ee01dd8d22a24a3a",
-      ],
-      createdAt: "2023-04-17T06:09:10.682Z",
-      updatedAt: "2023-04-18T20:54:29.256Z",
-      customerId: 10,
-      __v: 0,
-    },
-    orderAmount: 2500,
-    paid: "Paid",
-    status: "Delivered",
-    completed: true,
-    amountPaid: 2500,
-    date: "2023-04-20T00:00:00.000Z",
-    paymentMode: "Gpay",
-    products: [],
-  };
-
-  // const a = {
-  //   customer: {
-  //     // fullName,
-  //     type,
-  //     customerId,
-  //     // phoneNumber,
-  //     // address: { city, state },
-  //   },
-  //   // orderAmount,
-  //   paid,
-  //   // status,
-  //   completed,
-  //   // amountPaid,
-  //   // date,
-  //   paymentMode,
-  //   products,
-  // };
-
   const [isLoading, setIsLoading] = useState(true);
   const [transactions, setTransactions] = useState([]);
   const [customers, setCustomers] = useState([]);
@@ -372,6 +317,15 @@ const Transactions = () => {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const onClickDeleteIcon = ({ transactionId }) => {
+    deleteTransaction({ transactionId });
+  };
+
+  const columns = getColumns({
+    onClickEditIcon,
+    onClickDeleteIcon,
+  });
 
   const dataGridCustomStyles = getDataGridCustomStyles({ theme });
   const handleTransactionFilters =
