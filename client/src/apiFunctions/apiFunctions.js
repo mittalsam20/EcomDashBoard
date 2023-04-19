@@ -101,14 +101,14 @@ export const deleteCustomer = async ({ customerId }) => {
   }
 };
 
-export const getAllTransactions = async ({ userId, customerId }) => {
+export const getAllTransactions = async ({ userId }) => {
   try {
     const response = await axios.get(
       `${BASE_URL}/client/transactions/${userId}`
     );
     const { data, status } = response;
     if (status !== 200) throw new Error("Server Error");
-    return data.customers;
+    return data.transactions;
   } catch (error) {
     console.log(error);
   }
