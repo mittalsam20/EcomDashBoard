@@ -83,3 +83,17 @@ export const getRandomColorFromString = ({ string }) => {
 
   return color;
 };
+
+export const getFormattedDate = ({ date }) => {
+  const dateObject = new Date(date);
+  const today = new Date();
+  const options = {
+    day: "numeric",
+    month: "short",
+    year:
+      today.getFullYear() !== dateObject.getFullYear() ? "2-digit" : undefined,
+  };
+
+  const formattedDate = dateObject.toLocaleDateString("en-US", options);
+  return formattedDate;
+};
