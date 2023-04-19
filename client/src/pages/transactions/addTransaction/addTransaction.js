@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import "./addTransaction.scss";
 import UIModal from "UIComponents/UIModal/UIModal";
@@ -9,7 +9,10 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { addNewCustomer, updateCustomer } from "apiFunctions/apiFunctions";
+import {
+  updateTransaction,
+  createTransaction,
+} from "apiFunctions/apiFunctions";
 import { useSelector } from "react-redux";
 
 const commonInputProps = {
@@ -19,17 +22,8 @@ const commonInputProps = {
 };
 
 const getFormInputProps = ({ customers, formData }) => {
-  const {
-    customer,
-    orderAmount,
-    paid,
-    status,
-    amountPaid,
-    modeOfPayment,
-    date,
-  } = formData;
+  const { orderAmount, paid, status, amountPaid, paymentMode, date } = formData;
 
-  //   renderInput={(params) => <TextField {...params} label="Movie" />}
   const formattedCustomers = customers.map(({ _id, fullName }) => ({
     id: _id,
     label: fullName,
@@ -39,7 +33,6 @@ const getFormInputProps = ({ customers, formData }) => {
       id: "customer",
       type: "autoComplete",
       disablePortal: true,
-      //   value: customer,
       menuItems: formattedCustomers,
       placeholder: "Customer Name",
       label: "Customer Name",
@@ -47,43 +40,11 @@ const getFormInputProps = ({ customers, formData }) => {
       autoFocus: true,
       ...commonInputProps,
     },
+
     {
-      id: "orderAmount",
-      type: "number",
-      value: orderAmount,
-      placeholder: "Order Amount",
-      label: "Order Amount",
-      name: "orderAmount",
-      ...commonInputProps,
-    },
-    {
-      id: "paid",
+      id: "paymentMode",
       type: "dropdown",
-      value: paid,
-      label: "Payment Status",
-      menuItems: [
-        {
-          id: "PAID",
-          value: "Paid",
-          menuOptionLabel: "Paid",
-        },
-        {
-          id: "NOT_PAID",
-          value: "Not Paid",
-          menuOptionLabel: "Not Paid",
-        },
-        {
-          id: "PARTIAL",
-          value: "Partial",
-          menuOptionLabel: "Partial",
-        },
-      ],
-      ...commonInputProps,
-    },
-    {
-      id: "modeOfPayment",
-      type: "dropdown",
-      value: modeOfPayment,
+      value: paymentMode,
       label: "Payment Mode",
       menuItems: [
         {
@@ -110,9 +71,43 @@ const getFormInputProps = ({ customers, formData }) => {
       ...commonInputProps,
     },
     {
+      id: "orderAmount",
+      type: "number",
+      value: orderAmount,
+      placeholder: "Order Amount",
+      label: "Order Amount",
+      name: "orderAmount",
+      ...commonInputProps,
+    },
+    {
+      id: "paid",
+      type: "dropdown",
+      value: paid,
+      label: "Payment Status",
+      disabled: paymentMode === "COD",
+      menuItems: [
+        {
+          id: "PAID",
+          value: "Paid",
+          menuOptionLabel: "Paid",
+        },
+        {
+          id: "NOT_PAID",
+          value: "Not Paid",
+          menuOptionLabel: "Not Paid",
+        },
+        {
+          id: "PARTIAL",
+          value: "Partial",
+          menuOptionLabel: "Partial",
+        },
+      ],
+      ...commonInputProps,
+    },
+    {
       id: "amountPaid",
       type: "number",
-      show: paid === "Partial",
+      disabled: paymentMode === "COD" || paid !== "Partial",
       value: amountPaid,
       label: "Amount Paid",
       placeholder: "Amount Paid",
@@ -161,7 +156,7 @@ const getFormInputProps = ({ customers, formData }) => {
 };
 
 const ModalBody = (props) => {
-  const { formData, formInputProps, onChangeValue } = props;
+  const { formInputProps, onChangeValue } = props;
   return (
     <div className={"bodyContainer"}>
       {formInputProps.map(
@@ -188,8 +183,8 @@ const ModalBody = (props) => {
                   <Autocomplete
                     {...restProps}
                     disablePortal
+                    onChange={onChangeValue({ id })}
                     options={menuItems}
-                    onChange={(e) => console.log(e.target.value)}
                     renderInput={(params) => (
                       <TextField {...params} label={label} />
                     )}
@@ -215,10 +210,10 @@ const ModalBody = (props) => {
 const AddTransaction = (props) => {
   const {
     formData,
-    setFormData,
     customers,
-    initialFormData,
+    setFormData,
     orderModalData,
+    initialFormData,
     setOrderModalData,
   } = props;
 
@@ -235,20 +230,34 @@ const AddTransaction = (props) => {
     orderAmount !== amountPaid &&
     `Amount left to be paid: ${orderAmount - amountPaid}`;
 
+  useEffect(() => {}, [formData]);
   const onChangeValue =
     ({ id }) =>
-    (event) => {
+    (event, valueProp) => {
       const value = event.target.value;
-      console.log(event, value);
-      setFormData((prevState) => ({ ...prevState, [id]: value }));
+      let updatedState = { [id]: value };
+      if (id === "customer") {
+        updatedState = { [id]: valueProp.id };
+      } else if (id === "paymentMode" && value === "COD") {
+        updatedState = { ...updatedState, paid: "Not Paid", amountPaid: 0 };
+      } else if (id === "paid") {
+        if (value === "Paid")
+          updatedState = { ...updatedState, amountPaid: orderAmount };
+        else if (value === "Not Paid")
+          updatedState = { ...updatedState, amountPaid: 0 };
+      }
+
+      setFormData((prevState) => ({ ...prevState, ...updatedState }));
     };
 
-  const onClickPrimaryButton = () => {
+  const onClickAddOrder = () => {
     if (mode === "create") {
-      addNewCustomer({ customerDetails: { ...formData, userId: rootUserId } });
+      createTransaction({
+        transactionDetails: { ...formData, userId: rootUserId },
+      });
       return;
     }
-    updateCustomer({ OrderId, updatedCustomer: formData });
+    createTransaction({ OrderId, updatedCustomer: formData });
   };
 
   const onClose = () => {
@@ -270,7 +279,7 @@ const AddTransaction = (props) => {
       secondaryButtonText={"Cancel"}
       primaryButtonText={primaryButtonText}
       onClose={onClose}
-      onClickPrimaryButton={onClickPrimaryButton}
+      onClickPrimaryButton={onClickAddOrder}
       footerLeftSubtitle={amountLeftToBePaid}
     />
   );

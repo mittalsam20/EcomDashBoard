@@ -14,24 +14,127 @@ import { setTransactionFilters } from "state";
 import { useGetTransactionsQuery } from "state/api";
 import { useDispatch, useSelector } from "react-redux";
 import AddTransaction from "./addTransaction/addTransaction";
-import { getAllCustomers } from "apiFunctions/apiFunctions";
+import { getAllCustomers, getAllTransactions } from "apiFunctions/apiFunctions";
+import { getFormattedDate } from "utils/helperFunctions";
+
+const getCellData =
+  ({ columnName }) =>
+  (params) => {
+    const { id: transactionId, value, row } = params;
+    const {
+      fullName,
+      phoneNumber,
+      address: { city, state },
+    } = row.customer;
+    const { orderAmount, amountPaid } = row;
+
+    console.log(columnName, params);
+    switch (columnName) {
+      case "orderNumber": {
+        return <>{`#${value}`}</>;
+      }
+      case "date": {
+        const formattedDate = getFormattedDate({ date: value });
+        return <>{formattedDate}</>;
+      }
+      case "customerFullName": {
+        return (
+          <div>
+            <p>{fullName}</p>
+            <p>{phoneNumber}</p>
+          </div>
+        );
+      }
+      case "destination": {
+        return <>{`${city}, ${state}`}</>;
+      }
+      case "orderAmount": {
+        return <>{value}</>;
+      }
+      case "pendingAmount": {
+        const pendingAmount = orderAmount - amountPaid;
+        const notPaid = amountPaid == 0;
+        console.log(notPaid, orderAmount, amountPaid);
+        return pendingAmount ? (
+          notPaid ? (
+            <div>{"Cross"}</div>
+          ) : (
+            <>{pendingAmount}</>
+          )
+        ) : (
+          <div>{"Tick"}</div>
+        );
+      }
+      case "orderStatus": {
+        return <>{value}</>;
+      }
+      case "products": {
+        return <>{value.length}</>;
+      }
+      case "paymentMode": {
+        return <>{value}</>;
+      }
+      default: {
+        return <>{params.value}</>;
+      }
+    }
+  };
 
 const columns = [
-  { field: "_id", headerName: "ID", flex: 1 },
-  { field: "userId", headerName: "User ID", flex: 1 },
-  { field: "createdAt", headerName: "Created At", flex: 1 },
+  {
+    field: "_id",
+    headerName: "Order Number",
+    flex: 1,
+    renderCell: getCellData({ columnName: "orderNumber" }),
+  },
+  {
+    field: "date",
+    headerName: "Date",
+    flex: 1,
+    renderCell: getCellData({ columnName: "date" }),
+  },
+  {
+    field: "customer",
+    headerName: "Customer",
+    flex: 1,
+    renderCell: getCellData({ columnName: "customerFullName" }),
+  },
+  {
+    field: "destination",
+    headerName: "Destination",
+    flex: 1,
+    renderCell: getCellData({ columnName: "destination" }),
+  },
+  {
+    field: "orderAmount",
+    headerName: "Bill Amount",
+    flex: 1,
+    renderCell: getCellData({ columnName: "orderAmount" }),
+  },
+  {
+    field: "amountPaid",
+    headerName: "Pending Amount",
+    flex: 1,
+    renderCell: getCellData({ columnName: "pendingAmount" }),
+  },
+  {
+    field: "status",
+    headerName: "status",
+    flex: 1,
+    renderCell: getCellData({ columnName: "orderStatus" }),
+  },
+
   {
     field: "products",
     headerName: "Number of Products",
     flex: 0.5,
-    sortable: false,
-    renderCell: (params) => params.value.length,
+    renderCell: getCellData({ columnName: "products" }),
   },
   {
-    field: "cost",
-    headerName: "Cost",
-    flex: 1,
-    renderCell: (params) => `$${Number(params.value).toFixed(2)}`,
+    field: "paymentMode",
+    headerName: "Payment Mode",
+    flex: 0.5,
+    renderCell: getCellData({ columnName: "paymentMode" }),
   },
 ];
 
@@ -188,19 +291,85 @@ const Transactions = () => {
   const userId = useSelector((state) => state.global.rootUserId);
 
   const { page, pageSize, sort } = transactionFilters;
-  //   const { data, isLoading } = useGetTransactionsQuery({
-  //     ...transactionFilters,
-  //     sort: JSON.stringify(sort),
-  //   });
+  // const { data, isLoading } = useGetTransactionsQuery({
+  //   ...transactionFilters,
+  //   sort: JSON.stringify(sort),
+  // });
 
+  const abc = {
+    _id: "643eed589fac99f006eacd96",
+    userId: "6437cb483e930530fdbb7eb2",
+    customer: {
+      address: {
+        street1: "A 1204 . Western Avenue",
+        street2: "Kolte patil Project, Behind Jaguar showroom, Wakad",
+        city: "Pune",
+        state: "Maharashtra",
+        country: "India",
+        pinCode: "411057",
+      },
+      _id: "643ce286a2683af33ffb4397",
+      userId: "6437cb483e930530fdbb7eb2",
+      type: "Retail",
+      fullName: "Shrusti Deshmukh",
+      phoneNumber: " 9422425491",
+      orders: [
+        "643ef35f3be4c203bbb504bf",
+        "643ef42b3be4c203bbb504c6",
+        "643f0385ee01dd8d22a24a3a",
+      ],
+      createdAt: "2023-04-17T06:09:10.682Z",
+      updatedAt: "2023-04-18T20:54:29.256Z",
+      customerId: 10,
+      __v: 0,
+    },
+    orderAmount: 2500,
+    paid: "Paid",
+    status: "Delivered",
+    completed: true,
+    amountPaid: 2500,
+    date: "2023-04-20T00:00:00.000Z",
+    paymentMode: "Gpay",
+    products: [],
+  };
+
+  // const a = {
+  //   customer: {
+  //     // fullName,
+  //     type,
+  //     customerId,
+  //     // phoneNumber,
+  //     // address: { city, state },
+  //   },
+  //   // orderAmount,
+  //   paid,
+  //   // status,
+  //   completed,
+  //   // amountPaid,
+  //   // date,
+  //   paymentMode,
+  //   products,
+  // };
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [transactions, setTransactions] = useState([]);
   const [customers, setCustomers] = useState([]);
   const [formData, setFormData] = useState(initialFormData);
   const [orderModalData, setOrderModalData] = useState(null);
 
   useEffect(() => {
-    getAllCustomers({ userId }).then((response) => {
-      setCustomers(response);
+    getAllTransactions({ userId }).then((response) => {
+      setTransactions(response);
     });
+    getAllCustomers({ userId })
+      .then((response) => {
+        setCustomers(response);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -212,8 +381,9 @@ const Transactions = () => {
       dispatch(setTransactionFilters({ name, value }));
     };
 
+  // console.log(transactions);
   const filterListWithOptionsData = getFilterListWithOptionsData({
-    transactions: [],
+    transactions,
     selectedFilters: transactionFilters,
     handleFilters: handleTransactionFilters,
   });
@@ -238,24 +408,25 @@ const Transactions = () => {
       </div>
 
       <Box height={"80vh"} sx={dataGridCustomStyles}>
-        {/* <DataGrid
+        <DataGrid
           columns={columns}
           getRowId={(row) => row._id}
-          loading={isLoading || !data}
-          rowCount={(data && data.total) || 0}
-          rows={(data && data.transactions) || []}
-          pagination
-          page={page}
-          pageSize={pageSize}
-          paginationMode={"server"}
-          rowsPerPageOptions={[20, 50, 100]}
-          onPageChange={handleTransactionFilters({ name: "page" })}
+          loading={isLoading || !transactions}
+          rows={(transactions && transactions) || []}
+          rowCount={(transactions && transactions.length) || 0}
+
+          // pagination
+          // page={page}
+          // pageSize={pageSize}
+          // paginationMode={"server"}
+          // rowsPerPageOptions={[20, 50, 100]}
+          // onPageChange={handleTransactionFilters({ name: "page" })}
           //   (newPage)
-          onPageSizeChange={handleTransactionFilters({ name: "pageSize" })}
-          sortingMode={"server"}
-          onSortModelChange={handleTransactionFilters({ name: "sortBy" })}
-          components={{ Toolbar: DataGridCustomToolbar }}
-        /> */}
+          // onPageSizeChange={handleTransactionFilters({ name: "pageSize" })}
+          // sortingMode={"server"}
+          // onSortModelChange={handleTransactionFilters({ name: "sortBy" })}
+          // components={{ Toolbar: DataGridCustomToolbar }}
+        />
       </Box>
 
       {orderModalData && (
