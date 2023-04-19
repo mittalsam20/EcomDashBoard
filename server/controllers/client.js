@@ -202,6 +202,8 @@ export const updateTransaction = async (req, res) => {
   try {
     const { updatedTransaction } = req.body;
     const { transactionId } = req.params;
+
+    console.log(updatedTransaction, transactionId);
     const selectedTransaction = await Transaction.findOne({
       _id: transactionId,
     });
@@ -212,7 +214,7 @@ export const updateTransaction = async (req, res) => {
     });
     selectedTransaction
       .save()
-      .then(() => res.status(200).json({ message: "Successful Updated..!!" }))
+      .then(() => res.status(200).json({ message: "Successfully Updated..!!" }))
       .catch((error) => res.status(500).json(error));
   } catch (error) {
     res.status(400).json({ message: error.message });

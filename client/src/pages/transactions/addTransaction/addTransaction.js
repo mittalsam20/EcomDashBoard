@@ -15,6 +15,9 @@ import {
 } from "apiFunctions/apiFunctions";
 import { useSelector } from "react-redux";
 
+import moment from "moment";
+import CustomDatePicker from "UIComponents/DatePicker/CustomDatePicker";
+
 const commonInputProps = {
   // margin: "normal",
   required: true,
@@ -148,10 +151,8 @@ const getFormInputProps = ({ formattedCustomers, formData }) => {
     {
       id: "date",
       type: "date",
-      value: date,
+      value: moment(date),
       label: "Date",
-      placeholder: "Date",
-      name: "date",
       ...commonInputProps,
     },
   ];
@@ -190,6 +191,12 @@ const ModalBody = (props) => {
                     renderInput={(params) => (
                       <TextField {...params} label={label} />
                     )}
+                  />
+                ) : type === "date" ? (
+                  <CustomDatePicker
+                    label={label}
+                    {...restProps}
+                    onChange={onChangeValue({ id })}
                   />
                 ) : (
                   <TextField
@@ -242,7 +249,7 @@ const AddTransaction = (props) => {
   const onChangeValue =
     ({ id }) =>
     (event, valueProp) => {
-      const value = event.target.value;
+      const value = event?.target?.value;
       let updatedState = { [id]: value };
       if (id === "customer") {
         updatedState = { [id]: valueProp.label };
@@ -253,8 +260,9 @@ const AddTransaction = (props) => {
           updatedState = { ...updatedState, amountPaid: orderAmount };
         else if (value === "Not Paid")
           updatedState = { ...updatedState, amountPaid: 0 };
+      } else if (id === "date") {
+        updatedState = { ...updatedState, [id]: event };
       }
-
       setFormData((prevState) => ({ ...prevState, ...updatedState }));
     };
 
@@ -272,10 +280,9 @@ const AddTransaction = (props) => {
       });
       return;
     }
-    console.log(formData);
-    createTransaction({
-      OrderId,
-      updatedCustomer: { ...formData, customer: customerIdBEParams },
+    updateTransaction({
+      transactionId: OrderId,
+      updatedTransaction: { ...formData, customer: customerIdBEParams },
     });
   };
 

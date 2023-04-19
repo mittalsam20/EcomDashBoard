@@ -366,7 +366,7 @@ const initialFormData = {
   status: "Order Taken",
   amountPaid: 0,
   paymentMode: "Gpay",
-  date: new Date(),
+  date: undefined,
 };
 
 const Transactions = () => {
@@ -409,6 +409,32 @@ const Transactions = () => {
     deleteTransaction({ transactionId });
   };
 
+  const onClickEditIcon = ({ transactionId }) => {
+    const selectedTransaction = transactions.find(
+      ({ _id }) => _id === transactionId
+    );
+    const {
+      paid,
+      date,
+      status,
+      customer,
+      amountPaid,
+      paymentMode,
+      orderAmount,
+    } = selectedTransaction;
+
+    setFormData({
+      paid,
+      date,
+      status,
+      amountPaid,
+      orderAmount,
+      paymentMode,
+      customer: customer.fullName,
+    });
+    setOrderModalData({ mode: "edit", OrderId: transactionId });
+  };
+
   const columns = getColumns({
     onClickEditIcon,
     onClickDeleteIcon,
@@ -422,7 +448,6 @@ const Transactions = () => {
       dispatch(setTransactionFilters({ name, value }));
     };
 
-  // console.log(transactions);
   const filterListWithOptionsData = getFilterListWithOptionsData({
     transactions,
     selectedFilters: transactionFilters,

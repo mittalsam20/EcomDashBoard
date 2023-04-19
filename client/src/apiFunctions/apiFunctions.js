@@ -116,7 +116,6 @@ export const getAllTransactions = async ({ userId }) => {
 
 export const createTransaction = async ({ transactionDetails }) => {
   try {
-    console.log(transactionDetails);
     const response = await axios.post(
       `${BASE_URL}/client/transaction`,
       transactionDetails
