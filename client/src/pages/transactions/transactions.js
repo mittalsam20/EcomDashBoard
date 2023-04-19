@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 import { DataGrid } from "@mui/x-data-grid";
-import { Box, Button, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  MenuItem,
+  Select,
+  useTheme,
+} from "@mui/material";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 
 import "./transactions.scss";
@@ -10,15 +17,48 @@ import { getDataGridCustomStyles } from "constants/constants";
 import FilterHeader from "AppComponents/FIlterHeader.js/FilterHeader";
 import DataGridCustomToolbar from "AppComponents/DataGridCustomToolbar";
 
+import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
+import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+
 import { setTransactionFilters } from "state";
 import { useGetTransactionsQuery } from "state/api";
 import { useDispatch, useSelector } from "react-redux";
 import AddTransaction from "./addTransaction/addTransaction";
-import { getAllCustomers, getAllTransactions } from "apiFunctions/apiFunctions";
+import {
+  getAllCustomers,
+  deleteTransaction,
+  getAllTransactions,
+} from "apiFunctions/apiFunctions";
 import { getFormattedDate } from "utils/helperFunctions";
 
+const statusMenuItems = [
+  {
+    id: "ORDER_TAKEN",
+    value: "Order Taken",
+    menuOptionLabel: "Order Taken",
+  },
+  {
+    id: "PACKED",
+    value: "Packed",
+    menuOptionLabel: "Packed",
+  },
+  {
+    id: "DISPATCHED",
+    value: "Dispatched",
+    menuOptionLabel: "Dispatched",
+  },
+  {
+    id: "DELIVERED",
+    value: "Delivered",
+    menuOptionLabel: "Delivered",
+    // menuOptionLabel: <CheckRoundedIcon />,
+  },
+];
+
 const getCellData =
-  ({ columnName }) =>
+  ({ columnName, onClickDeleteIcon, onClickEditIcon }) =>
   (params) => {
     const { id: transactionId, value, row } = params;
     const {
@@ -27,11 +67,9 @@ const getCellData =
       address: { city, state },
     } = row.customer;
     const { orderAmount, amountPaid } = row;
-
-    console.log(columnName, params);
     switch (columnName) {
       case "orderNumber": {
-        return <>{`#${value}`}</>;
+        return <>{`#${111}`}</>;
       }
       case "date": {
         const formattedDate = getFormattedDate({ date: value });
@@ -46,7 +84,12 @@ const getCellData =
         );
       }
       case "destination": {
-        return <>{`${city}, ${state}`}</>;
+        return (
+          <div>
+            <p>{city}</p>
+            <p>{state}</p>
+          </div>
+        );
       }
       case "orderAmount": {
         return <>{value}</>;
@@ -54,19 +97,36 @@ const getCellData =
       case "pendingAmount": {
         const pendingAmount = orderAmount - amountPaid;
         const notPaid = amountPaid == 0;
-        console.log(notPaid, orderAmount, amountPaid);
         return pendingAmount ? (
           notPaid ? (
-            <div>{"Cross"}</div>
+            <ClearRoundedIcon color={"error"} fontSize={"large"} />
           ) : (
             <>{pendingAmount}</>
           )
         ) : (
-          <div>{"Tick"}</div>
+          <CheckRoundedIcon color={"success"} fontSize={"large"} />
         );
       }
       case "orderStatus": {
-        return <>{value}</>;
+        const isOrderSafe = value === "Delivered" || value === "Dispatched";
+        const statusStyles = { color: isOrderSafe ? "green" : "inherit" };
+        return value === "Deivered" ? (
+          <CheckRoundedIcon color={"success"} fontSize={"large"} />
+        ) : (
+          <Select
+            value={value}
+            sx={{ height: "80%", width: "80%" }}
+            onChange={(e) => console.log(e.target.value)}
+          >
+            {statusMenuItems.map(({ id, menuOptionLabel, value }) => {
+              return (
+                <MenuItem key={id} value={value}>
+                  {menuOptionLabel}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        );
       }
       case "products": {
         return <>{value.length}</>;
@@ -74,69 +134,96 @@ const getCellData =
       case "paymentMode": {
         return <>{value}</>;
       }
+      case "actions": {
+        return (
+          <div style={{ display: "flex", gap: "4px" }}>
+            <IconButton onClick={() => onClickEditIcon({ transactionId })}>
+              <EditRoundedIcon />
+            </IconButton>
+            <IconButton
+              color={"error"}
+              onClick={() => onClickDeleteIcon({ transactionId })}
+            >
+              <DeleteRoundedIcon />
+            </IconButton>
+          </div>
+        );
+      }
       default: {
         return <>{params.value}</>;
       }
     }
   };
 
-const columns = [
-  {
-    field: "_id",
-    headerName: "Order Number",
-    flex: 1,
-    renderCell: getCellData({ columnName: "orderNumber" }),
-  },
-  {
-    field: "date",
-    headerName: "Date",
-    flex: 1,
-    renderCell: getCellData({ columnName: "date" }),
-  },
-  {
-    field: "customer",
-    headerName: "Customer",
-    flex: 1,
-    renderCell: getCellData({ columnName: "customerFullName" }),
-  },
-  {
-    field: "destination",
-    headerName: "Destination",
-    flex: 1,
-    renderCell: getCellData({ columnName: "destination" }),
-  },
-  {
-    field: "orderAmount",
-    headerName: "Bill Amount",
-    flex: 1,
-    renderCell: getCellData({ columnName: "orderAmount" }),
-  },
-  {
-    field: "amountPaid",
-    headerName: "Pending Amount",
-    flex: 1,
-    renderCell: getCellData({ columnName: "pendingAmount" }),
-  },
-  {
-    field: "status",
-    headerName: "status",
-    flex: 1,
-    renderCell: getCellData({ columnName: "orderStatus" }),
-  },
+const getColumns = ({ onClickDeleteIcon, onClickEditIcon }) => {
+  return [
+    {
+      field: "_id",
+      headerName: "#Order",
+      flex: 0.5,
+      renderCell: getCellData({ columnName: "orderNumber" }),
+    },
+    {
+      field: "date",
+      headerName: "Date",
+      flex: 0.4,
+      renderCell: getCellData({ columnName: "date" }),
+    },
+    {
+      field: "customer",
+      headerName: "Customer",
+      flex: 1,
+      renderCell: getCellData({ columnName: "customerFullName" }),
+    },
+    {
+      field: "destination",
+      headerName: "Destination",
+      flex: 0.8,
+      renderCell: getCellData({ columnName: "destination" }),
+    },
+    {
+      field: "orderAmount",
+      headerName: "Bill Amount",
+      flex: 0.5,
+      renderCell: getCellData({ columnName: "orderAmount" }),
+    },
+    {
+      field: "amountPaid",
+      headerName: "Pending Amount",
+      flex: 0.5,
+      renderCell: getCellData({ columnName: "pendingAmount" }),
+    },
+    {
+      field: "status",
+      headerName: "status",
+      flex: 1,
+      renderCell: getCellData({ columnName: "orderStatus" }),
+    },
 
-  {
-    field: "products",
-    headerName: "Number of Products",
-    flex: 0.5,
-    renderCell: getCellData({ columnName: "products" }),
-  },
-  {
-    field: "paymentMode",
-    headerName: "Payment Mode",
-    flex: 0.5,
-    renderCell: getCellData({ columnName: "paymentMode" }),
-  },
-];
+    {
+      field: "products",
+      headerName: "No. of Products",
+      flex: 0.5,
+      renderCell: getCellData({ columnName: "products" }),
+    },
+    {
+      field: "paymentMode",
+      headerName: "Payment Mode",
+      flex: 0.5,
+      renderCell: getCellData({ columnName: "paymentMode" }),
+    },
+    {
+      field: "actions",
+      headerName: "",
+      flex: 0.5,
+      renderCell: getCellData({
+        columnName: "actions",
+        onClickDeleteIcon,
+        onClickEditIcon,
+      }),
+    },
+  ];
+};
 
 // sortBy
 // statusFilter
