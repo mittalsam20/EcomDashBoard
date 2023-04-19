@@ -21,18 +21,20 @@ const commonInputProps = {
   fullWidth: true,
 };
 
-const getFormInputProps = ({ customers, formData }) => {
-  const { orderAmount, paid, status, amountPaid, paymentMode, date } = formData;
+const getFormInputProps = ({ formattedCustomers, formData }) => {
+  const { customer, orderAmount, paid, status, amountPaid, paymentMode, date } =
+    formData;
 
-  const formattedCustomers = customers.map(({ _id, fullName }) => ({
-    id: _id,
-    label: fullName,
-  }));
   return [
     {
       id: "customer",
       type: "autoComplete",
       disablePortal: true,
+      disableClearable: true,
+      clearOnEscape: true,
+      openOnFocus: true,
+      autoSelect: true,
+      value: customer,
       menuItems: formattedCustomers,
       placeholder: "Customer Name",
       label: "Customer Name",
@@ -221,9 +223,15 @@ const AddTransaction = (props) => {
 
   const rootUserId = useSelector((state) => state.global.rootUserId);
   const { mode, OrderId = "" } = orderModalData;
+
+  const formattedCustomers = customers.map(({ _id, fullName }) => ({
+    id: _id,
+    label: fullName,
+  }));
+
   const title = mode === "create" ? "Add a new Order" : "Update Order";
   const primaryButtonText = mode === "create" ? "Add Order" : "Update Order";
-  const formInputProps = getFormInputProps({ customers, formData });
+  const formInputProps = getFormInputProps({ formattedCustomers, formData });
   const amountLeftToBePaid =
     !!Number(orderAmount) &&
     paid !== "Paid" &&
@@ -237,7 +245,7 @@ const AddTransaction = (props) => {
       const value = event.target.value;
       let updatedState = { [id]: value };
       if (id === "customer") {
-        updatedState = { [id]: valueProp.id };
+        updatedState = { [id]: valueProp.label };
       } else if (id === "paymentMode" && value === "COD") {
         updatedState = { ...updatedState, paid: "Not Paid", amountPaid: 0 };
       } else if (id === "paid") {
@@ -251,13 +259,24 @@ const AddTransaction = (props) => {
     };
 
   const onClickAddOrder = () => {
+    let customerIdBEParams = formattedCustomers.find(
+      ({ label }) => label === formData.customer
+    ).id;
     if (mode === "create") {
       createTransaction({
-        transactionDetails: { ...formData, userId: rootUserId },
+        transactionDetails: {
+          ...formData,
+          customer: customerIdBEParams,
+          userId: rootUserId,
+        },
       });
       return;
     }
-    createTransaction({ OrderId, updatedCustomer: formData });
+    console.log(formData);
+    createTransaction({
+      OrderId,
+      updatedCustomer: { ...formData, customer: customerIdBEParams },
+    });
   };
 
   const onClose = () => {

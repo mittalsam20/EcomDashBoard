@@ -17,6 +17,7 @@ const CustomerSchema = new mongoose.Schema(
     fullName: {
       type: String,
       required: true,
+      unique: true,
       max: 100,
     },
     address: {
