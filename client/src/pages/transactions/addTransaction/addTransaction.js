@@ -263,6 +263,9 @@ const AddTransaction = (props) => {
           updatedState = { ...updatedState, amountPaid: 0 };
       } else if (id === "date") {
         updatedState = { ...updatedState, [id]: event };
+      } else if (id === "orderAmount") {
+        if (paid === "Paid")
+          updatedState = { ...updatedState, amountPaid: event.target.value };
       }
       setFormData((prevState) => ({ ...prevState, ...updatedState }));
     };

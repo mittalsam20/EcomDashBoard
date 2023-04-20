@@ -229,8 +229,11 @@ const getColumns = ({ onClickDeleteIcon, onClickEditIcon }) => {
 // statusFilter
 // isCompleted
 // modeOfPaymentFilter
-const getFilterListWithOptionsData = (props) => {
-  const { selectedFilters, handleFilters, customers } = props;
+const getFilterListWithOptionsData = ({
+  transactions,
+  handleFilters,
+  selectedFilters,
+}) => {
   const { sortBy, paidFilter, statusFilter, isCompleted, modeOfPaymentFilter } =
     selectedFilters;
 
@@ -366,7 +369,7 @@ const initialFormData = {
   status: "Order Taken",
   amountPaid: 0,
   paymentMode: "Gpay",
-  date: undefined,
+  date: new Date(),
 };
 
 const Transactions = () => {
