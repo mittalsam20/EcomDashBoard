@@ -23,8 +23,8 @@ import {
 } from "@mui/material";
 // import profileImage from "assets/profile.jpeg";
 
-import UIModal from "UIComponents/UIModal";
 import FlexBetween from "UIComponents/FlexBetween";
+import PrintSpoolModal from "AppComponents/PrintSpoolModal/PrintSpoolModal";
 
 const Navbar = (props) => {
   const { activeDrawerItem, user, isSidebarOpen, setIsSidebarOpen } = props;
@@ -137,16 +137,12 @@ const Navbar = (props) => {
           </FlexBetween>
         </FlexBetween>
       </Toolbar>
-      <UIModal
-        body={"<div></div>"}
-        primaryButtonText={"Print"}
-        isOpen={showPrintSpoolDialog}
-        secondaryButtonText={"Cancel"}
-        onClickPrimaryButton={() => {}}
-        onClickSecondaryButton={() => {}}
-        onClose={() => setShowPrintSpoolDialog(false)}
-        title={"Select the Customers whose address are to printed"}
-      />
+      {showPrintSpoolDialog && (
+        <PrintSpoolModal
+          showPrintSpoolDialog={showPrintSpoolDialog}
+          setShowPrintSpoolDialog={setShowPrintSpoolDialog}
+        />
+      )}
     </AppBar>
   );
 };
