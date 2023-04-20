@@ -133,13 +133,18 @@ const Customers = () => {
   const customerFilters = useSelector((state) => state.global.customerFilters);
   const userId = useSelector((state) => state.global.rootUserId);
   const [customers, setCustomers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [formData, setFormData] = useState(initialFormData);
   const [customerModalData, setCustomerModalData] = useState(null);
 
+  const fetchCustomers = async () => {
+    const response = await getAllCustomers({ userId });
+    setCustomers(response);
+    setIsLoading(false);
+  };
+
   useEffect(() => {
-    getAllCustomers({ userId }).then((response) => {
-      setCustomers(response);
-    });
+    fetchCustomers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -176,7 +181,9 @@ const Customers = () => {
           {"New Customer"}
         </Button>
       </div>
-      {customers.length ? (
+      {isLoading ? (
+        <>{"Loading...."}</>
+      ) : customers.length ? (
         customers.map(
           ({
             _id,
@@ -200,6 +207,8 @@ const Customers = () => {
                 phoneNumber={phoneNumber}
                 financialStatus={financialStatus}
                 setFormData={setFormData}
+                setIsLoading={setIsLoading}
+                fetchCustomers={fetchCustomers}
                 setCustomerModalData={setCustomerModalData}
               />
             );
@@ -215,6 +224,8 @@ const Customers = () => {
           setFormData={setFormData}
           initialFormData={initialFormData}
           customerModalData={customerModalData}
+          setIsLoading={setIsLoading}
+          fetchCustomers={fetchCustomers}
           setCustomerModalData={setCustomerModalData}
         />
       )}

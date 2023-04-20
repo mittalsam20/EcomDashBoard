@@ -167,6 +167,8 @@ const AddCustomer = (props) => {
     setFormData,
     initialFormData,
     customerModalData,
+    setIsLoading,
+    fetchCustomers,
     setCustomerModalData,
   } = props;
   const rootUserId = useSelector((state) => state.global.rootUserId);
@@ -207,12 +209,17 @@ const AddCustomer = (props) => {
       setFormData((prevState) => ({ ...prevState, [id]: value }));
     };
 
-  const onClickPrimaryButton = () => {
+  const onClickPrimaryButton = async () => {
+    setIsLoading(true);
     if (mode === "create") {
-      addNewCustomer({ customerDetails: { ...formData, userId: rootUserId } });
+      await addNewCustomer({
+        customerDetails: { ...formData, userId: rootUserId },
+      });
+      fetchCustomers();
       return;
     }
-    updateCustomer({ customerId, updatedCustomer: formData });
+    await updateCustomer({ customerId, updatedCustomer: formData });
+    fetchCustomers();
   };
 
   const onClose = () => {

@@ -76,6 +76,8 @@ const CustomerCard = (props) => {
     phoneNumber,
     financialStatus = "",
     setFormData,
+    setIsLoading,
+    fetchCustomers,
     setCustomerModalData,
   } = props;
   const { street1, street2, city, state, country, pinCode } = address;
@@ -99,8 +101,10 @@ const CustomerCard = (props) => {
     setCustomerModalData({ mode: "edit", customerId: id });
   };
 
-  const onClickDelete = () => {
-    deleteCustomer({ customerId: id });
+  const onClickDelete = async () => {
+    setIsLoading(true);
+    await deleteCustomer({ customerId: id });
+    fetchCustomers();
   };
   const onClickPrintAddress = () => {};
   const onClickPrintInvoice = () => {};
