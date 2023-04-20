@@ -224,6 +224,7 @@ const AddTransaction = (props) => {
     orderModalData,
     initialFormData,
     setOrderModalData,
+    fetchTransactions,
   } = props;
 
   const { orderAmount, paid, amountPaid } = formData;
@@ -266,24 +267,26 @@ const AddTransaction = (props) => {
       setFormData((prevState) => ({ ...prevState, ...updatedState }));
     };
 
-  const onClickAddOrder = () => {
+  const onClickAddOrder = async () => {
     let customerIdBEParams = formattedCustomers.find(
       ({ label }) => label === formData.customer
     ).id;
     if (mode === "create") {
-      createTransaction({
+      await createTransaction({
         transactionDetails: {
           ...formData,
           customer: customerIdBEParams,
           userId: rootUserId,
         },
       });
+      fetchTransactions();
       return;
     }
-    updateTransaction({
+    await updateTransaction({
       transactionId: OrderId,
       updatedTransaction: { ...formData, customer: customerIdBEParams },
     });
+    fetchTransactions();
   };
 
   const onClose = () => {

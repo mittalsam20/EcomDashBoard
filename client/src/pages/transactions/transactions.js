@@ -389,10 +389,14 @@ const Transactions = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [orderModalData, setOrderModalData] = useState(null);
 
-  useEffect(() => {
+  const fetchTransactions = () => {
     getAllTransactions({ userId }).then((response) => {
       setTransactions(response);
     });
+  };
+
+  useEffect(() => {
+    fetchTransactions();
     getAllCustomers({ userId })
       .then((response) => {
         setCustomers(response);
@@ -405,8 +409,10 @@ const Transactions = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onClickDeleteIcon = ({ transactionId }) => {
-    deleteTransaction({ transactionId });
+  const onClickDeleteIcon = async ({ transactionId }) => {
+    await deleteTransaction({ transactionId });
+    console.log("ssss");
+    fetchTransactions();
   };
 
   const onClickEditIcon = ({ transactionId }) => {
@@ -473,7 +479,7 @@ const Transactions = () => {
         </Button>
       </div>
 
-      <Box height={"80vh"} sx={dataGridCustomStyles}>
+      <Box height={"75vh"} sx={dataGridCustomStyles}>
         <DataGrid
           columns={columns}
           getRowId={(row) => row._id}
@@ -502,6 +508,7 @@ const Transactions = () => {
           initialFormData={initialFormData}
           orderModalData={orderModalData}
           customers={customers}
+          fetchTransactions={fetchTransactions}
           setOrderModalData={setOrderModalData}
         />
       )}
