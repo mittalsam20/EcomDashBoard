@@ -45,6 +45,10 @@ const CustomerSchema = new mongoose.Schema(
         required: true,
       },
     },
+    printSpoolItems: {
+      type: Array,
+      default: [],
+    },
     phoneNumber: {
       type: String,
       required: true,

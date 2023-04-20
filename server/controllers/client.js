@@ -104,6 +104,20 @@ export const deleteCustomer = async (req, res) => {
   }
 };
 
+export const updatePrintSpool = async (req, res) => {
+  try {
+    const { printItems } = req.body;
+    const { customerId } = req.params;
+    const response = await Customer.findByIdAndUpdate(customerId, {
+      printItems,
+    });
+    console.log(response);
+    res.status(200).json({ message: "Successful Updated..!!" });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
 const generateSort = ({ sort }) => {
   const sortParsed = JSON.parse(sort);
   const sortFormatted = {

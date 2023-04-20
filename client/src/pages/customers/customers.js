@@ -6,7 +6,11 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import { setCustomerFilters } from "state";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getAllCustomers } from "apiFunctions/apiFunctions";
+import {
+  deleteCustomer,
+  getAllCustomers,
+  updatePrintSpool,
+} from "apiFunctions/apiFunctions";
 
 import "./customers.scss";
 import AddCustomer from "./addCustomer";
@@ -166,12 +170,26 @@ const Customers = () => {
     handleFilters: handleCustomerFilters,
   });
 
+  const onClickDelete = async ({ customerId }) => {
+    setIsLoading(true);
+    await deleteCustomer({ customerId });
+    fetchCustomers();
+  };
+
+  const onClickPrintSpool = async ({
+    customerId,
+    printItems = ["ADDRESS"],
+  }) => {
+    setIsLoading(true);
+    await updatePrintSpool({ customerId, printItems });
+    fetchCustomers();
+  };
+
   return (
     <Box mt={"40px"} height={"75vh"}>
       <div className={"filterHeaderContainer"}>
         <FilterHeader filterListWithOptionsData={filterListWithOptionsData} />
         <Button
-          // fullWidth={true}
           variant={"contained"}
           color="success"
           size={"large"}
@@ -193,8 +211,10 @@ const Customers = () => {
             fullName,
             customerId,
             phoneNumber,
+            printSpoolItems,
             financialStatus = "",
           }) => {
+            const isAddedToPrintSpool = printSpoolItems.length > 0;
             return (
               <CustomerCard
                 id={_id}
@@ -207,8 +227,9 @@ const Customers = () => {
                 phoneNumber={phoneNumber}
                 financialStatus={financialStatus}
                 setFormData={setFormData}
-                setIsLoading={setIsLoading}
-                fetchCustomers={fetchCustomers}
+                onClickDelete={onClickDelete}
+                onClickPrintSpool={onClickPrintSpool}
+                isAddedToPrintSpool={isAddedToPrintSpool}
                 setCustomerModalData={setCustomerModalData}
               />
             );

@@ -15,14 +15,13 @@ import {
   getRandomColorFromString,
 } from "utils/helperFunctions";
 import { Button } from "@mui/material";
-import { deleteCustomer } from "apiFunctions/apiFunctions";
 
 const getActionButtons = ({
+  customerId,
   onClickEdit,
   onClickDelete,
-  addedToPrintSpool,
-  onClickPrintAddress,
-  onClickPrintInvoice,
+  onClickPrintSpool,
+  isAddedToPrintSpool,
 }) => {
   return [
     {
@@ -42,9 +41,9 @@ const getActionButtons = ({
       size: "large",
       fullWidth: true,
       startIcon: <DeleteRoundedIcon />,
-      onClick: onClickDelete,
+      onClick: () => onClickDelete({ customerId }),
     },
-    addedToPrintSpool
+    isAddedToPrintSpool
       ? {
           id: "REMOVE_FROM_PRINT_SPOOL",
           text: "Remove From Print Spool",
@@ -52,7 +51,7 @@ const getActionButtons = ({
           color: "error",
           variant: "contained",
           startIcon: <ReceiptRoundedIcon />,
-          onClick: () => {},
+          onClick: () => onClickPrintSpool({ customerId, printItems: [] }),
         }
       : {
           id: "ADD_TO_PRINT_SPOOL",
@@ -60,7 +59,7 @@ const getActionButtons = ({
           fullWidth: true,
           variant: "contained",
           startIcon: <BusinessRoundedIcon />,
-          onClick: () => {},
+          onClick: () => onClickPrintSpool({ customerId }),
         },
   ];
 };
@@ -76,8 +75,9 @@ const CustomerCard = (props) => {
     phoneNumber,
     financialStatus = "",
     setFormData,
-    setIsLoading,
-    fetchCustomers,
+    onClickDelete,
+    onClickPrintSpool,
+    isAddedToPrintSpool,
     setCustomerModalData,
   } = props;
   const { street1, street2, city, state, country, pinCode } = address;
@@ -101,30 +101,15 @@ const CustomerCard = (props) => {
     setCustomerModalData({ mode: "edit", customerId: id });
   };
 
-  const onClickDelete = async () => {
-    setIsLoading(true);
-    await deleteCustomer({ customerId: id });
-    fetchCustomers();
-  };
-  const onClickPrintAddress = () => {};
-  const onClickPrintInvoice = () => {};
-
   const actionButtons = getActionButtons({
+    customerId: id,
     onClickEdit,
     onClickDelete,
-    onClickPrintAddress,
-    onClickPrintInvoice,
+    isAddedToPrintSpool,
+    onClickPrintSpool,
   });
 
   const avatarColor = getRandomColorFromString({ string: fullName });
-  // const customerDetails=[
-
-  // ]
-  // {
-  //     id:"NAME",
-  // key:null,
-  // ,value:
-  // }
   return (
     <Card className={"cardContainer"}>
       <div className={"cardContentContainer"}>

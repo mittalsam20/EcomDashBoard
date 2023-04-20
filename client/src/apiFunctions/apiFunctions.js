@@ -159,3 +159,21 @@ export const deleteTransaction = async ({ transactionId }) => {
     return false;
   }
 };
+
+export const updatePrintSpool = async ({
+  customerId,
+  printItems = ["ADDRESS"],
+}) => {
+  try {
+    const response = await axios.patch(
+      `${BASE_URL}/client/customer/${customerId}`,
+      { printItems }
+    );
+    const { data, status } = response;
+    if (status !== 200) throw new Error("Server Error");
+    return data;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
