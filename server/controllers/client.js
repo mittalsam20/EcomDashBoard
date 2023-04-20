@@ -268,3 +268,17 @@ export const getGeography = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+export const emptyPrintSpool = async (req, res) => {
+  try {
+    const { customerIds } = req.body;
+    await Customer.updateMany(
+      { _id: { $in: customerIds } },
+      { $set: { printSpoolItems: [] } }
+    );
+    res.status(200).json({ message: "Printed SuccessFully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};

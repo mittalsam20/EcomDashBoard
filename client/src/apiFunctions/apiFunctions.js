@@ -177,3 +177,17 @@ export const updatePrintSpool = async ({
     return false;
   }
 };
+
+export const emptyPrintSpool = async ({ customerIds }) => {
+  try {
+    const response = await axios.patch(`${BASE_URL}/client/customers`, {
+      customerIds,
+    });
+    const { data, status } = response;
+    if (status !== 200) throw new Error("Server Error");
+    return data;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};

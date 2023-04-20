@@ -11,6 +11,7 @@ import {
   updateCustomer,
   deleteCustomer,
   updatePrintSpool,
+  emptyPrintSpool,
 } from "../controllers/client.js";
 
 const router = express.Router();
@@ -20,6 +21,7 @@ router
   .put("/customer/:customerId", updateCustomer)
   .delete("/customer/:customerId", deleteCustomer)
   .patch("/customer/:customerId", updatePrintSpool)
+  .patch("/customers", emptyPrintSpool)
 
   .get("/transactions/:userId", getAllTransactions)
   .post("/transaction", createTransaction)
