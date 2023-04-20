@@ -108,8 +108,9 @@ export const updatePrintSpool = async (req, res) => {
   try {
     const { printItems } = req.body;
     const { customerId } = req.params;
+    console.log(printItems, customerId);
     const response = await Customer.findByIdAndUpdate(customerId, {
-      printItems,
+      printSpoolItems: printItems,
     });
     console.log(response);
     res.status(200).json({ message: "Successful Updated..!!" });
@@ -201,7 +202,7 @@ export const createTransaction = async (req, res) => {
       .then(async () => {
         await Customer.findOneAndUpdate(
           { _id: customer },
-          { $push: { orders: newTransaction } }
+          { $push: { orders: newTransaction }, printSpoolItems: ["ADDRESS"] }
         );
 
         res.status(200).json({ message: "Added Successfully..!!" });
