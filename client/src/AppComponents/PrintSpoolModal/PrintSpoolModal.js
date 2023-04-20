@@ -5,7 +5,11 @@ import { useSelector } from "react-redux";
 import "./PrintSpoolModal.scss";
 import UIModal from "UIComponents/UIModal/UIModal";
 
-import { getAllCustomers, updatePrintSpool } from "apiFunctions/apiFunctions";
+import {
+  emptyPrintSpool,
+  getAllCustomers,
+  updatePrintSpool,
+} from "apiFunctions/apiFunctions";
 import { Checkbox } from "@mui/material";
 
 const ModalBody = (props) => {
@@ -71,7 +75,20 @@ const PrintSpoolModal = (props) => {
       fetchCustomers();
     };
 
-  const onClickPrimaryButton = () => {};
+  const generatePdf = async ({ customersAddress }) => {
+    console.log(customersAddress);
+  };
+
+  const onClickPrimaryButton = async () => {
+    const customersAddressToBePrinted = customers.filter(
+      ({ printSpoolItems }) => printSpoolItems.length
+    );
+    const printedCustomersId = customersAddressToBePrinted.map(
+      ({ _id }) => _id
+    );
+    generatePdf({ customersAddress: customersAddressToBePrinted });
+    await emptyPrintSpool({ customerIds: printedCustomersId });
+  };
 
   const onClose = () => {
     setShowPrintSpoolDialog(false);
