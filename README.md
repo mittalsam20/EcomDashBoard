@@ -26,9 +26,9 @@
 
   ***
 
-  - [ ] onCLick opens a checkedList modal of customer with print and cancel button in bottom
-  - [ ] conditions to add a customer address in print spool
-  - [ ] once printed then customer will be ejectef from spool
+  - [x] onCLick opens a checkedList modal of customer with print and cancel button in bottom
+  - [x] conditions to add a customer address in print spool
+  - [x] once printed then customer will be ejected from spool
   - addedByAdmin || (paymentRecieved && notPrintedEvenOnceAfterReceivingOfPayment)
 
   ***
@@ -42,15 +42,15 @@
 
 - [x] orders/transaction page
 - [x] create button on top open modal with all info and current date but no time
-- [ ] name date+time amount payment mode status (actions is edit only)
-  - [ ] status:- noItemsYet notPaid paymentAfter/To be packed To be packed packed dispatched return
+- [x] name date+time amount payment mode status (actions is edit only)
+  - [x] status:- noItemsYet notPaid paymentAfter/To be packed To be packed packed dispatched return
 - [ ] search sort filter
 - search by name amount
 - filter by mode status dateRange
 - sort by amount date mode status
   ***
   - [ ] Navbar right side and sideBar bottom corner will have settings dropDown Menu with actions
-- [ ] show print spool button in navbar
+- [x] show print spool button in navbar
 - logout
 - accounts settings
 - [ ] accounts settings
