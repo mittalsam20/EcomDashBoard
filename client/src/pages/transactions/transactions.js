@@ -30,6 +30,7 @@ import {
   getAllCustomers,
   deleteTransaction,
   getAllTransactions,
+  updateTransaction,
 } from "apiFunctions/apiFunctions";
 import { getFormattedDate } from "utils/helperFunctions";
 
@@ -58,7 +59,7 @@ const statusMenuItems = [
 ];
 
 const getCellData =
-  ({ columnName, onClickDeleteIcon, onClickEditIcon }) =>
+  ({ columnName, onClickDeleteIcon, onClickEditIcon, onChangeOrderStatus }) =>
   (params) => {
     const { id: transactionId, value, row } = params;
     const {
@@ -116,7 +117,7 @@ const getCellData =
           <Select
             value={value}
             sx={{ height: "80%", width: "80%" }}
-            onChange={(e) => console.log(e.target.value)}
+            onChange={onChangeOrderStatus({ orderDetails: row })}
           >
             {statusMenuItems.map(({ id, menuOptionLabel, value }) => {
               return (
@@ -155,7 +156,11 @@ const getCellData =
     }
   };
 
-const getColumns = ({ onClickDeleteIcon, onClickEditIcon }) => {
+const getColumns = ({
+  onClickDeleteIcon,
+  onClickEditIcon,
+  onChangeOrderStatus,
+}) => {
   return [
     {
       field: "_id",
@@ -197,7 +202,10 @@ const getColumns = ({ onClickDeleteIcon, onClickEditIcon }) => {
       field: "status",
       headerName: "status",
       flex: 1,
-      renderCell: getCellData({ columnName: "orderStatus" }),
+      renderCell: getCellData({
+        columnName: "orderStatus",
+        onChangeOrderStatus,
+      }),
     },
 
     {
@@ -444,9 +452,30 @@ const Transactions = () => {
     setOrderModalData({ mode: "edit", OrderId: transactionId });
   };
 
+  const onChangeOrderStatus =
+    ({ orderDetails }) =>
+    async (event) => {
+      const updatedStatusValue = event.target.value;
+      const { _id: selectedOrderId } = orderDetails;
+      const selectedTransaction = transactions.find(
+        ({ _id }) => _id === selectedOrderId
+      );
+      const updatedTransaction = {
+        ...selectedTransaction,
+        status: updatedStatusValue,
+      };
+      await updateTransaction({
+        transactionId: selectedOrderId,
+        updatedTransaction,
+      });
+      fetchTransactions();
+      console.log(orderDetails, event.target.value);
+    };
+
   const columns = getColumns({
     onClickEditIcon,
     onClickDeleteIcon,
+    onChangeOrderStatus,
   });
 
   const dataGridCustomStyles = getDataGridCustomStyles({ theme });
