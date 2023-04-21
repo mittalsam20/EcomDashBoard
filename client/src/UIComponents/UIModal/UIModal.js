@@ -49,6 +49,7 @@ const UIModal = (props) => {
     secondaryButtonText,
     onClickPrimaryButton,
     onClickSecondaryButton = () => {},
+    executeOnCLoseOnClickPrimaryButton = true,
     executeOnCLoseOnClickSecondaryButton = true,
   } = props;
   const theme = useTheme();
@@ -60,7 +61,7 @@ const UIModal = (props) => {
 
   const primaryButtonAction = () => {
     onClickPrimaryButton();
-    onClose();
+    if (executeOnCLoseOnClickPrimaryButton) onClose();
   };
 
   const actionButtons = getActionButtons({

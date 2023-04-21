@@ -11,6 +11,8 @@ import {
   updatePrintSpool,
 } from "apiFunctions/apiFunctions";
 import { Checkbox } from "@mui/material";
+import { usePrint } from "HOC/generatePdf/GeneratePdf";
+import DispatchAddress from "pdfTemplates/DispatchAddress/DispatchAddress";
 
 const ModalBody = (props) => {
   const { customers, isLoading, onClickPrintSpool } = props;
@@ -50,6 +52,31 @@ const PrintSpoolModal = (props) => {
   const [customers, setCustomers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const onClose = () => {
+    setShowPrintSpoolDialog(false);
+  };
+
+  const clearPrintSpool = async () => {
+    const printedCustomersId = customers.reduce(
+      (acc, { _id, printSpoolItems }) =>
+        printSpoolItems.length ? [...acc, _id] : acc,
+      []
+    );
+    await emptyPrintSpool({ customerIds: printedCustomersId });
+    onClose();
+  };
+
+  const [PrintComponent, handlePrint] = usePrint(
+    "Dispatch Address's",
+    DispatchAddress,
+    {
+      customers: customers.filter(
+        ({ printSpoolItems }) => printSpoolItems.length
+      ),
+    },
+    clearPrintSpool
+  );
+
   const title = "Select the Customers whose address are to be printed";
   const userId = useSelector((state) => state.global.rootUserId);
 
@@ -75,41 +102,30 @@ const PrintSpoolModal = (props) => {
       fetchCustomers();
     };
 
-  const generatePdf = async ({ customersAddress }) => {
-    console.log(customersAddress);
-  };
-
   const onClickPrimaryButton = async () => {
-    const customersAddressToBePrinted = customers.filter(
-      ({ printSpoolItems }) => printSpoolItems.length
-    );
-    const printedCustomersId = customersAddressToBePrinted.map(
-      ({ _id }) => _id
-    );
-    generatePdf({ customersAddress: customersAddressToBePrinted });
-    await emptyPrintSpool({ customerIds: printedCustomersId });
-  };
-
-  const onClose = () => {
-    setShowPrintSpoolDialog(false);
+    handlePrint();
   };
 
   return (
-    <UIModal
-      title={title}
-      body={
-        <ModalBody
-          customers={customers}
-          isLoading={isLoading}
-          onClickPrintSpool={onClickPrintSpool}
-        />
-      }
-      primaryButtonText={"Print"}
-      isOpen={showPrintSpoolDialog}
-      secondaryButtonText={"Cancel"}
-      onClose={onClose}
-      onClickPrimaryButton={onClickPrimaryButton}
-    />
+    <>
+      <PrintComponent />
+      <UIModal
+        title={title}
+        body={
+          <ModalBody
+            customers={customers}
+            isLoading={isLoading}
+            onClickPrintSpool={onClickPrintSpool}
+          />
+        }
+        primaryButtonText={"Print"}
+        isOpen={showPrintSpoolDialog}
+        secondaryButtonText={"Cancel"}
+        onClose={onClose}
+        executeOnCLoseOnClickPrimaryButton={false}
+        onClickPrimaryButton={onClickPrimaryButton}
+      />
+    </>
   );
 };
 
