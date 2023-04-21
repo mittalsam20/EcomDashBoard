@@ -1,19 +1,19 @@
 import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 
-export const usePrint = (
+export const usePrint = ({
   documentTitle,
   ComponentToPrint,
   componentProps,
-  onafterprint = () => {}
-) => {
+  onAfterPrint = () => {},
+}) => {
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     documentTitle,
-    onBeforeGetContent: () => console.log("hellooooo"),
-    onafterprint,
+    onAfterPrint,
   });
+
   const PrintComponent = () => {
     return (
       <div style={{ display: "none" }}>

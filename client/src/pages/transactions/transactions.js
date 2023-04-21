@@ -469,7 +469,6 @@ const Transactions = () => {
         updatedTransaction,
       });
       fetchTransactions();
-      console.log(orderDetails, event.target.value);
     };
 
   const columns = getColumns({

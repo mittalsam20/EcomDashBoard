@@ -3,7 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import "./PrintSpoolModal.scss";
-import UIModal from "UIComponents/UIModal/UIModal";
+import usePrint from "Hooks/generatePdf";
+import UIModal from "UIComponents/UIModal";
+import DispatchAddress from "pdfTemplates/DispatchAddress";
 
 import {
   emptyPrintSpool,
@@ -11,18 +13,15 @@ import {
   updatePrintSpool,
 } from "apiFunctions/apiFunctions";
 import { Checkbox } from "@mui/material";
-import { usePrint } from "HOC/generatePdf/GeneratePdf";
-import DispatchAddress from "pdfTemplates/DispatchAddress/DispatchAddress";
 
 const ModalBody = (props) => {
   const { customers, isLoading, onClickPrintSpool } = props;
-
   const sortedCustomers = customers.sort(
     (a, b) => b.printSpoolItems.length - a.printSpoolItems.length
   );
 
   return isLoading ? (
-    <>{"Loading..."}</>
+    <div className={"modalBodyContainer"}>{"Loading..."}</div>
   ) : (
     <div className={"modalBodyContainer"}>
       {sortedCustomers.map(
@@ -47,38 +46,40 @@ const ModalBody = (props) => {
   );
 };
 
+const onClose = ({ setShowPrintSpoolDialog }) => {
+  setShowPrintSpoolDialog(false);
+};
+
+const clearPrintSpool = async ({ customers, setShowPrintSpoolDialog }) => {
+  const printedCustomersId = customers.map(({ _id }) => _id);
+  await emptyPrintSpool({ customerIds: printedCustomersId });
+  onClose({ setShowPrintSpoolDialog });
+};
+
 const PrintSpoolModal = (props) => {
   const { showPrintSpoolDialog, setShowPrintSpoolDialog } = props;
   const [customers, setCustomers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const onClose = () => {
-    setShowPrintSpoolDialog(false);
-  };
-
-  const clearPrintSpool = async () => {
-    const printedCustomersId = customers.reduce(
-      (acc, { _id, printSpoolItems }) =>
-        printSpoolItems.length ? [...acc, _id] : acc,
-      []
-    );
-    await emptyPrintSpool({ customerIds: printedCustomersId });
-    onClose();
-  };
-
-  const [PrintComponent, handlePrint] = usePrint(
-    "Dispatch Address's",
-    DispatchAddress,
-    {
-      customers: customers.filter(
-        ({ printSpoolItems }) => printSpoolItems.length
-      ),
-    },
-    clearPrintSpool
+  const customerToBePrinted = customers.filter(
+    ({ printSpoolItems }) => printSpoolItems.length
   );
 
-  const title = "Select the Customers whose address are to be printed";
+  const usePrintConfig = {
+    documentTitle: "Dispatch Address's",
+    ComponentToPrint: DispatchAddress,
+    componentProps: { customers: customerToBePrinted },
+    onAfterPrint: () => {
+      clearPrintSpool({
+        customers: customerToBePrinted,
+        setShowPrintSpoolDialog,
+      });
+    },
+  };
+
+  const [PrintComponent, handlePrint] = usePrint(usePrintConfig);
   const userId = useSelector((state) => state.global.rootUserId);
+
+  const title = "Select the Customers whose address are to be printed";
 
   const fetchCustomers = async () => {
     const response = await getAllCustomers({ userId });
@@ -121,7 +122,7 @@ const PrintSpoolModal = (props) => {
         primaryButtonText={"Print"}
         isOpen={showPrintSpoolDialog}
         secondaryButtonText={"Cancel"}
-        onClose={onClose}
+        onClose={() => onClose({ setShowPrintSpoolDialog })}
         executeOnCLoseOnClickPrimaryButton={false}
         onClickPrimaryButton={onClickPrimaryButton}
       />

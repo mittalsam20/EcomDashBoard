@@ -43,7 +43,6 @@ const DispatchAddress = forwardRef((props, ref) => {
     userPhoneNumber: "9979660860",
   };
 
-  console.log(customers);
   return (
     <div ref={ref} className={"pdfBody"}>
       {customers.map(({ _id, fullName, phoneNumber, address }, index) => {
