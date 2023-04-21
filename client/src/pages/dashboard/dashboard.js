@@ -39,6 +39,7 @@ const Dashboard = () => {
 
   useLayoutEffect(() => {
     checkUserAuthenticity({ dispatch, navigate });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const columns = [

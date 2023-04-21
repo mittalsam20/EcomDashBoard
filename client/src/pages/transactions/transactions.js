@@ -15,7 +15,7 @@ import "./transactions.scss";
 import withAuth from "HOC/withAuth";
 import { getDataGridCustomStyles } from "constants/constants";
 import FilterHeader from "AppComponents/FIlterHeader.js/FilterHeader";
-import DataGridCustomToolbar from "AppComponents/DataGridCustomToolbar";
+// import DataGridCustomToolbar from "AppComponents/DataGridCustomToolbar";
 
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
@@ -23,7 +23,7 @@ import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 
 import { setTransactionFilters } from "state";
-import { useGetTransactionsQuery } from "state/api";
+// import { useGetTransactionsQuery } from "state/api";
 import { useDispatch, useSelector } from "react-redux";
 import AddTransaction from "./addTransaction/addTransaction";
 import {
@@ -97,7 +97,7 @@ const getCellData =
       }
       case "pendingAmount": {
         const pendingAmount = orderAmount - amountPaid;
-        const notPaid = amountPaid == 0;
+        const notPaid = amountPaid === 0;
         return pendingAmount ? (
           notPaid ? (
             <ClearRoundedIcon color={"error"} fontSize={"large"} />
@@ -109,8 +109,6 @@ const getCellData =
         );
       }
       case "orderStatus": {
-        const isOrderSafe = value === "Delivered" || value === "Dispatched";
-        const statusStyles = { color: isOrderSafe ? "green" : "inherit" };
         return value === "Deivered" ? (
           <CheckRoundedIcon color={"success"} fontSize={"large"} />
         ) : (
@@ -242,8 +240,8 @@ const getFilterListWithOptionsData = ({
   handleFilters,
   selectedFilters,
 }) => {
-  const { sortBy, paidFilter, statusFilter, isCompleted, modeOfPaymentFilter } =
-    selectedFilters;
+  // modeOfPaymentFilter
+  const { sortBy, paidFilter, statusFilter, isCompleted } = selectedFilters;
 
   return [
     {
@@ -388,7 +386,7 @@ const Transactions = () => {
   );
   const userId = useSelector((state) => state.global.rootUserId);
 
-  const { page, pageSize, sort } = transactionFilters;
+  // const { page, pageSize, sort } = transactionFilters;
   // const { data, isLoading } = useGetTransactionsQuery({
   //   ...transactionFilters,
   //   sort: JSON.stringify(sort),

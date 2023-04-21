@@ -54,7 +54,8 @@ const Auth = () => {
   }, []);
 
   const { formId, formInputs } = activeForm;
-  const { userName, shopName, email, password, confirmPassword } = formInputs;
+  // userName, shopName,
+  const { email, password, confirmPassword } = formInputs;
   // const { email: loginEmail, password: loginPassword } = loginFormData;
   const formInputProps = getFormInputProps({ formId, formInputs });
 

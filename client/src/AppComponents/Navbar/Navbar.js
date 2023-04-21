@@ -24,7 +24,7 @@ import {
 // import profileImage from "assets/profile.jpeg";
 
 import FlexBetween from "UIComponents/FlexBetween";
-import PrintSpoolModal from "AppComponents/PrintSpoolModal/PrintSpoolModal";
+import PrintSpoolModal from "AppComponents/PrintSpoolModal";
 
 const Navbar = (props) => {
   const { activeDrawerItem, user, isSidebarOpen, setIsSidebarOpen } = props;
