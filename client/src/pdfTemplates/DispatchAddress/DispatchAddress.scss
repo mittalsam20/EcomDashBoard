@@ -11,7 +11,7 @@ p {
 
 .pdfBody {
   font-family: "Lucida Console", Monaco, monospace;
-  font-size: 32px;
+  font-size: 30px;
   line-height: 1.1;
   color: #000000;
   font-weight: 400;
@@ -26,14 +26,24 @@ p {
 }
 
 .oneParcelSlipContainer {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  //   page-break-after: always;
+  gap: 24px;
 }
 
 .singleAddressContainer {
   display: flex;
   flex-direction: column;
   gap: 0px;
+}
+
+.watermark {
+  position: absolute;
+  top: 0;
+  left: 20%;
+  width: 45%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.4; /* adjust the opacity as desired */
 }

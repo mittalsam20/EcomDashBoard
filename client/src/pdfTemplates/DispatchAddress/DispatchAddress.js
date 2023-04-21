@@ -25,6 +25,12 @@ const AddressTemplate = (props) => {
   );
 };
 
+const getPageStyles = ({ index, totalLength }) => {
+  const shouldPageBreak = index % 2 !== 0 && index + 1 !== totalLength;
+  console.log(shouldPageBreak, index, totalLength);
+  return shouldPageBreak ? { pageBreakAfter: "always" } : {};
+};
+
 const DispatchAddress = forwardRef((props, ref) => {
   const { customers } = props;
   const user = {
@@ -42,23 +48,22 @@ const DispatchAddress = forwardRef((props, ref) => {
     // phoneNumber:
     userPhoneNumber: "9979660860",
   };
+  const totalCustomers = customers.length;
 
   return (
     <div ref={ref} className={"pdfBody"}>
       {customers.map(({ _id, fullName, phoneNumber, address }, index) => {
-        console.log(index % 2 !== 0);
+        const pageStyles = getPageStyles({
+          index,
+          totalLength: totalCustomers,
+        });
         return (
           <div
             key={_id}
+            style={pageStyles}
             className={"oneParcelSlipContainer"}
-            style={
-              index % 2 !== 0
-                ? {
-                    pageBreakAfter: "always",
-                  }
-                : {}
-            }
           >
+            <img class="watermark" alt="store_logo" src="/kkb_FB_logo.jpg" />
             <AddressTemplate
               name={fullName}
               address={address}

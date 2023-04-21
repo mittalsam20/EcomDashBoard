@@ -15,7 +15,7 @@ import {
 import { Checkbox } from "@mui/material";
 
 const ModalBody = (props) => {
-  const { customers, isLoading, onClickPrintSpool } = props;
+  const { customers, isLoading, onClickPrintSpool, PrintComponent } = props;
   const sortedCustomers = customers.sort(
     (a, b) => b.printSpoolItems.length - a.printSpoolItems.length
   );
@@ -24,6 +24,7 @@ const ModalBody = (props) => {
     <div className={"modalBodyContainer"}>{"Loading..."}</div>
   ) : (
     <div className={"modalBodyContainer"}>
+      <PrintComponent />
       {sortedCustomers.map(
         ({ _id, fullName, printSpoolItems, address: { city, state } }) => {
           const checked = !!printSpoolItems.length;
@@ -109,13 +110,13 @@ const PrintSpoolModal = (props) => {
 
   return (
     <>
-      <PrintComponent />
       <UIModal
         title={title}
         body={
           <ModalBody
             customers={customers}
             isLoading={isLoading}
+            PrintComponent={PrintComponent}
             onClickPrintSpool={onClickPrintSpool}
           />
         }
