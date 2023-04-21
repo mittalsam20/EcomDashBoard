@@ -1,0 +1,39 @@
+@media print {
+  @page {
+    size: landscape;
+  }
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.pdfBody {
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 32px;
+  line-height: 1.1;
+  color: #000000;
+  font-weight: 400;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: capitalize;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  padding: 10px 20px;
+}
+
+.oneParcelSlipContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  //   page-break-after: always;
+}
+
+.singleAddressContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
