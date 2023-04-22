@@ -12,7 +12,7 @@ import {
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 
 import "./transactions.scss";
-import withAuth from "HOC/withAuth";
+import withAuth from "../../HOC/withAuth";
 import { getDataGridCustomStyles } from "../../constants/constants";
 import FilterHeader from "../../AppComponents/FIlterHeader.js/FilterHeader";
 // import DataGridCustomToolbar from "AppComponents/DataGridCustomToolbar";
