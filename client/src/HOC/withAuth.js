@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
-import { setRootUserId } from "state";
+import { setRootUserId } from "../state";
 import { useDispatch } from "react-redux";
-import { BASE_URL } from "constants/constants";
+import { BASE_URL } from "../constants/constants";
 
 const checkUserAuthenticity = async ({
   dispatch,
