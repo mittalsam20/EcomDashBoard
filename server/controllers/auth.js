@@ -6,7 +6,7 @@ const cookieOption = {
   expires: new Date(Date.now() + 25892000000),
   httpOnly: true,
   secure: true,
-  sameSite: "none",
+  sameSite: "None",
 };
 
 export const handleUserSignup = async (req, res) => {
