@@ -33,6 +33,7 @@ const allowedOrigins = [
   "https://shopman1.netlify.app",
   "https://shopman1.netlify.app/",
   "https://ecommanger.onrender.com",
+  "https://ecommanager.onrender.com/",
 ];
 
 // Configurations
@@ -45,7 +46,14 @@ app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 //Routes
 app.use("/auth", authRoutes);
