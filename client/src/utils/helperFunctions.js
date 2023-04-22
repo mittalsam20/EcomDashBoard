@@ -44,17 +44,6 @@ export const verifyEmail = async ({ email, dispatch }) => {
   // }
 };
 
-export const authenticateUser = async () => {
-  try {
-    const response = await axios.get("/app/main", { withCredentials: true });
-    const userdata = await response.data;
-    if (userdata) Navigate("/dashboard");
-  } catch (error) {
-    Navigate("/");
-    console.log(error);
-  }
-};
-
 export const getCurrentPageRouteName = ({ location }) => {
   return location.pathname.split("/").slice(-1)[0];
 };
