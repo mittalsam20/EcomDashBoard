@@ -18,7 +18,7 @@ import Geography from "./pages/geography";
 import Customers from "./pages/customers";
 import BreakDown from "./pages/breakdown";
 import Transactions from "./pages/transactions";
-import ToastMessage from "UIComponents/ToastMessage";
+import ToastMessage from "./UIComponents/ToastMessage";
 
 const App = () => {
   const { mode, toastMessageProps } = useSelector((state) => ({

@@ -28,6 +28,13 @@ import managementRoutes from "./routes/management.js";
 //   dataOverallStat,
 // } from "./data/index.js";
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://shopman1.netlify.app",
+  "https://shopman1.netlify.app/",
+  "https://ecommanger.onrender.com",
+];
+
 // Configurations
 dotenv.config();
 const app = express();
@@ -38,7 +45,7 @@ app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 
 //Routes
 app.use("/auth", authRoutes);

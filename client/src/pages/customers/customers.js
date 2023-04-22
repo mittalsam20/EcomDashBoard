@@ -3,21 +3,21 @@ import React, { useEffect, useState } from "react";
 import { Box, Button } from "@mui/material";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 
-import { setCustomerFilters } from "state";
+import { setCustomerFilters } from "../../state";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
   deleteCustomer,
   getAllCustomers,
   updatePrintSpool,
-} from "apiFunctions/apiFunctions";
+} from "../../apiFunctions/apiFunctions";
 
 import "./customers.scss";
 import AddCustomer from "./addCustomer";
 import CustomerCard from "./customerCard";
-import FilterHeader from "AppComponents/FIlterHeader.js";
-import withAuth from "HOC/withAuth";
-import EmptyState from "UIComponents/EmptyState/EmptyState";
+import FilterHeader from "../../AppComponents/FIlterHeader.js";
+import withAuth from "../../HOC/withAuth";
+import EmptyState from "../../UIComponents/EmptyState/EmptyState";
 
 const getFilterListWithOptionsData = (props) => {
   const { selectedFilters, handleFilters, customers } = props;

@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 
 import "./FilterHeader.scss";
-import SearchBar from "UIComponents/SearchBar/SearchBar";
+import SearchBar from "../../UIComponents/SearchBar";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;

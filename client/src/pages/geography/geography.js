@@ -1,7 +1,7 @@
 import React from "react";
 
-import { geoData } from "constants/geoData";
-import { useGetGeographyQuery } from "state/api";
+import { geoData } from "../../constants/geoData";
+import { useGetGeographyQuery } from "../../state/api";
 
 import { Box, useTheme } from "@mui/material";
 import { ResponsiveChoropleth } from "@nivo/geo";

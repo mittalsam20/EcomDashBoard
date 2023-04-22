@@ -7,7 +7,7 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 
 import "./index.css";
 import App from "./App";
-import { store } from "state/store";
+import { store } from "./state/store";
 
 setupListeners(store.dispatch);
 const root = ReactDOM.createRoot(document.getElementById("root"));

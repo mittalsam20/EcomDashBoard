@@ -13,8 +13,8 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 
 import "./transactions.scss";
 import withAuth from "HOC/withAuth";
-import { getDataGridCustomStyles } from "constants/constants";
-import FilterHeader from "AppComponents/FIlterHeader.js/FilterHeader";
+import { getDataGridCustomStyles } from "../../constants/constants";
+import FilterHeader from "../../AppComponents/FIlterHeader.js/FilterHeader";
 // import DataGridCustomToolbar from "AppComponents/DataGridCustomToolbar";
 
 import ClearRoundedIcon from "@mui/icons-material/ClearRounded";
@@ -22,7 +22,7 @@ import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 
-import { setTransactionFilters } from "state";
+import { setTransactionFilters } from "../../state";
 // import { useGetTransactionsQuery } from "state/api";
 import { useDispatch, useSelector } from "react-redux";
 import AddTransaction from "./addTransaction/addTransaction";
@@ -31,8 +31,8 @@ import {
   deleteTransaction,
   getAllTransactions,
   updateTransaction,
-} from "apiFunctions/apiFunctions";
-import { getFormattedDate } from "utils/helperFunctions";
+} from "../../apiFunctions/apiFunctions";
+import { getFormattedDate } from "../../utils/helperFunctions";
 
 const statusMenuItems = [
   {

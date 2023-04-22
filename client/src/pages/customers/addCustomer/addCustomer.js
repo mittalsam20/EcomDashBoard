@@ -1,9 +1,12 @@
 import React from "react";
 
 import "./addCustomer.scss";
-import UIModal from "UIComponents/UIModal/UIModal";
+import UIModal from "../../../UIComponents/UIModal/UIModal";
 import { InputLabel, MenuItem, Select, TextField } from "@mui/material";
-import { addNewCustomer, updateCustomer } from "apiFunctions/apiFunctions";
+import {
+  addNewCustomer,
+  updateCustomer,
+} from "../../../apiFunctions/apiFunctions";
 import { useSelector } from "react-redux";
 
 const commonInputProps = {

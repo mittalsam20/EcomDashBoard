@@ -4,22 +4,22 @@ import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { Box, Grid, CssBaseline } from "@mui/material";
 
-import { setToastMessage, setRootUserId } from "state";
+import { setToastMessage, setRootUserId } from "../../state";
 import { useDispatch } from "react-redux";
 
 import "./Auth.scss";
 import Paper from "@mui/material/Paper";
 import AuthForm from "./authForm/authForm";
-import Carousel from "UIComponents/carousel";
+import Carousel from "../../UIComponents/carousel";
 import { getFormInputProps } from "./localConstants";
 // import ForgotPasswordModal from "./forgotPasswordModal";
 import {
   verifyEmail,
   comparePassword,
   getCurrentPageRouteName,
-} from "utils/helperFunctions";
-import { BASE_URL } from "constants/constants";
-import { checkUserAuthenticity } from "apiFunctions/apiFunctions";
+} from "../../utils/helperFunctions";
+import { BASE_URL } from "../../constants/constants";
+import { checkUserAuthenticity } from "../../apiFunctions/apiFunctions";
 
 const initialLoginFormData = {
   email: "",

@@ -3,7 +3,7 @@ import { Box, useTheme } from "@mui/material";
 import DatePicker from "react-datepicker";
 import { ResponsiveLine } from "@nivo/line";
 import "react-datepicker/dist/react-datepicker.css";
-import { useGetSalesQuery } from "state/api";
+import { useGetSalesQuery } from "../../state/api";
 
 const Daily = () => {
   const [startDate, setStartDate] = useState(new Date("2021-02-01"));

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { setMode } from "state";
+import { setMode } from "../../state";
 import { useDispatch } from "react-redux";
 
 import {
@@ -23,8 +23,8 @@ import {
 } from "@mui/material";
 // import profileImage from "assets/profile.jpeg";
 
-import FlexBetween from "UIComponents/FlexBetween";
-import PrintSpoolModal from "AppComponents/PrintSpoolModal";
+import FlexBetween from "../../UIComponents/FlexBetween";
+import PrintSpoolModal from "../PrintSpoolModal";
 
 const Navbar = (props) => {
   const { activeDrawerItem, user, isSidebarOpen, setIsSidebarOpen } = props;

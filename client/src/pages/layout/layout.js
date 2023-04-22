@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
 // import { useSelector } from "react-redux";
-import Navbar from "AppComponents/Navbar/Navbar";
+import Navbar from "../../AppComponents/Navbar/Navbar";
 import { Box, useMediaQuery } from "@mui/material";
-import Sidebar from "AppComponents/Sidebar/Sidebar";
+import Sidebar from "../../AppComponents/Sidebar/Sidebar";
 
-import { getCurrentPageRouteName } from "utils/helperFunctions";
+import { getCurrentPageRouteName } from "../../utils/helperFunctions";
 
 const Layout = () => {
   const location = useLocation();

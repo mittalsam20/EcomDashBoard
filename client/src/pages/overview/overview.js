@@ -8,7 +8,7 @@ import {
   InputLabel,
 } from "@mui/material";
 // import Header from "AppComponents/Header/Header";
-import OverviewChart from "UIComponents/OverviewChart/OverviewChart";
+import OverviewChart from "../../UIComponents/OverviewChart/OverviewChart";
 
 const Overview = () => {
   const [view, setView] = useState("units");

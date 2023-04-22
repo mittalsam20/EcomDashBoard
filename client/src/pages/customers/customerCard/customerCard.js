@@ -13,7 +13,7 @@ import Typography from "@mui/material/Typography";
 import {
   getInitialsFromFullName,
   getRandomColorFromString,
-} from "utils/helperFunctions";
+} from "../../../utils/helperFunctions";
 import { Button } from "@mui/material";
 
 const getActionButtons = ({

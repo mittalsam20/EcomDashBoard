@@ -3,15 +3,15 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import "./PrintSpoolModal.scss";
-import usePrint from "Hooks/generatePdf";
-import UIModal from "UIComponents/UIModal";
-import DispatchAddress from "pdfTemplates/DispatchAddress";
+import usePrint from "../../Hooks/usePrint";
+import UIModal from "../../UIComponents/UIModal";
+import DispatchAddress from "../../pdfTemplates/DispatchAddress";
 
 import {
   emptyPrintSpool,
   getAllCustomers,
   updatePrintSpool,
-} from "apiFunctions/apiFunctions";
+} from "../../apiFunctions/apiFunctions.js";
 import { Checkbox } from "@mui/material";
 
 const ModalBody = (props) => {

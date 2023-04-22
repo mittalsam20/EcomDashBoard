@@ -17,15 +17,15 @@ import {
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
-import { useGetDashboardQuery } from "state/api";
-import { checkUserAuthenticity } from "apiFunctions/apiFunctions";
+import { useGetDashboardQuery } from "../../state/api";
+import { checkUserAuthenticity } from "../../apiFunctions/apiFunctions";
 
 // import Header from "AppComponents/Header";
-import StatBox from "UIComponents/StatBox";
-import UIModal from "UIComponents/UIModal/UIModal";
-import OverviewChart from "UIComponents/OverviewChart";
-import BreakDownChart from "UIComponents/BreakDownChart";
-import FlexBetween from "UIComponents/FlexBetween/FlexBetween";
+import StatBox from "../../UIComponents/StatBox";
+import UIModal from "../../UIComponents/UIModal/UIModal";
+import OverviewChart from "../../UIComponents/OverviewChart";
+import BreakDownChart from "../../UIComponents/BreakDownChart";
+import FlexBetween from "../../UIComponents/FlexBetween/FlexBetween";
 import { useDispatch } from "react-redux";
 
 const Dashboard = () => {

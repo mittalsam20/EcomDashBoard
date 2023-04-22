@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 
 import "./addTransaction.scss";
-import UIModal from "UIComponents/UIModal/UIModal";
+import UIModal from "../../../UIComponents/UIModal/UIModal";
 import {
   Autocomplete,
   InputLabel,
@@ -12,11 +12,11 @@ import {
 import {
   updateTransaction,
   createTransaction,
-} from "apiFunctions/apiFunctions";
+} from "../../../apiFunctions/apiFunctions";
 import { useSelector } from "react-redux";
 
 import moment from "moment";
-import CustomDatePicker from "UIComponents/DatePicker/CustomDatePicker";
+import CustomDatePicker from "../../../UIComponents/DatePicker/CustomDatePicker";
 
 const commonInputProps = {
   // margin: "normal",

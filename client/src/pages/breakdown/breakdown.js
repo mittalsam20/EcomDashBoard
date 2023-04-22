@@ -1,6 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
-import BreakDownChart from "UIComponents/BreakDownChart";
+import BreakDownChart from "../../UIComponents/BreakDownChart";
 
 const BreakDown = () => {
   return (

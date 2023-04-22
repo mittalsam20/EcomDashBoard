@@ -3,7 +3,7 @@ import React from "react";
 import MuiAlert from "@mui/material/Alert";
 import { Slide, Snackbar } from "@mui/material";
 
-import { setToastMessage } from "state";
+import { setToastMessage } from "../../state";
 import { useDispatch, useSelector } from "react-redux";
 
 const SlideTransition = (props) => {

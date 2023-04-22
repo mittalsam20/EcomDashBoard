@@ -1,8 +1,8 @@
 import axios from "axios";
 
-import { setRootUserId } from "state";
+import { setRootUserId } from "../state";
 // setToastMessage,
-import { BASE_URL, googleGeoCodingApiKey } from "constants/constants";
+import { BASE_URL, googleGeoCodingApiKey } from "../constants/constants";
 
 export const checkUserAuthenticity = async ({
   navigate,
