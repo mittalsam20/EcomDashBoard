@@ -49,9 +49,13 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (allowedOrigins.indexOf(origin) !== -1 || !origin)
+      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        console.log(origin);
         callback(null, true);
-      else callback(new Error("Not allowed by CORS"));
+      } else {
+        console.log("this is you origin", origin);
+        callback(new Error("Not allowed by CORS"));
+      }
     },
     credentials: true,
   })

@@ -4,7 +4,9 @@ import { WEB_APP_TOKEN } from "../utils/constants.js";
 
 export const authMiddleware = async (req, res, next) => {
   try {
+    console.log("this is cookies object MD", req, cookies, WEB_APP_TOKEN);
     const token = req.cookies[WEB_APP_TOKEN];
+    console.log("this is token MD", token);
     const verifyToken = jwt.verify(
       token,
       process.env.USER_JWT_TOKEN_SECRET_KEY

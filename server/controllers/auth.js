@@ -69,8 +69,9 @@ export const handleUserLogin = async (req, res) => {
     if (!isPasswordCorrect) {
       return res.status(400).json({ message: "InCorrect Password" });
     }
-
+    console.log("this is selectedUser", selectedUser);
     token = await selectedUser.generateAuthToken();
+    console.log("this is token", selectedUser);
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Credentials", true);
     res.cookie(WEB_APP_TOKEN, token, cookieOption);
@@ -83,6 +84,7 @@ export const handleUserLogin = async (req, res) => {
 };
 
 export const checkUserAuthenticity = (req, res) => {
+  console.log("miniFn", req.rootUser._id);
   res.status(200).json({ rootUserId: req.rootUser._id });
 };
 
