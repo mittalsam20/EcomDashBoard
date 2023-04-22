@@ -33,6 +33,7 @@ const allowedOrigins = [
   "https://shopman1.netlify.app",
   "https://shopman1.netlify.app/",
   "https://ecommanger.onrender.com",
+  "https://ecommanager.onrender.com",
   "https://ecommanager.onrender.com/",
 ];
 
