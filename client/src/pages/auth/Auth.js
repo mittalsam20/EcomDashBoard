@@ -91,8 +91,7 @@ const Auth = () => {
   const onClickLogin = async (event) => {
     event.preventDefault();
     try {
-      // const response = await axios.post(`${BASE_URL}/auth/login`, formInputs, {
-      const response = await axios.post(`/auth/login`, formInputs, {
+      const response = await axios.post(`${BASE_URL}/auth/login`, formInputs, {
         withCredentials: true,
       });
       const { data, status } = response;

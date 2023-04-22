@@ -1,5 +1,3 @@
-import axios from "axios";
-import { Navigate } from "react-router-dom";
 import { setToastMessage } from "../state";
 
 const allValidCharacters =

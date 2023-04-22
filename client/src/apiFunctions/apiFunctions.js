@@ -10,8 +10,7 @@ export const checkUserAuthenticity = async ({
   sourceRoute = null,
 }) => {
   try {
-    // const response = await axios.get(`${BASE_URL}/auth/checkUserAuthenticity`, {
-    const response = await axios.get(`/auth/checkUserAuthenticity`, {
+    const response = await axios.get(`${BASE_URL}/auth/checkUserAuthenticity`, {
       withCredentials: true,
     });
     const { data, status } = response;
