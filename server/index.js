@@ -48,7 +48,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: (origin, callback) => {
+      if (allowedOrigins.indexOf(origin) !== -1 || !origin)
+        callback(null, true);
+      else callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
   })
 );
