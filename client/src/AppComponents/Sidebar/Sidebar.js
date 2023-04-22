@@ -29,7 +29,7 @@ import {
   CalendarMonthOutlined,
 } from "@mui/icons-material";
 
-import FlexBetween from "UIComponents/FlexBetween";
+import FlexBetween from "../../UIComponents/FlexBetween";
 
 const navItems = [
   {
