@@ -13,8 +13,10 @@ const checkUserAuthenticity = async ({
   setIsAuthenticated,
 }) => {
   try {
+    axios.defaults.withCredentials = true;
     const response = await axios.get(`${BASE_URL}/auth/checkUserAuthenticity`, {
       withCredentials: true,
+      headers: { "Access-Control-Allow-Origin": "*" },
     });
     const { data, status } = response;
     if (!data.rootUserId || !status === 200) throw new Error("unAuthorized");

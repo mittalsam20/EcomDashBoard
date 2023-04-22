@@ -71,6 +71,8 @@ export const handleUserLogin = async (req, res) => {
     }
 
     token = await selectedUser.generateAuthToken();
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Credentials", true);
     res.cookie(WEB_APP_TOKEN, token, cookieOption);
     res
       .status(200)

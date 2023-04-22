@@ -91,8 +91,10 @@ const Auth = () => {
   const onClickLogin = async (event) => {
     event.preventDefault();
     try {
+      axios.defaults.withCredentials = true;
       const response = await axios.post(`${BASE_URL}/auth/login`, formInputs, {
         withCredentials: true,
+        headers: { "Access-Control-Allow-Origin": "*" },
       });
       const { data, status } = response;
       if (status !== 200) throw new Error("Server Error");
