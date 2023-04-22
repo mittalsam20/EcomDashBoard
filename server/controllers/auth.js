@@ -5,6 +5,8 @@ import { WEB_APP_TOKEN } from "../utils/constants.js";
 const cookieOption = {
   expires: new Date(Date.now() + 25892000000),
   httpOnly: true,
+  secure: true,
+  sameSite: "none",
 };
 
 export const handleUserSignup = async (req, res) => {
