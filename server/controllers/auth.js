@@ -70,12 +70,9 @@ export const handleUserLogin = async (req, res) => {
     if (!isPasswordCorrect) {
       return res.status(400).json({ message: "InCorrect Password" });
     }
-    // console.log("this is selectedUser", selectedUser);
     token = await selectedUser.generateAuthToken();
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Credentials", true);
     res.cookie(WEB_APP_TOKEN, token, cookieOption);
-    console.log("this is token", token);
+
     res
       .status(200)
       .json({ message: `Login SuccessFull..!!`, userId: selectedUser._id });
