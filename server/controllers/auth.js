@@ -2,8 +2,8 @@ import bcrypt from "bcrypt";
 import User from "../models/User.js";
 import { WEB_APP_TOKEN } from "../utils/constants.js";
 
+// domain: ".ecommanager.onrender.com",
 const cookieOption = {
-  domain: ".ecommanager.onrender.com",
   expires: new Date(Date.now() + 25892000000),
   httpOnly: true,
   secure: true,
