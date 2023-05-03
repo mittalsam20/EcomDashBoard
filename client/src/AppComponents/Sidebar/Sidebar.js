@@ -34,7 +34,7 @@ import FlexBetween from "../../UIComponents/FlexBetween";
 const navItems = [
   {
     text: "Dashboard",
-    route: "",
+    route: "/dashboard",
     icon: <HomeOutlined />,
   },
   {
@@ -92,11 +92,11 @@ const navItems = [
 const Sidebar = (props) => {
   const {
     user,
-    activeDrawerItem,
     drawerWidth,
     isNonMobile,
     isSidebarOpen,
     setIsSidebarOpen,
+    activeDrawerItem,
     setActiveDrawerItem,
   } = props;
 
@@ -186,11 +186,11 @@ const Sidebar = (props) => {
               })}
             </List>
           </Box>
-          <Box position={"absolute"} bottom={"2rem"}>
+          <Box>
             <Divider />
             <FlexBetween
-              textTransform={"none"}
               gap={"1rem"}
+              textTransform={"none"}
               m={"1.5rem 2rem 0 3rem"}
             >
               <Box

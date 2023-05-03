@@ -35,8 +35,8 @@ const App = () => {
           <CssBaseline />
           <Routes>
             <Route path="/" element={<Login />} exact />
-            <Route path="dashboard" element={<Layout />}>
-              <Route index element={<Dashboard />} />
+            <Route element={<Layout />}>
+              <Route path="dashboard" element={<Dashboard />} />
               <Route path="products" element={<Products />} />
               <Route path="customers" element={<Customers />}>
                 <Route path=":customerId" element={<Customer />} />

@@ -41,9 +41,10 @@ p {
 .watermark {
   position: absolute;
   top: 0;
-  left: 20%;
-  width: 45%;
-  height: 100%;
+  right: 0;
+  // left: 20%;
+  width: 30%;
+  height: 85%;
   z-index: -1;
-  opacity: 0.4; /* adjust the opacity as desired */
+  // opacity: 0.4; /* adjust the opacity as desired */
 }

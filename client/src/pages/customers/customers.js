@@ -15,8 +15,9 @@ import {
 import "./customers.scss";
 import AddCustomer from "./addCustomer";
 import CustomerCard from "./customerCard";
-import FilterHeader from "../../AppComponents/FIlterHeader.js";
+
 import withAuth from "../../HOC/withAuth";
+import FilterHeader from "../../AppComponents/FIlterHeader.js";
 import EmptyState from "../../UIComponents/EmptyState/EmptyState";
 
 const getFilterListWithOptionsData = (props) => {
@@ -186,7 +187,7 @@ const Customers = () => {
   };
 
   return (
-    <Box mt={"40px"} height={"75vh"}>
+    <Box height={"75vh"}>
       <div className={"filterHeaderContainer"}>
         <FilterHeader filterListWithOptionsData={filterListWithOptionsData} />
         <Button

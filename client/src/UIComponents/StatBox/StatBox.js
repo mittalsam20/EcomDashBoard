@@ -1,10 +1,13 @@
 import React from "react";
+
 import { Box, Typography, useTheme } from "@mui/material";
+
 import FlexBetween from "../FlexBetween/FlexBetween";
 
 const StatBox = (props) => {
   const { title, value, increase, icon, description } = props;
   const theme = useTheme();
+
   return (
     <Box
       gridColumn={"span 2"}
@@ -12,7 +15,7 @@ const StatBox = (props) => {
       display={"flex"}
       flexDirection={"column"}
       justifyContent={"space-between"}
-      p={"1.25rem 1rem"}
+      p={"1.25rem .8rem"}
       flex={"1 1 100%"}
       backgroundColor={theme.palette.background.alt}
       borderRadius={"0.55rem"}

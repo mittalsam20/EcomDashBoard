@@ -74,10 +74,8 @@ const Dashboard = () => {
   ];
 
   return (
-    <Box m={"1.5rem 2.5rem"}>
+    <Box>
       <FlexBetween>
-        {/* <Header title={"DASHBOARD"} subtitle={"Welcome to your dashboard"} /> */}
-
         <Box>
           <Button
             sx={{
